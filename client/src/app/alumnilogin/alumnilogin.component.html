@@ -1,0 +1,33 @@
+<div class="container" style="width: 50%; margin-top: 150px;">
+    <form [formGroup] = "form"  (submit)="onRegisterSubmit()">
+        <div class="form-group">
+            <h1 style="text-align: center;">Alumni Login</h1>
+            <label for="username">Username</label>
+            <div  [ngClass]="{'has-error' : (form.controls.username.errors && form.controls
+            .username.dirty),'has-success' : !form.controls.username.errors}">
+                <input type="text" name="username" class="form-control" autocomplete="off" placeholder="Roll No" formControlName="username"/>
+            </div>
+            <ul class="help-block">
+                <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">
+                    This field is required
+                </li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div>
+                <input type="password" name="password" class="form-control" autocomplete="off" placeholder="Password" formControlName="password"/>
+            </div>
+            <ul class="help-block">
+                <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">
+                    This field is required
+                </li>
+             
+            </ul>
+        </div>
+            <input [disabled]='!form.valid' type="submit" class="btn btn-primary" value="Submit"/>
+            <a routerLink="/registerAlumni"> Haven't Yet Registered? </a>
+    </form>
+    
+</div>
+
