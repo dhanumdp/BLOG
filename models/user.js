@@ -72,42 +72,10 @@ const usernameValidators=[
           message:"Username must not have any special characters"
      }
 ]
-
-let passwordLengthChecker = (password)=>{
-     if(!password)
-          return false;
-     else
-          {
-               if(password.length < 8 || password.length >35)
-                    return false;
-               else
-                    return true;
-          }
-}
-let validPassword = (password) =>
-     {
-          if(!password)
-               return false;
-          else
-              {
-                      const regExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,35})");
-                         return regExp.test(password);
-               } 
-     }
-
-     const passwordValidators = [
-          {
-              validator:passwordLengthChecker,
-              message: "Password must be atleast 8 characters long but no more 35"
-          },{
-               validator:validPassword,
-               message:"Password must have atleast one uppercase,lowercase,special character and number"
-          }
-     ]
 const  userScheama = new Schema({
      email : {type : String, required:true , unique:true, lowercase:true, validate:emailValidators},
      username : {type : String, required:true , unique:true, lowercase:true, validate : usernameValidators},
-     password : {type : String, required:true,validate:passwordValidators }
+     password : {type : String, required:true }
 });
 
 userScheama.pre('save',function(next)

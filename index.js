@@ -26,5 +26,7 @@ const authentication = require('./routes/authentication');
 const bodyParser = require('body-parser');
 const cors=require('cors');
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+    origin : 'http://localhost:4200'
+}));
 app.use('/authentication',authentication);
