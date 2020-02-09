@@ -38,6 +38,7 @@ component:HomeComponent
 {
   path:'alumnilogin',
   component:AlumniloginComponent
+ 
 },
 {
   path:'adminlogin',
@@ -46,6 +47,7 @@ component:HomeComponent
 {
   path:'alumniprofile',
   component:AlumniprofileComponent
+ 
 }
 
 ];

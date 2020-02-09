@@ -75,6 +75,9 @@ export class AuthService {
   }
 
  
-
+loggedIn()
+{
+  return true;
+}
 
 }
