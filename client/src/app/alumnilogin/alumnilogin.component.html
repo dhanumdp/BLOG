@@ -1,5 +1,15 @@
+
+
 <div class="container" style="width: 50%; margin-top: 150px;">
-    <form [formGroup] = "form"  (submit)="onRegisterSubmit()">
+    <div class="row show-hide-message">
+        <div class="row show-hide-message">
+            <div [ngClass]="messageclass">
+                {{message}}
+            </div>
+        </div>
+    
+    </div>
+    <form [formGroup] = "form"  (submit)="onLoginSubmit()">
         <div class="form-group">
             <h1 style="text-align: center;">Alumni Login</h1>
             <label for="username">Username</label>
@@ -25,7 +35,7 @@
              
             </ul>
         </div>
-            <input [disabled]='!form.valid' type="submit" class="btn btn-primary" value="Submit"/>
+            <input [disabled]='!form.valid || processing' type="submit" class="btn btn-primary" value="Submit"/>
             <a routerLink="/registerAlumni"> Haven't Yet Registered? </a>
     </form>
     

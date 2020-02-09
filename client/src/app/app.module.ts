@@ -14,6 +14,9 @@ import { StudentloginComponent } from './studentlogin/studentlogin.component';
 import { FacultyloginComponent } from './facultylogin/facultylogin.component';
 import { AlumniloginComponent } from './alumnilogin/alumnilogin.component';
 import { AdminloginComponent } from './adminlogin/adminlogin.component';
+import { NgFlashMessagesModule } from 'ng-flash-messages';
+
+import { AlumniprofileComponent } from './alumniprofile/alumniprofile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,13 +27,16 @@ import { AdminloginComponent } from './adminlogin/adminlogin.component';
     StudentloginComponent,
     FacultyloginComponent,
     AlumniloginComponent,
-    AdminloginComponent
+    AdminloginComponent,
+  
+    AlumniprofileComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
    ReactiveFormsModule, 
  
+   NgFlashMessagesModule.forRoot(),
     AppRoutingModule
   ],
   providers: [AuthService],

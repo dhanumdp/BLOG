@@ -89,7 +89,7 @@ userScheama.pre('save',function(next)
      })
 });
 
-userScheama.methods.comparePassword=(password)=>{
+userScheama.methods.comparePassword= function(password){
     return bcrypt.compareSync(password,this.password);
 }
 

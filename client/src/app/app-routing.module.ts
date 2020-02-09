@@ -8,6 +8,8 @@ import { FacultyloginComponent } from './facultylogin/facultylogin.component';
 import { AlumniloginComponent } from './alumnilogin/alumnilogin.component';
 import { AdminloginComponent } from './adminlogin/adminlogin.component';
 
+import { AlumniprofileComponent } from './alumniprofile/alumniprofile.component';
+
 
 const routes: Routes = [
   {
@@ -40,6 +42,10 @@ component:HomeComponent
 {
   path:'adminlogin',
   component:AdminloginComponent
+},
+{
+  path:'alumniprofile',
+  component:AlumniprofileComponent
 }
 
 ];
