@@ -63,11 +63,10 @@ export class AlumniloginComponent implements OnInit{
         this.message = data['message'];
         // this.processing= false;
         this.authService.storeUserData(data['token'],data['user']);
-        this.router.navigate(['/alumniprofile']);
+        this.router.navigate(['/adminprofile']);
       }
     }
-  })
-      
+  })   
    }
    disableForm(){
      this.form.controls['username'].disable();

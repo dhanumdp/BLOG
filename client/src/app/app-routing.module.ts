@@ -9,6 +9,7 @@ import { AlumniloginComponent } from './alumnilogin/alumnilogin.component';
 import { AdminloginComponent } from './adminlogin/adminlogin.component';
 
 import { AlumniprofileComponent } from './alumniprofile/alumniprofile.component';
+import { AdminprofileComponent } from './adminprofile/adminprofile.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,11 @@ component:HomeComponent
 {
   path:'alumniprofile',
   component:AlumniprofileComponent
+ 
+},
+{
+  path:'adminprofile',
+  component:AdminprofileComponent
  
 }
 

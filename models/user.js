@@ -94,4 +94,4 @@ userScheama.methods.comparePassword= function(password){
 }
 
 
-module.exports=mongoose.model('User',userScheama)
+module.exports=mongoose.model('Alumni',userScheama)

@@ -68,7 +68,6 @@ router.post('/register',function(req,res){
                             }
                     else
                     res.json({success:true, message:"Account Registered Successfully!"})
-
                 });
 
             }

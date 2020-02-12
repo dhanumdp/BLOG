@@ -3,7 +3,6 @@ import {HttpClientModule} from '@angular/common/http'
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
@@ -15,8 +14,9 @@ import { FacultyloginComponent } from './facultylogin/facultylogin.component';
 import { AlumniloginComponent } from './alumnilogin/alumnilogin.component';
 import { AdminloginComponent } from './adminlogin/adminlogin.component';
 import { NgFlashMessagesModule } from 'ng-flash-messages';
-
 import { AlumniprofileComponent } from './alumniprofile/alumniprofile.component';
+import { AdminprofileComponent } from './adminprofile/adminprofile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,8 +28,9 @@ import { AlumniprofileComponent } from './alumniprofile/alumniprofile.component'
     FacultyloginComponent,
     AlumniloginComponent,
     AdminloginComponent,
-  
-    AlumniprofileComponent
+    AlumniprofileComponent,
+    AdminprofileComponent,
+
   ],
   imports: [
     BrowserModule,

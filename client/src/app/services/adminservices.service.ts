@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { tokenName } from '@angular/compiler';
-
-
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AdminservicesService {
+
+
 
   constructor( private http : HttpClient) { }
   authToken;
@@ -30,26 +30,10 @@ export class AuthService {
   {
     const token =localStorage.getItem('token');
     this.authToken = token;
-  }
-
-  registerUser(user)
-  {
-    return this.http.post("http://localhost:3000/alumni/register", user);
-  }
-
-  checkEmail(email)
-  {
-    return this.http.get("http://localhost:3000/alumni/register"+email);
-  }
-
-  checkUsername(username)
-  {
-    return this.http.get("http://localhost:3000/alumni/register"+username);
-  }
-
+  }  
   login(user)
   {
-      return this.http.post("http://localhost:3000/alumni/alumnilogin", user);
+      return this.http.post("http://localhost:3000/admin/adminlogin", user);
   }
 
   logout(){
@@ -65,10 +49,9 @@ export class AuthService {
     this.authToken=token;
     this.user=user;
   }
-
-  getAlumniProfile(){
+  getAdminProfile(){
    this.createAuthenticationHeaders();
-   return this.http.get('http://localhost:3000/alumni/alumniprofile', this.options);
+   return this.http.get('http://localhost:3000/admin/adminprofile', this.options);
   }
 
  
@@ -76,5 +59,4 @@ loggedIn()
 {
   return true;
 }
-
 }

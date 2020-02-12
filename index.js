@@ -22,11 +22,13 @@ mongoose.connect(config.uri, { useUnifiedTopology: true,useNewUrlParser: true  }
     }
 }); 
 
-const authentication = require('./routes/authentication');
+const alumniRoutes = require('./routes/alumniroutes');
+const adminRoutes= require('./routes/adminroutes');
 const bodyParser = require('body-parser');
 const cors=require('cors');
 app.use(bodyParser.json());
 app.use(cors({
     origin : 'http://localhost:4200'
 }));
-app.use('/authentication',authentication);
+app.use('/alumni',alumniRoutes);
+app.use('/admin',adminRoutes);
