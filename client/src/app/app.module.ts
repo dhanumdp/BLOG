@@ -9,13 +9,17 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth.service';
-import { StudentloginComponent } from './studentlogin/studentlogin.component';
+//import { StudentloginComponent } from './studentlogin/studentlogin.component';
 import { FacultyloginComponent } from './facultylogin/facultylogin.component';
 import { AlumniloginComponent } from './alumnilogin/alumnilogin.component';
 import { AdminloginComponent } from './adminlogin/adminlogin.component';
 import { NgFlashMessagesModule } from 'ng-flash-messages';
 import { AlumniprofileComponent } from './alumniprofile/alumniprofile.component';
 import { AdminprofileComponent } from './adminprofile/adminprofile.component';
+import { StudentloginComponent } from './studentlogin/studentlogin.component';
+import { StudentprofileComponent } from './studentprofile/studentprofile.component';
+
+//import { StudentprofileComponent } from './studentprofile/studentprofile.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +28,16 @@ import { AdminprofileComponent } from './adminprofile/adminprofile.component';
     HomeComponent,
     DashboardComponent,
     RegisterComponent,
-    StudentloginComponent,
+    //StudentloginComponent,
     FacultyloginComponent,
     AlumniloginComponent,
     AdminloginComponent,
     AlumniprofileComponent,
     AdminprofileComponent,
+    StudentloginComponent,
+    StudentprofileComponent,
+    
+   // StudentprofileComponent,
 
   ],
   imports: [

@@ -1,7 +1,27 @@
-<div class="container" style="width: 50%; margin-top: 150px;">
-    <form [formGroup] = "form"  (submit)="onRegisterSubmit()">
+<div class="container" style="margin-top: 15%;">
+    <div class="row show-hide-message">
+        <div class="row show-hide-message">
+            <div [ngClass]="messageclass">
+                {{message}}
+            </div>
+        </div>
+    
+    </div>
+    <form [formGroup] = "form"  (submit)="onRegisterSubmit()">  
         <div class="form-group">
             <h1 style="text-align: center;">Student Login</h1>
+           <label for="username">Batch</label>
+            <div  [ngClass]="{'has-error' : (form.controls.batch.errors && form.controls
+            .batch.dirty),'has-success' : !form.controls.batch.errors}">
+                <input type="text" name="batch" class="form-control" autocomplete="off" placeholder="Eg : 18mxians" formControlName="batch"/>
+            </div>
+            <ul class="help-block">
+                <li *ngIf="form.controls.batch.errors?.required && form.controls.batch.dirty">
+                    This field is required
+                </li>
+            </ul>
+        </div>
+        <div class="form-group">
             <label for="username">Username</label>
             <div  [ngClass]="{'has-error' : (form.controls.username.errors && form.controls
             .username.dirty),'has-success' : !form.controls.username.errors}">
@@ -26,8 +46,8 @@
             </ul>
         </div>
     
-            <input [disabled]='!form.valid' type="submit" class="btn btn-primary" value="Submit"/>
-    
+        <input [disabled]='!form.valid || processing' type="submit" class="btn btn-primary" value="Submit"/>
+         
     </form>
     
 </div>

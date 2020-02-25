@@ -142,7 +142,8 @@ router.use((req,res,next)=>{
     }
 });
 
- router.get('/alumniprofile', (req,res)=>{
+
+router.get('/alumniprofile', (req,res)=>{
      User.findOne({ _id : req.decoded.userId}).select('username email').exec((err,user)=>{
          if(err)
          {
@@ -163,4 +164,3 @@ router.use((req,res,next)=>{
  });
 
 module.exports=router;
-

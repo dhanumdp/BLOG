@@ -24,6 +24,7 @@ mongoose.connect(config.uri, { useUnifiedTopology: true,useNewUrlParser: true  }
 
 const alumniRoutes = require('./routes/alumniroutes');
 const adminRoutes= require('./routes/adminroutes');
+const studentRoutes = require ('./routes/studentroutes');
 const bodyParser = require('body-parser');
 const cors=require('cors');
 app.use(bodyParser.json());
@@ -32,3 +33,4 @@ app.use(cors({
 }));
 app.use('/alumni',alumniRoutes);
 app.use('/admin',adminRoutes);
+app.use('/student',studentRoutes);

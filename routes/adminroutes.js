@@ -6,7 +6,7 @@ const router=express.Router();
 const mongoose=require('mongoose');
 //create a class
 router.post("/createClass",function(req,res,next){
-    var mxians=req.body.mxians;
+    var mxians=req.body.mxians.toLowerCase();
     var prefix=req.body.prefix;
     var start=req.body.start;
     var end=req.body.end;
@@ -23,21 +23,21 @@ router.post("/createClass",function(req,res,next){
                     a=i;
                     myobj.push({
                         
-                        "Roll No":prefix+a,
+                        "Roll_No":prefix+a,
                         "Password":prefix+a,
-                        "Class Prefix":prefix,
+                        "Class_Prefix":prefix,
                         "Name":"-",
                         "DOB":"",
-                        "Father Name":"",
-                        "Mother Name":"",
+                        "Father_Name":"",
+                        "Mother_Name":"",
                         "Gender":"",
                         "Email":"",
                         "Address":"",
-                        "Phone Number":"",
-                        "Father Annual Income":"",
+                        "Phone_Number":"",
+                        "Father_Annual_Income":"",
                         "Religion":"",
                         "Caste":"",
-                        "Blood Group":""
+                        "Blood_Group":""
                    });
                 } 
                 collection.insertMany(myobj, function(err, response) {
@@ -53,7 +53,7 @@ router.post("/createClass",function(req,res,next){
 
 //delete class
 router.delete("/deleteClass",function(req,res,next){
-    var mxians=req.body.mxians;
+    var mxians=req.body.mxians.toLowerCase();
     console.log("Class to be deleted: "+mxians)
     var collection = mongoose.connection.db.collection(mxians);
     collection.drop({},function(err,result){
@@ -74,7 +74,7 @@ router.delete("/deleteClass",function(req,res,next){
 
 //delete student
 router.delete("/deleteStudent",function(req,res,next){
-    var mxians=req.body.mxians;
+    var mxians=req.body.mxians.toLowerCase();
     var rollno=req.body.rollno;
     var collection = mongoose.connection.db.collection(mxians);
     collection.remove({"Roll No":rollno},function(err,result){
@@ -141,7 +141,7 @@ router.delete("/deleteFaculty/:id",function(req,res,next){
 //createBlog
 
 router.post('/createPage', function(req,res,next){
-    var mxians=req.body.mxians;
+    var mxians=req.body.mxians.toLowerCase();
     mongoose.connection.db.createCollection(mxians+"Page",function(err){
         if(!err)
         {
@@ -158,7 +158,7 @@ router.post('/createPage', function(req,res,next){
 //delete blog
 
 router.delete('/deletePage',function(req,res,next){
-    var mxians=req.body.mxians+"Page";
+    var mxians=req.body.mxians.toLowerCase()+"Page";
     var collection = mongoose.connection.db.collection(mxians);
     collection.drop({},function(err,result){
         if(err){
@@ -218,8 +218,6 @@ router.post('/adminlogin', (req,res)=>{
   
     
 router.post('/addAdmin',function(req,res){
-
-
     if(!req.body.username)
     {
         res.json({success:false, message:"You Must Provide Username"})
@@ -284,7 +282,7 @@ router.post('/addAdmin',function(req,res){
 
 })
 
-
+//for profile
 
   router.use((req,res,next)=>{
       const token = req.headers['authorization'];

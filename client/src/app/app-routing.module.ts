@@ -10,6 +10,7 @@ import { AdminloginComponent } from './adminlogin/adminlogin.component';
 
 import { AlumniprofileComponent } from './alumniprofile/alumniprofile.component';
 import { AdminprofileComponent } from './adminprofile/adminprofile.component';
+import { StudentprofileComponent } from './studentprofile/studentprofile.component';
 
 
 const routes: Routes = [
@@ -28,10 +29,7 @@ component:HomeComponent
   path:'registerAlumni',
   component:RegisterComponent
 },
-{
-  path:'studentlogin',
-  component:StudentloginComponent
-},
+
 {
   path:'facultylogin',
   component:FacultyloginComponent
@@ -54,7 +52,16 @@ component:HomeComponent
   path:'adminprofile',
   component:AdminprofileComponent
  
+},
+{
+  path:'studentlogin',
+  component:StudentloginComponent
+},
+{
+  path:'studentprofile',
+  component:StudentprofileComponent
 }
+
 
 ];
 
