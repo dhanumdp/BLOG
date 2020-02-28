@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import {NavbarService} from '../services/navbar.service'
 @Component({
   selector: 'app-facultylogin',
   templateUrl: './facultylogin.component.html',
@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class FacultyloginComponent implements OnInit {
   form : FormGroup;
 
-  constructor(private formBuilder : FormBuilder
+  constructor(private formBuilder : FormBuilder, public nav : NavbarService
    ) {
     this.createForm();
    }
@@ -38,6 +38,7 @@ export class FacultyloginComponent implements OnInit {
 
    }
   ngOnInit() {
+    this.nav.show();
   }
 
 }

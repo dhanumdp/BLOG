@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../services/auth.service'
 import {Router} from '@angular/router'
 import { NgFlashMessageService } from 'ng-flash-messages';
+import { NavbarService } from '../services/navbar.service';
 @Component({
   selector: 'app-alumniprofile',
   templateUrl: './alumniprofile.component.html',
@@ -9,13 +10,14 @@ import { NgFlashMessageService } from 'ng-flash-messages';
 })
 export class AlumniprofileComponent implements OnInit {
 
-  constructor( private authService:AuthService , private router : Router, private flash : NgFlashMessageService) { }
+  constructor( private authService:AuthService , private router : Router, private flash : NgFlashMessageService, public nav : NavbarService) { }
 
   username;
   email;
 
 
   ngOnInit() {
+    this.nav.hide();
     this.authService.getAlumniProfile().subscribe(data=>{
         this.username = data['user'].username;
         this.email = data['user'].email;

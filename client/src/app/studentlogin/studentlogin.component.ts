@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import {Router} from '@angular/router'
 import {StudentService} from '../services/student.service'
+import {NavbarService} from '../services/navbar.service'
 @Component({
   selector: 'app-studentlogin',
   templateUrl: './studentlogin.component.html',
@@ -13,7 +14,7 @@ export class StudentloginComponent implements OnInit {
   message;
   messageclass;
 
-  constructor(private formBuilder : FormBuilder, private studentService : StudentService, private router : Router
+  constructor(private formBuilder : FormBuilder, private studentService : StudentService, private router : Router,  public nav: NavbarService
    ) {
     this.createForm();
    }
@@ -79,6 +80,7 @@ export class StudentloginComponent implements OnInit {
    this.form.controls['batch'].enable();
   }
   ngOnInit() {
+    this.nav.show();
   }
 
 }

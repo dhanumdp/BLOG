@@ -57,8 +57,7 @@ router.post('/studentlogin', (req,res)=>{
     }
   })
 
-  //get student details
-
+  //get student details (body can't be sent through GET request.. so POST is used here )
   router.post('/getdetails', function(req,res){
     user = req.body.user;
    // console.log(user);

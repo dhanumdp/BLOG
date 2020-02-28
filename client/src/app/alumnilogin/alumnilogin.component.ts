@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import {AuthService} from '../services/auth.service'
 import {Router} from '@angular/router'
+import {NavbarService} from '../services/navbar.service'
 @Component({
   selector: 'app-alumnilogin',
   templateUrl: './alumnilogin.component.html',
@@ -16,7 +17,8 @@ export class AlumniloginComponent implements OnInit{
 
   constructor(private formBuilder : FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public nav : NavbarService
    ) {
     this.createForm();
    }
@@ -78,6 +80,7 @@ export class AlumniloginComponent implements OnInit{
    }
 
   ngOnInit() {
+    this.nav.show();
   }
 
 }
