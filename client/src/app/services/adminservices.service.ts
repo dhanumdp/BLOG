@@ -49,12 +49,12 @@ export class AdminservicesService {
     this.authToken=token;
     this.user=user;
   }
+  
   getAdminProfile(){
    this.createAuthenticationHeaders();
    return this.http.get('http://localhost:3000/admin/adminprofile', this.options);
   }
 
- 
 loggedIn()
 {
   return true;

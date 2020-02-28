@@ -38,25 +38,36 @@ export class StudentService {
      return this.http.post("http://localhost:3000/student/studentlogin", user);
  }
 
+ getdetails(user)
+ {
+   return this.http.post("http://localhost:3000/student/getdetails", { user });
+ }
+ 
+
  logout(){
    this.authToken = null;
    this.user = null;
    localStorage.clear();
  }
 
- storeUserData(token,user)
+ storeUserData(token,user, batch)
  {
    localStorage.setItem('token',token);
-   localStorage.setItem('user',JSON.stringify(user));
+   localStorage.setItem('user',user);
+   localStorage.setItem('batch', batch);
    this.authToken=token;
    this.user=user;
  }
-
- getAlumniProfile(){
-  this.createAuthenticationHeaders();
-  return this.http.get('http://localhost:3000/student/studentprofile', this.options);
+  
+ getRollno() {
+   let user = localStorage.getItem('user');
+  return user;
  }
 
+ getBatch(){
+   let batch = localStorage.getItem('batch');
+   return batch;
+ }
 
 
 }

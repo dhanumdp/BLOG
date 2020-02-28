@@ -26,6 +26,7 @@ router.post("/createClass",function(req,res,next){
                         "Roll_No":prefix+a,
                         "Password":prefix+a,
                         "Class_Prefix":prefix,
+                        "Batch":mxians,
                         "Name":"-",
                         "DOB":"",
                         "Father_Name":"",

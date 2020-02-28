@@ -2,6 +2,9 @@ const express = require ('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+var LocalStorage = require('node-localstorage').LocalStorage;
+var localStorage = new LocalStorage('./scratch'); 
+//const student = require('../models/student');
 const config= require('../config/db');
 
 var batch;
@@ -24,7 +27,7 @@ router.post('/studentlogin', (req,res)=>{
             {
                 var collection = mongoose.connection.db.collection(req.body.batch.toLowerCase());
                 this.batch = req.body.batch;
-                collection.findOne({'Roll_No':req.body.username}, function(err,user){
+                collection.findOne({'Roll_No':req.body.username.toUpperCase()}, function(err,user){
                       if(err)
                       {
                           res.json({success:false, message:err});
@@ -44,7 +47,7 @@ router.post('/studentlogin', (req,res)=>{
                               else
                               {
                                   const token = jwt.sign({ userId: user._id}, config.secret, {expiresIn : '24h'} );
-                                  res.json({success:true, message: "Success!", token: token, user:{username:user.Roll_No}});
+                                  res.json({success:true, message: "Success!", token: token, user:user.Roll_No, batch:user.Batch });
                               }
                           }
                       }
@@ -52,9 +55,28 @@ router.post('/studentlogin', (req,res)=>{
             }
         }
     }
-   
   })
-  
+
+  //get student details
+
+  router.post('/getdetails', function(req,res){
+    user = req.body.user;
+   // console.log(user);
+        var collection = mongoose.connection.db.collection(user.mxians);
+        collection.findOne({ 'Roll_No':user.rollno }, (err,doc)=>{
+            if(err)
+                res.json({success : false, message : "Error in retrieving student details"});
+            else    
+            {
+                //res.json({success : true, message : "Details got succesfully"});
+                res.json(doc)
+            }
+                
+        })
+  })
+
+
+  /*
   router.use((req,res,next)=>{
       const token = req.headers['authorization'];
       if(!token)
@@ -77,12 +99,11 @@ router.post('/studentlogin', (req,res)=>{
           })
       }
   });
-  
-  
-   router.get('/studentprofile', (req,res)=>{
+ 
+router.get('/studentprofile', (req,res)=>{
        //console.log(this.batch);
-       var collection = mongoose.connection.db.collection(this.batch);
-       collection.findOne({ _id : req.decoded.userId}).select('Roll_No').exec((err,user)=>{
+       //var collection = mongoose.connection.db.collection(this.batch);
+       student.findOne({ _id : req.decoded.userId}).select('Roll_No').exec((err,user)=>{
            if(err)
            {
                res.json({success:false, message: err });
@@ -101,5 +122,7 @@ router.post('/studentlogin', (req,res)=>{
        })
    });
   
+*/
+
 
 module.exports=router;
