@@ -1,10 +1,20 @@
 
+<div class="container" *ngIf="value" class="alert" > 
+    <div class="card" style="width:50%;  ">
+        <div class="card-body">
+          <h3 class="card-title"><strong>Illegal Access</strong></h3>
+          <p class="card-text">You Must Login to Access this content. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a routerLink="/adminlogin" class="card-link">Login</a></p>
+        </div>
+      </div>
+</div>
 
+<div *ngIf="!value">
+    <h1 class="page-header">Admin Profile
+        <input type="button" class="btn btn-danger" value="Log Out" style="margin-left: auto;" (click)="Logout()">
+    </h1>
+    <ul class="list-group">
+        <li class="list-group-item">Username : {{username}}</li>
+      </ul>
+</div>
 
-<h1 class="page-header">Admin Profile
-    <input type="button" class="btn btn-danger" value="Log Out" style="margin-left: auto;" (click)="Logout()">
-</h1>
-<ul class="list-group">
-    <li class="list-group-item">Username : {{username}}</li>
-  </ul>
   

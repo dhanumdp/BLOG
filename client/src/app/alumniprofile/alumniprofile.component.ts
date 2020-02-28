@@ -14,15 +14,21 @@ export class AlumniprofileComponent implements OnInit {
 
   username;
   email;
-
+  local;
+  value : boolean;
+  
 
   ngOnInit() {
     this.nav.hide();
     this.authService.getAlumniProfile().subscribe(data=>{
         this.username = data['user'].username;
         this.email = data['user'].email;
-
     })
+     this.local = localStorage.getItem('user');
+     if(this.local == null)
+     {
+       this.value = true;
+     }
   }
 
   Logout()

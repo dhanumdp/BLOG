@@ -17,6 +17,8 @@ export class AdminprofileComponent implements OnInit {
   ) { }
 
   username;
+  local;
+  value : boolean;
 
   ngOnInit() {
     this.nav.hide();
@@ -24,11 +26,16 @@ export class AdminprofileComponent implements OnInit {
         this.username = data['user'].username;
 
     })
+    this.local = localStorage.getItem('user');
+    if(this.local == null)
+    {
+      this.value = true;
+    }
   }
 
   Logout()
   {
     this.adminService.logout();
-    this.router.navigate(['/adminlogin'])
+    this.router.navigate(['/adminlogin', {skipLocationChange:"true"}])
   }
 }

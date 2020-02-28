@@ -14,20 +14,22 @@ export class StudentprofileComponent implements OnInit {
  
   username;
   batch;
+  value : boolean;
+  local;
 
 
   ngOnInit() {
   this.username = this.studentService.getRollno();
   this.batch = this.studentService.getBatch();
   this.nav.hide();
-  const user={
-    mxians:this.batch,
-    rollno:this.username
+  
+  this.local = localStorage.getItem('user');
+  if(this.local == null)
+  {
+    this.value = true;
   }
   //console.log(user);
-  this.studentService.getdetails(user).subscribe(res  =>{
-    console.log(res);
-  })
+ 
 
   }
  
@@ -36,5 +38,15 @@ export class StudentprofileComponent implements OnInit {
   {
     this.studentService.logout();
     this.router.navigate(['/studentlogin'])
+  }
+  dashboard()
+  {
+    const user={
+      mxians:this.batch,
+      rollno:this.username
+    }
+    this.studentService.getdetails(user).subscribe(res  =>{
+      console.log(res);
+    })
   }
 }
