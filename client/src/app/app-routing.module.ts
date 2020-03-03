@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './studentprofile/dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { StudentloginComponent } from './studentlogin/studentlogin.component';
 import { FacultyloginComponent } from './facultylogin/facultylogin.component';
@@ -22,7 +22,7 @@ const routes: Routes = [
 component:HomeComponent
 },
 {
-  path:'dashboard',
+  path:'studentprofile/dashboard',
   component:DashboardComponent
 },
 {

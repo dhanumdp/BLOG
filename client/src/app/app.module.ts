@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './studentprofile/dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth.service';
 //import { StudentloginComponent } from './studentlogin/studentlogin.component';
