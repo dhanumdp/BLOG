@@ -18,6 +18,8 @@ import { AlumniprofileComponent } from './alumniprofile/alumniprofile.component'
 import { AdminprofileComponent } from './adminprofile/adminprofile.component';
 import { StudentloginComponent } from './studentlogin/studentlogin.component';
 import { StudentprofileComponent } from './studentprofile/studentprofile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 //import { StudentprofileComponent } from './studentprofile/studentprofile.component';
 
@@ -44,9 +46,10 @@ import { StudentprofileComponent } from './studentprofile/studentprofile.compone
     BrowserModule,
     HttpClientModule,
    ReactiveFormsModule, 
- 
+   MatSnackBarModule,
    NgFlashMessagesModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

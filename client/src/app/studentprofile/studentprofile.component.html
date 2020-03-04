@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group">
                         <label for="dob">Date Of Birth</label>
-                        <input type="text" class="form-control" name="dob"  #dob  value="{{studentService.stud.DOB}}" id="dob" disabled>
+                        <input type="date" class="form-control" name="dob"  #dob  value="{{studentService.stud.DOB}}" id="dob" disabled>
                     </div>
                 </div>  
                 <div class="col-md-4">
@@ -101,7 +101,10 @@
                         </div>
                         <div class="form-group">
                             <button type="submit" id="updateInfo" style="visibility:hidden; " class="btn btn-sm btn-success" (click)="updateDetails(rollno.value, pwd.value, pre.value, bat.value,name.value,dob.value, father.value,mother.value, gender.value, email.value, address.value,phone.value,income.value, religion.value,caste.value,bloodgrp.value)">Update</button>
-                        </div>   
+                        </div>
+                        <div *ngIf="updated" class="alert alert-success">
+                            <strong>Updated Successfully</strong> 
+                          </div>   
             </div>
            
     

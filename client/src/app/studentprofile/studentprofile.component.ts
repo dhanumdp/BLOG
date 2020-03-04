@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
 import {StudentService}  from '../services/student.service'
 import {NavbarService} from '../services/navbar.service'
+import {MatSnackBarModule, MatSnackBar} from '@angular/material/snack-bar'
 //import { get } from 'https';
 //import {Student} from './student';
 
@@ -13,10 +14,11 @@ import {NavbarService} from '../services/navbar.service'
 })
 export class StudentprofileComponent implements OnInit {
 
-  constructor( private studentService : StudentService, private router : Router , public nav : NavbarService) { }
+  constructor( private studentService : StudentService, private router : Router , public nav : NavbarService, private snack : MatSnackBar) { }
 
  
   username;
+  updated : boolean;
   batch;
   value : boolean;
   local;
@@ -34,6 +36,7 @@ export class StudentprofileComponent implements OnInit {
 student = [];
 newStudent={};
   ngOnInit() {
+    this.updated=false;
   this.username = this.studentService.getRollno();
   this.batch = this.studentService.getBatch();
   this.nav.hide();
@@ -135,12 +138,15 @@ newStudent={};
     console.log(this.newStudent);
     window.document.getElementById("updateInfo").style.visibility="hidden" 
     this.studentService.updateDetails(updateUser).subscribe(res  =>{
-      console.log(res);
-
+    
+     this.updated=true;
+     setTimeout(()=>{this.updated=false},1000)
+ 
+      });
       window.document.getElementById("editInfo").style.visibility="visible"
       this.getDetails();
       var inputs=window.document.getElementsByTagName('input');
-  for(let i=0;i<inputs.length;i++){
+  for(let i=1;i<inputs.length;i++){
   
     inputs[i].disabled=true;
     }   
@@ -148,7 +154,6 @@ newStudent={};
     for(let i=0;i<selects.length;i++){
       selects[i].disabled=true;
       }   
-    })
+    }
     
   }
-}
