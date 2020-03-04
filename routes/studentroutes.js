@@ -122,5 +122,28 @@ router.get('/studentprofile', (req,res)=>{
   
 */
 
+router.post("/updatedetails",function(req,res){
+    var user = req.body.user;
+    var collection = mongoose.connection.db.collection(req.body.mxians);
+    var ObjectID = require('mongodb').ObjectID;
+    var data = {};
+    data=req.body.value;
+    //delete data['_id'];
+    collection.updateOne({"Roll_No": req.body.rollno },
+    { $set: req.body.value },
+    { $upsert: true },
+    function(err, result) {
+        if(err){
+        console.log(err)
+        res.json("0")
+    }   
+    else
+    {
+        res.json("1")
+    }
+    });
+});
+
+
 
 module.exports=router;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { tokenName } from '@angular/compiler';
-
+import {Student} from '../studentprofile/student';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +12,7 @@ export class StudentService {
   authToken;
   user;
  options;
-
+ stud:Student;
 
  createAuthenticationHeaders()
  {
@@ -41,6 +41,11 @@ export class StudentService {
  getdetails(user)
  {
    return this.http.post("http://localhost:3000/student/getdetails", { user });
+ }
+
+ updateDetails(user)
+ {
+   return this.http.post("http://localhost:3000/student/updatedetails", user );
  }
  
 
