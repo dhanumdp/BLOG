@@ -11,6 +11,8 @@ import { AdminloginComponent } from './adminlogin/adminlogin.component';
 import { AlumniprofileComponent } from './alumniprofile/alumniprofile.component';
 import { AdminprofileComponent } from './adminprofile/adminprofile.component';
 import { StudentprofileComponent } from './studentprofile/studentprofile.component';
+import { BlogComponent } from './blog/blog.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 const routes: Routes = [
@@ -60,9 +62,15 @@ component:HomeComponent
 {
   path:'studentprofile',
   component:StudentprofileComponent
+},
+{
+  path:'blog',
+  component:BlogComponent
+},
+{
+  path:'chat',
+  component:ChatComponent
 }
-
-
 ];
 
 @NgModule({

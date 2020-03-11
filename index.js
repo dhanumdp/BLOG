@@ -29,8 +29,16 @@ const bodyParser = require('body-parser');
 const cors=require('cors');
 app.use(bodyParser.json());
 app.use(cors({
-    origin : 'http://localhost:4200'
+    origin : ['http://localhost:4200','*']
 }));
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Request-With, x-access-token, x-refresh-token, Content-Type, Accept, _id");
+    res.header("Access-Control-Expose-Headers", "x-access-token, x-refresh-token");
+    res.header("Access-Control-Allow-Credentials", true);
+    next();
+});
 app.use('/alumni',alumniRoutes);
 app.use('/admin',adminRoutes);
 app.use('/student',studentRoutes);

@@ -17,9 +17,14 @@ import { NgFlashMessagesModule } from 'ng-flash-messages';
 import { AlumniprofileComponent } from './alumniprofile/alumniprofile.component';
 import { AdminprofileComponent } from './adminprofile/adminprofile.component';
 import { StudentloginComponent } from './studentlogin/studentlogin.component';
+import {
+  MatSidenavModule,
+}from '@angular/material';
 import { StudentprofileComponent } from './studentprofile/studentprofile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { BlogComponent } from './blog/blog.component';
+import { ChatComponent } from './chat/chat.component';
 
 //import { StudentprofileComponent } from './studentprofile/studentprofile.component';
 
@@ -38,6 +43,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     AdminprofileComponent,
     StudentloginComponent,
     StudentprofileComponent,
+    BlogComponent,
+    ChatComponent,
     
    // StudentprofileComponent,
 
@@ -45,7 +52,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   imports: [
     BrowserModule,
     HttpClientModule,
-   ReactiveFormsModule, 
+   ReactiveFormsModule,
+   MatSidenavModule, 
    MatSnackBarModule,
    NgFlashMessagesModule.forRoot(),
     AppRoutingModule,

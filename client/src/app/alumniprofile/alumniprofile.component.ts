@@ -14,12 +14,16 @@ export class AlumniprofileComponent implements OnInit {
 
   username;
   email;
+  profile:boolean;
+  blog:boolean;
+  chat : boolean;
   local;
   value : boolean;
-  
-
   ngOnInit() {
     this.nav.hide();
+    this.blog=true;
+    this.profile=false;
+    this.chat=false;
     this.authService.getAlumniProfile().subscribe(data=>{
         this.username = data['user'].username;
         this.email = data['user'].email;
@@ -30,7 +34,24 @@ export class AlumniprofileComponent implements OnInit {
        this.value = true;
      }
   }
-
+  showBlog()
+  {
+    this.blog=true;
+    this.profile=false;
+    this.chat=false;
+  }
+  showProfile()
+  {
+    this.profile=true;
+    this.blog=false;
+    this.chat=false;
+  }
+  showChat()
+  {
+    this.chat=true;
+    this.profile=false;
+    this.blog=false;
+  }
   Logout()
   {
     this.authService.logout();
