@@ -1,0 +1,21 @@
+section{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.sideNavigation
+{
+    height: 100%;
+    width: 100px;
+    background:#2c3e50;
+    flex-grow: 0;
+}
+.Contents
+{
+    margin-left: 2%;
+    background:white;
+    flex-grow: 1;
+}
