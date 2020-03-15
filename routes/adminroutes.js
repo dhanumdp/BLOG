@@ -1,4 +1,5 @@
 const admin = require('../models/admin');
+const faculty = require('../models/faculty');
 const express= require('express');
 const jwt = require('jsonwebtoken');
 const config= require('../config/db');
@@ -108,25 +109,23 @@ router.post("/createFaculty",function(req,res,next){
                         "DOB":'',
                         "Address":'',
                         "Gender":'',
-                        'Phone Number':'',
+                        'Phone_Number':'',
                         'Email':'',
-                        "Year of Joining":'',
-                        "Blood Group":"",
+                        "Year_of_Joining":'',
+                        "Blood_Group":"",
                         "Qualifications":[],
-            
                     });
                 collection.insertMany(myobj, function(err, response) {
                     if (err) res.json("Oops");
                     else    res.json("Hurray");
-                  });
-                            
+                  });               
         });
 
 //delete faculty
 router.delete("/deleteFaculty/:id",function(req,res,next){
     console.log("Staff to be deleted: "+req.params.id)
     var ObjectID = require('mongodb').ObjectID;
-    var collection = mongoose.connection.db.collection("Faculty");
+    var collection = mongoose.connection.db.collection("Faculty"); 
     collection.remove({"_id":new ObjectID(req.params.id)},function(err,result){
         if(err){
             console.log("Delete Staff Error:  "+err)
@@ -136,7 +135,6 @@ router.delete("/deleteFaculty/:id",function(req,res,next){
             res.send("Hurray");
         }
     })
-
 });
 
 //createBlog

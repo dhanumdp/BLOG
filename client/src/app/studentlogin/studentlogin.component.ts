@@ -20,7 +20,7 @@ export class StudentloginComponent implements OnInit {
     //this.checkValidBatch();
     this.studentService.getCollections().subscribe((doc)=>{
       this.col=doc;
-     console.log(doc);
+   //  console.log(doc);
     });
    }
    createForm()
@@ -59,7 +59,6 @@ export class StudentloginComponent implements OnInit {
  
   this.processing=true;
   this.disableForm();
-
   const user={
     batch:this.form.get('batch').value,
     username:this.form.get('username').value,
@@ -84,7 +83,6 @@ export class StudentloginComponent implements OnInit {
       }
     }
   }) 
-
    }
    disableForm(){
     this.form.controls['username'].disable();
@@ -99,5 +97,4 @@ export class StudentloginComponent implements OnInit {
   ngOnInit() {
     this.nav.show();
   }
-
 }

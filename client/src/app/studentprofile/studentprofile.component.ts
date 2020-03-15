@@ -32,7 +32,7 @@ export class StudentprofileComponent implements OnInit {
     {"name":"B negative"},
     {"name":"B positive"},
     {"name":"AB negative"},
-    {"name":"AB positive"}
+    {"name":"AB positive"},
   ]
   
 student = [];
@@ -85,7 +85,6 @@ newStudent={};
   
   });
   
-    
     //console.log(user);
     
   }
@@ -94,7 +93,7 @@ newStudent={};
     window.document.getElementById("editInfo").style.visibility="hidden" 
     var inputs=window.document.getElementsByTagName('input');
   for(let i=0;i<inputs.length;i++){
-    if(i==0 || i>4)
+    if(i==1 || i>3)
     inputs[i].disabled=false;
     }   
     var selects=window.document.getElementsByTagName('select');

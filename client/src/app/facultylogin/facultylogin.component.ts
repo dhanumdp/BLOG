@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {NavbarService} from '../services/navbar.service'
+import { FacultyService } from '../services/faculty.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-facultylogin',
   templateUrl: './facultylogin.component.html',
@@ -8,11 +10,16 @@ import {NavbarService} from '../services/navbar.service'
 })
 export class FacultyloginComponent implements OnInit {
   form : FormGroup;
-
-  constructor(private formBuilder : FormBuilder, public nav : NavbarService
+  processing = false;
+  message;
+  messageclass;
+  constructor(private formBuilder : FormBuilder, public nav : NavbarService,private facultyService : FacultyService, private router : Router
    ) {
     this.createForm();
    }
+   ngOnInit() {
+    this.nav.show();
+  }
 
    createForm()
    {
@@ -28,17 +35,44 @@ export class FacultyloginComponent implements OnInit {
        ])]
      })
    }
-   
-   
    onRegisterSubmit()
    {
-    
-
-    console.log(this.form);
-
+    //console.log(this.form);
+    this.disableForm();
+    const user={
+      Username:this.form.get('username').value,
+      Password:this.form.get('password').value
+    }
+    this.facultyService.login(user).subscribe(data=>{
+      if(!data['success'])
+      {
+        this.messageclass= 'alert alert-danger';
+        this.message = data['message'];
+        this.processing= false;
+        this.enableform();
+      }
+      else
+      {
+        {
+          this.messageclass= 'alert alert-success';
+          this.message = data['message'];
+          // this.processing= false;
+          this.facultyService.storeUserData(data['token'],data['user']);
+          this.router.navigate(['/facultyprofile']);
+        }
+      }
+    }) 
    }
-  ngOnInit() {
-    this.nav.show();
+  
+
+  disableForm(){
+    this.form.controls['username'].disable();
+    this.form.controls['password'].disable();
+
+  }
+  enableform(){
+   this.form.controls['username'].enable();
+   this.form.controls['password'].enable();
   }
 
 }

@@ -1,11 +1,18 @@
+
 <div class="container" style=" margin-top: 15%;">
+    <div class="row show-hide-message">
+        <div class="row show-hide-message">
+            <div [ngClass]="messageclass">
+                {{message}}
+            </div>
+        </div>
     <form [formGroup] = "form"  (submit)="onRegisterSubmit()">
         <div class="form-group">
             <h1 style="text-align: center;">Faculty Login</h1>
             <label for="username">Username</label>
             <div  [ngClass]="{'has-error' : (form.controls.username.errors && form.controls
             .username.dirty),'has-success' : !form.controls.username.errors}">
-                <input type="text" name="username" class="form-control" autocomplete="off" placeholder="Roll No" formControlName="username"/>
+                <input type="text" name="username" class="form-control" autocomplete="off" placeholder="Faculty Id" formControlName="username"/>
             </div>
             <ul class="help-block">
                 <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">
@@ -26,7 +33,7 @@
             </ul>
         </div>
     
-            <input [disabled]='!form.valid' type="submit" class="btn btn-primary" value="Submit"/>
+            <input [disabled]='!form.valid || processing' type="submit" class="btn btn-primary" value="Submit"/>
     
     </form>
     

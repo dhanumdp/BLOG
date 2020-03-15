@@ -21,8 +21,8 @@
             <h1 style="text-align: center;">Student Login</h1>
             <label for="bg">Batch</label>
             <select class="form-control" name="batch"  formControlName="batch">
-                <option value="" disabled selected hidden>Select your Batch</option>
-                <option *ngFor="let c of col" value="{{c}}" >{{c}}</option>
+                <option value="" disabled hidden>Select your Batch</option>
+                 <option *ngFor="let c of col" value="{{c}}" >{{c}}</option> 
                   </select>
         </div> 
         <div class="form-group">

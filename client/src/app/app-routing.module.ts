@@ -13,6 +13,7 @@ import { AdminprofileComponent } from './adminprofile/adminprofile.component';
 import { StudentprofileComponent } from './studentprofile/studentprofile.component';
 import { BlogComponent } from './blog/blog.component';
 import { ChatComponent } from './chat/chat.component';
+import { FacultyprofileComponent } from './facultyprofile/facultyprofile.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,10 @@ component:HomeComponent
 {
   path:'facultylogin',
   component:FacultyloginComponent
+},
+{
+  path:'facultyprofile',
+  component:FacultyprofileComponent
 },
 {
   path:'alumnilogin',

@@ -1,1 +1,128 @@
-<p>facultyprofile works!</p>
+
+<div class="container" *ngIf="value" class="alert" > 
+    <div class="card" style="width:50%;  ">
+        <div class="card-body">
+          <h3 class="card-title"><strong>Illegal Access</strong></h3>
+          <p class="card-text">You Must Login to Access this content. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a routerLink="/adminlogin" class="card-link">Login</a></p>
+        </div>
+      </div>
+</div>
+<section *ngIf="!value">
+    <div class="sideNavigation">
+      <ul class="nav">
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showBlog()" >Blog</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  (click)="showProfile()">Profile</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showChat()" >Chat</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="Logout()">Log Out</a></li>
+     </ul>   
+    </div>
+    <div class="Contents">
+      <div class="row">
+        <div>
+          <div *ngIf="profile">
+            <div class="container" style="margin-top: 1%;">
+                <div class="panel-group">
+                  <div class="panel panel-default">
+                    <div class="panel-heading " style="display: flex; flex-direction: row; background:#2c3e50;" >
+                        <h1 style="color: white;">Faculty Profile</h1>
+                       </div>
+                    <div class="panel-body">
+                              <!-- <input type="button" class="btn btn-success" value="Dashboard" style="margin-left: auto;" (click)="dashboard()"> -->
+                        <button  type="button" id="editInfo" (click)="setUpdateVisible()" class="btn btn-sm btn-info">Edit</button>
+                        <br><br>
+                        <div class="row" *ngIf="facultyService.fac">
+                            <div class="col-md-4">
+                                <div  class="form-group">
+                                <label for="roll">Faculty Id</label>
+                                <input type="text"  #facid class="form-control"  name="facid" id="facid"  value="{{facultyService.fac.Username}}" disabled>
+                            </div>
+                              <div class="form-group">
+                                <label for="pass">Password</label>
+                                <input type="password"  #pwd class="form-control"  name="pass" id="pass"  value="{{facultyService.fac.Password}}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="batch">Name</label>
+                                <input type="text" #name class="form-control" name="name" id="name"  disabled  value="{{facultyService.fac.Name}}">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Role</label>
+                                <input type="text" class="form-control" #role name="role" id="role"  value="{{facultyService.fac.Role}}" disabled>
+                            </div>
+                            
+                        </div>  
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="dob">Date Of Birth</label>
+                                <input type="date" class="form-control" name="dob"  #dob  value="{{facultyService.fac.DOB}}" id="dob" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="adrs">Address</label>
+                                <input type="text" class="form-control" #address  name="adrs" id="adrs"  value="{{facultyService.fac.Address}}" disabled>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="bg">Gender</label>
+                                    <select class="form-control" id="bg" name="bg" #gender value="{{facultyService.fac.Gender}}" disabled>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                          </select>
+                                        </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" #email name="email" id="email"   value="{{facultyService.fac.Email}}" disabled>
+                            </div>
+                          
+                            
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="phno">Phone Number</label>
+                                <input type="text" class="form-control" #phone  name="phno" id="phno"   value="{{facultyService.fac.Phone_Number}}" disabled>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="fac">Year Of Joining</label>
+                                <input type="text" class="form-control"  #yoj name="yoj" id="yoj"  value="{{facultyService.fac.Year_of_Joining}}"  disabled>
+                            </div>
+                
+                        
+                                <div class="form-group">
+                                    <label for="bg">Blood Group</label>
+                                    <select class="form-control" id="bg" name="bg" #bloodgrp value="{{facultyService.fac.Blood_Group}}" disabled>
+                                        <option *ngFor="let c of blood"  value="{{c.name}}">{{c.name}}</option>
+                                          </select>
+                                </div>
+                                <div class="form-group">
+                                    <h6 *ngIf="updated" class="alert alert-success" style="font-size: 12px; text-align: center;">Updated Successfully</h6>
+                                    <button type="submit" id="updateInfo" style="visibility:hidden; " class="btn btn-sm btn-success" (click)="updateDetails(facid.value, pwd.value, name.value, role.value,dob.value,address.value,gender.value, email.value,phone.value,yoj.value,bloodgrp.value)">Update</button>
+                                
+                                </div>
+                               
+                    
+                                </div>
+                  </div>
+                 
+                  </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div *ngIf="blog">
+            <app-blog></app-blog>
+          </div>
+          <div *ngIf="chat">
+            <app-chat></app-chat>
+          </div>
+        </div>
+        </div>
+    </div>
+  </section>
+
+
+
+
+
+
+  

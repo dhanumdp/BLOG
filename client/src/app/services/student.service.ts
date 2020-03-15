@@ -6,8 +6,6 @@ import {Student} from '../studentprofile/student';
   providedIn: 'root'
 })
 export class StudentService {
-
-
   constructor( private http : HttpClient) { }
   authToken;
   user;
