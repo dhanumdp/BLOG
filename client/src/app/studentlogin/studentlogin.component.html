@@ -7,22 +7,24 @@
                 {{message}}
             </div>
         </div>
-    
     </div>
     <form [formGroup] = "form"  (submit)="onRegisterSubmit()">  
-        <div class="form-group">
+        <!-- <div class="form-group">
             <h1 style="text-align: center;">Student Login</h1>
            <label for="username">Batch</label>
             <div  [ngClass]="{'has-error' : (form.controls.batch.errors && form.controls
             .batch.dirty),'has-success' : !form.controls.batch.errors}">
                 <input type="text" name="batch" class="form-control" autocomplete="off" placeholder="Eg : 18mxians" formControlName="batch"/>
             </div>
-            <ul class="help-block">
-                <li *ngIf="form.controls.batch.errors?.required && form.controls.batch.dirty">
-                    This field is required
-                </li>
-            </ul>
-        </div>
+           </div> -->
+        <div class="form-group">
+            <h1 style="text-align: center;">Student Login</h1>
+            <label for="bg">Batch</label>
+            <select class="form-control" name="batch"  formControlName="batch">
+                <option value="" disabled selected hidden>Select your Batch</option>
+                <option *ngFor="let c of col" value="{{c}}" >{{c}}</option>
+                  </select>
+        </div> 
         <div class="form-group">
             <label for="username">Username</label>
             <div  [ngClass]="{'has-error' : (form.controls.username.errors && form.controls

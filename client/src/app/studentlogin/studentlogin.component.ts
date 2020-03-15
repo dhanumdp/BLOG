@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import {Router} from '@angular/router'
 import {StudentService} from '../services/student.service'
@@ -13,15 +13,19 @@ export class StudentloginComponent implements OnInit {
   processing = false;
   message;
   messageclass;
-
+  col={};
   constructor(private formBuilder : FormBuilder, private studentService : StudentService, private router : Router,  public nav: NavbarService
    ) {
     this.createForm();
+    //this.checkValidBatch();
+    this.studentService.getCollections().subscribe((doc)=>{
+      this.col=doc;
+     console.log(doc);
+    });
    }
    createForm()
    {
      this.form = this.formBuilder.group({
-  
        username: ['', Validators.compose([
          Validators.required
 
@@ -37,12 +41,25 @@ export class StudentloginComponent implements OnInit {
      })
    }
    
+  //  checkValidBatch()
+  //  {
+  //   console.log("hai"); 
+  //   console.log(Object.values(this.col).length);
+  //   let c = this.form.get('batch').value;
+  //    if(this.col['batch']==c)
+  //    {
+  //      console.log(c);
+  //    }
+    
+  //  }
    
    onRegisterSubmit()
    {
       
+ 
   this.processing=true;
   this.disableForm();
+
   const user={
     batch:this.form.get('batch').value,
     username:this.form.get('username').value,

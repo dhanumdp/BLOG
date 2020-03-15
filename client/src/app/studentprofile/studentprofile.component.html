@@ -7,115 +7,136 @@
         </div>
       </div>
 </div>
-
-
-
-<div *ngIf="!value">
-    <div class="container" style="margin-top: 1%;">
-        <div class="panel-group">
-          <div class="panel panel-default">
-            <div class="panel-heading " style="display: flex; flex-direction: row;">
-                <h1>Profile</h1>
-                <input type="button" class="btn-sm btn-danger" value="Log Out" style="margin-left: 80%; height: 50%; ; margin-top: 2%;" (click)="Logout()">
-            </div>
-            <div class="panel-body">
-                      <!-- <input type="button" class="btn btn-success" value="Dashboard" style="margin-left: auto;" (click)="dashboard()"> -->
-                <button  type="button" id="editInfo" (click)="setUpdateVisible()" class="btn btn-sm btn-info">Edit</button>
-                <br><br>
-                <div class="row" *ngIf="studentService.stud">
-                    <div class="col-md-4">
-                        <div  class="form-group">
-                        <label for="roll">Roll No</label>
-                        <input  type="text" #rollno class="form-control" name="roll" id="roll"   value="{{studentService.stud.Roll_No}}"disabled>
-                      </div>
-                      <div class="form-group">
-                        <label for="pass">Password</label>
-                        <input type="password"  #pwd class="form-control"  name="pass" id="pass"  value="{{studentService.stud.Password}}" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="prefix">Class Prefix</label>
-                        <input type="text" #pre class="form-control"  name="prefix" id="prefix"  value="{{studentService.stud.Class_Prefix}}"  disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="batch">Batch</label>
-                        <input type="text" #bat class="form-control" name="batch" id="batch"  disabled  value="{{studentService.stud.Batch}}" placeholder="Ex. 18mxians">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" #name name="name" id="name"  value="{{studentService.stud.Name}}" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="dob">Date Of Birth</label>
-                        <input type="date" class="form-control" name="dob"  #dob  value="{{studentService.stud.DOB}}" id="dob" disabled>
-                    </div>
-                </div>  
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="fname">Father's Name</label>
-                        <input type="text" class="form-control" #father name="fname" id="fname"  value="{{studentService.stud.Father_Name}}" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="mname">Mother's Name</label>
-                        <input type="text" class="form-control"  #mother name="mname" id="mname"   value="{{studentService.stud.Mother_Name}}" disabled>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label for="bg">Gender</label>
-                            <select class="form-control" id="bg" name="bg" #gender value="{{studentService.stud.Gender}}" disabled>
-                                <option>Male</option>
-                                <option>Female</option>
-                                  </select>
+<section *ngIf="!value">
+    <div class="sideNavigation">
+      <ul class="nav">
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showBlog()" >Blog</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  (click)="showProfile()">Profile</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showChat()" >Chat</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="Logout()">Log Out</a></li>
+     </ul>   
+    </div>
+    <div class="Contents">
+      <div class="row">
+        <div>
+          <div *ngIf="profile">
+            <div class="container" style="margin-top: 1%;">
+                <div class="panel-group">
+                  <div class="panel panel-default">
+                    <div class="panel-heading " style="display: flex; flex-direction: row; background:#2c3e50;" >
+                        <h1 style="color: white;">Profile</h1>
+                       </div>
+                    <div class="panel-body">
+                              <!-- <input type="button" class="btn btn-success" value="Dashboard" style="margin-left: auto;" (click)="dashboard()"> -->
+                        <button  type="button" id="editInfo" (click)="setUpdateVisible()" class="btn btn-sm btn-info">Edit</button>
+                        <br><br>
+                        <div class="row" *ngIf="studentService.stud">
+                            <div class="col-md-4">
+                                <div  class="form-group">
+                                <label for="roll">Roll No</label>
+                                <input  type="text" #rollno class="form-control" name="roll" id="roll"   value="{{studentService.stud.Roll_No}}"disabled>
+                              </div>
+                              <div class="form-group">
+                                <label for="pass">Password</label>
+                                <input type="password"  #pwd class="form-control"  name="pass" id="pass"  value="{{studentService.stud.Password}}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="prefix">Class Prefix</label>
+                                <input type="text" #pre class="form-control"  name="prefix" id="prefix"  value="{{studentService.stud.Class_Prefix}}"  disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="batch">Batch</label>
+                                <input type="text" #bat class="form-control" name="batch" id="batch"  disabled  value="{{studentService.stud.Batch}}" placeholder="Ex. 18mxians">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" #name name="name" id="name"  value="{{studentService.stud.Name}}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Date Of Birth</label>
+                                <input type="date" class="form-control" name="dob"  #dob  value="{{studentService.stud.DOB}}" id="dob" disabled>
+                            </div>
+                        </div>  
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="fname">Father's Name</label>
+                                <input type="text" class="form-control" #father name="fname" id="fname"  value="{{studentService.stud.Father_Name}}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="mname">Mother's Name</label>
+                                <input type="text" class="form-control"  #mother name="mname" id="mname"   value="{{studentService.stud.Mother_Name}}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="bg">Gender</label>
+                                    <select class="form-control" id="bg" name="bg" #gender value="{{studentService.stud.Gender}}" disabled>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                          </select>
+                                        </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" #email name="email" id="email"   value="{{studentService.stud.Email}}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="adrs">Address</label>
+                                <input type="text" class="form-control" #address  name="adrs" id="adrs"  value="{{studentService.stud.Address}}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="phno">Phone Number</label>
+                                <input type="text" class="form-control" #phone  name="phno" id="phno"   value="{{studentService.stud.Phone_Number}}" disabled>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                            
+                            <div class="form-group">
+                                <label for="fac">Father's Annual Income</label>
+                                <input type="text" class="form-control"  #income name="fac" id="fac"  value="{{studentService.stud.Father_Annual_Income}}"  disabled>
+                            </div>
+                            <div class="form-group">
+                                    <label for="religion">Religion</label>
+                                    <input type="text" class="form-control" #religion name="religion" id="religion"   value="{{studentService.stud.Religion}}" disabled>
                                 </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" #email name="email" id="email"   value="{{studentService.stud.Email}}" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="adrs">Address</label>
-                        <input type="text" class="form-control" #address  name="adrs" id="adrs"  value="{{studentService.stud.Address}}" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="phno">Phone Number</label>
-                        <input type="text" class="form-control" #phone  name="phno" id="phno"   value="{{studentService.stud.Phone_Number}}" disabled>
-                    </div>
+                                <div class="form-group">
+                                    <label for="caste">Caste</label>
+                                    <input  type="text" class="form-control" #caste name="caste" id="caste"  value="{{studentService.stud.Caste}}"  disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bg">Blood Group</label>
+                                    <select class="form-control" id="bg" name="bg" #bloodgrp value="{{studentService.stud.Blood_Group}}" disabled>
+                                        <option *ngFor="let c of blood"  value="{{c.name}}">{{c.name}}</option>
+                                          </select>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" id="updateInfo" style="visibility:hidden; " class="btn btn-sm btn-success" (click)="updateDetails(rollno.value, pwd.value, pre.value, bat.value,name.value,dob.value, father.value,mother.value, gender.value, email.value, address.value,phone.value,income.value, religion.value,caste.value,bloodgrp.value)">Update</button>
+                                </div>
+                                <div *ngIf="updated" class="alert alert-success">
+                                    <strong>Updated Successfully</strong> 
+                                  </div>   
+                                </div>
+                  </div>
+                 
+                  </div>
+                  </div>
                 </div>
-                </div>
-                <div class="col-md-4">
-                    
-                    <div class="form-group">
-                        <label for="fac">Father's Annual Income</label>
-                        <input type="text" class="form-control"  #income name="fac" id="fac"  value="{{studentService.stud.Father_Annual_Income}}"  disabled>
-                    </div>
-                    <div class="form-group">
-                            <label for="religion">Religion</label>
-                            <input type="text" class="form-control" #religion name="religion" id="religion"   value="{{studentService.stud.Religion}}" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="caste">Caste</label>
-                            <input  type="text" class="form-control" #caste name="caste" id="caste"  value="{{studentService.stud.Caste}}"  disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="bg">Blood Group</label>
-                            <select class="form-control" id="bg" name="bg" #bloodgrp value="{{studentService.stud.Blood_Group}}" disabled>
-                                <option *ngFor="let c of blood"  value="{{c.name}}">{{c.name}}</option>
-                                  </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" id="updateInfo" style="visibility:hidden; " class="btn btn-sm btn-success" (click)="updateDetails(rollno.value, pwd.value, pre.value, bat.value,name.value,dob.value, father.value,mother.value, gender.value, email.value, address.value,phone.value,income.value, religion.value,caste.value,bloodgrp.value)">Update</button>
-                        </div>
-                        <div *ngIf="updated" class="alert alert-success">
-                            <strong>Updated Successfully</strong> 
-                          </div>   
-            </div>
-           
-    
+              </div>
           </div>
-         
-          
+          <div *ngIf="blog">
+            <app-blog></app-blog>
+          </div>
+          <div *ngIf="chat">
+            <app-chat></app-chat>
+          </div>
         </div>
-      </div>
-    
-</div>
+        </div>
+    </div>
+  </section>
+
+
+
+
+
 
 
   

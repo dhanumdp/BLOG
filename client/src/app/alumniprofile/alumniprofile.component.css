@@ -9,13 +9,16 @@ section{
 .sideNavigation
 {
     height: 100%;
-    width: 100px;
+    width: 200px;
+    text-align: center;
     background:#2c3e50;
     flex-grow: 0;
 }
 .Contents
 {
-    margin-left: 2%;
+    padding-left: 20px;
     background:white;
     flex-grow: 1;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }

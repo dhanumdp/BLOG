@@ -13,7 +13,6 @@ export class StudentService {
   user;
  options;
  stud:Student;
-
  createAuthenticationHeaders()
  {
      this.loadToken();
@@ -47,7 +46,10 @@ export class StudentService {
  {
    return this.http.post("http://localhost:3000/student/updatedetails", user );
  }
- 
+ getCollections()
+ {
+   return this.http.get("http://localhost:3000/student/getCollections");
+ }
 
  logout(){
    this.authToken = null;

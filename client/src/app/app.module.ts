@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BlogComponent } from './blog/blog.component';
 import { ChatComponent } from './chat/chat.component';
+import { FacultyprofileComponent } from './facultyprofile/facultyprofile.component';
 
 //import { StudentprofileComponent } from './studentprofile/studentprofile.component';
 
@@ -45,6 +46,7 @@ import { ChatComponent } from './chat/chat.component';
     StudentprofileComponent,
     BlogComponent,
     ChatComponent,
+    FacultyprofileComponent,
     
    // StudentprofileComponent,
 

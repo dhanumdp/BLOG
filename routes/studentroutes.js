@@ -8,6 +8,28 @@ var localStorage = new LocalStorage('./scratch');
 const config= require('../config/db');
 
 var batch;
+var c=[];
+router.get('/getCollections', (req,res)=>{
+    mongoose.connection.db.listCollections().toArray(function(err,coll){
+        if(err) console.log(err);
+    //iterate to each collection detail and push just name in array
+    coll.forEach(col => {
+        if(col.name.length==8)
+        {
+            const regExp = new RegExp(/^[0-9][0-9]*[a-z]{0,6}?/); //
+            if(regExp.test(col.name))
+            {
+                c.push(col.name);
+            } 
+        }
+    });
+    res.json(c);
+    coll.forEach(col => {
+        c.pop();
+     });
+    })
+   
+})
 router.post('/studentlogin', (req,res)=>{
     if(!req.body.batch)
     {
@@ -24,26 +46,32 @@ router.post('/studentlogin', (req,res)=>{
                 res.json({success:false, message:"No password was provided"});
             }
             else
-            {
+            {    
                 var collection = mongoose.connection.db.collection(req.body.batch.toLowerCase());
-                this.batch = req.body.batch;
+               // this.batch = req.body.batch;
                 collection.findOne({'Roll_No':req.body.username.toUpperCase()}, function(err,user){
                       if(err)
                       {
                           res.json({success:false, message:err});
                       }
                       else{
+                        
                           if(!user)
                           {
                               res.json({success:false, message: "Username not found"});
                           }
                           else
                           {
+                            
                               //const validPassword = user.comparePassword(req.body.password);
-                              if(user.Password != req.body.password)
+                              if(user.Batch != req.body.batch){
+                                res.json({success:false, message: "No Such Batch is Live Now"});
+                              }
+                              else if(user.Password != req.body.password)
                               {
                                   res.json({success:false, message: "invalid password"});
                               }
+                              
                               else
                               {
                                   const token = jwt.sign({ userId: user._id}, config.secret, {expiresIn : '24h'} );

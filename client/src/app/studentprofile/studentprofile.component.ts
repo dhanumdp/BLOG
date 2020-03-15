@@ -16,7 +16,9 @@ export class StudentprofileComponent implements OnInit {
 
   constructor( private studentService : StudentService, private router : Router , public nav : NavbarService, private snack : MatSnackBar) { }
 
- 
+  profile:boolean;
+  blog:boolean;
+  chat : boolean;
   username;
   updated : boolean;
   batch;
@@ -36,6 +38,7 @@ export class StudentprofileComponent implements OnInit {
 student = [];
 newStudent={};
   ngOnInit() {
+    this.blog=true;
     this.updated=false;
   this.username = this.studentService.getRollno();
   this.batch = this.studentService.getBatch();
@@ -81,6 +84,7 @@ newStudent={};
     // })
   
   });
+  
     
     //console.log(user);
     
@@ -155,5 +159,24 @@ newStudent={};
       selects[i].disabled=true;
       }   
     }
+    showBlog()
+  {
+    this.blog=true;
+    this.profile=false;
+    this.chat=false;
+  }
+  showProfile()
+  {
+    this.profile=true;
+    this.blog=false;
+    this.chat=false;
+  }
+  showChat()
+  {
+    this.chat=true;
+    this.profile=false;
+    this.blog=false;
+  }
+  
     
   }
