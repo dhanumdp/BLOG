@@ -1,4 +1,3 @@
-//import { SpawnSyncOptionsWithStringEncoding } from 'child_process';
 
 export class Student {
 

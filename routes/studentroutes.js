@@ -8,7 +8,9 @@ var localStorage = new LocalStorage('./scratch');
 const config= require('../config/db');
 
 var batch;
+
 var c=[];
+
 router.get('/getCollections', (req,res)=>{
     mongoose.connection.db.listCollections().toArray(function(err,coll){
         if(err) console.log(err);
@@ -157,7 +159,7 @@ router.post("/updatedetails",function(req,res){
     var data = {};
     data=req.body.value;
     //delete data['_id'];
-    collection.updateOne({"Roll_No": req.body.rollno },
+    collection.updateMany({"Roll_No": req.body.rollno },
     { $set: req.body.value },
     { $upsert: true },
     function(err, result) {

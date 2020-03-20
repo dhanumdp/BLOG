@@ -8,7 +8,7 @@ const mongoose=require('mongoose');
 //create a class
 router.post("/createClass",function(req,res,next){
     var mxians=req.body.mxians.toLowerCase();
-    var prefix=req.body.prefix;
+    var prefix=req.body.prefix.toUpperCase();
     var start=req.body.start;
     var end=req.body.end;
     var myobj=[];
@@ -52,19 +52,20 @@ router.post("/createClass",function(req,res,next){
         });
       
 });
-
 //delete class
-router.delete("/deleteClass",function(req,res,next){
-    var mxians=req.body.mxians.toLowerCase();
+router.post("/deleteClass",function(req,res,next){
+    console.log(req.body);
+    mxians : String;
+    mxians = req.body.mxians;
     console.log("Class to be deleted: "+mxians)
     var collection = mongoose.connection.db.collection(mxians);
     collection.drop({},function(err,result){
         if(err){
             console.log("Delete Class Error:  "+err)
-            res.send("Oops");
+            res.json("Oops");
         }
         else{
-            res.send("Hurray");
+            res.json("Hurray");
         }
     })
 
@@ -75,72 +76,108 @@ router.delete("/deleteClass",function(req,res,next){
 
 
 //delete student
-router.delete("/deleteStudent",function(req,res,next){
-    var mxians=req.body.mxians.toLowerCase();
+router.post("/deleteStudent",function(req,res,next){
+    var mxians=req.body.mxians;
     var rollno=req.body.rollno;
     var collection = mongoose.connection.db.collection(mxians);
-    collection.remove({"Roll No":rollno},function(err,result){
+  
+    collection.remove({"Roll_No":rollno},function(err,result){
         if(err){
             console.log("Delete Student Error:  "+err)
-            res.send("Oops");
+            res.json("Oops");
         }
         else{
-            res.send("Hurray");
+            res.json("Hurray");
         }
     })
 
 });
 
-    
+
 //create new Faculty
 router.post("/createFaculty",function(req,res,next){
     var name=req.body.name;
-    var role=req.body.role;
+   // var role=req.body.role;
     var username=req.body.username;
-    var password=req.body.password;
+    //var password=req.body.password;
     var myobj=[];
     var collection = mongoose.connection.db.collection("Faculty");
-                    myobj.push({
-                        
-                        "Name":name,
-                        "Role":role,
-                        "Username":username,
-                        "Password":password,
-                        "DOB":'',
-                        "Address":'',
-                        "Gender":'',
-                        'Phone_Number':'',
-                        'Email':'',
-                        "Year_of_Joining":'',
-                        "Blood_Group":"",
-                        "Qualifications":[],
-                    });
-                collection.insertMany(myobj, function(err, response) {
-                    if (err) res.json("Oops");
-                    else    res.json("Hurray");
-                  });               
+    myobj.push({
+        "Name":name,
+        "Role":'',
+        "Username":username,
+        "Password":"a",
+        "DOB":'',
+        "Address":'',
+        "Gender":'',
+        'Phone_Number':'',
+        'Email':'',
+        "Year_of_Joining":'',
+        "Blood_Group":"",
+        "Qualifications":[],
+    });
+    collection.findOne({'Username':username}, (err,docs)=>{
+       if(err)
+       {
+           console.log(err);
+       }
+        else if(docs)
+        {
+           // console.log('Update');
+            collection.updateOne({'Username' :username}, { $set:{"Name":name,
+            "Role":'',
+            "Username":username,
+            "Password":"a",
+            "DOB":'',
+            "Address":'',
+            "Gender":'',
+            'Phone_Number':'',
+            'Email':'',
+            "Year_of_Joining":'',
+            "Blood_Group":"",
+            "Qualifications":[]}},
+             { $upsert: true },function(err, result) {
+                if(err){
+                console.log(err)
+                res.json("0")
+            }   
+            else
+            {
+                res.json("1")
+            }
+        });
+        }
+        else
+        {
+           // console.log('insert');
+            collection.insertMany(myobj, function(err, response) {
+                if (err) res.json("Oops");
+                else    res.json("Hurray");
+              });           
+        }
+    })
+                    
+                   
         });
 
 //delete faculty
-router.delete("/deleteFaculty/:id",function(req,res,next){
-    console.log("Staff to be deleted: "+req.params.id)
-    var ObjectID = require('mongodb').ObjectID;
+router.post("/deleteFaculty",function(req,res,next){
+
+    var username = req.body.username
     var collection = mongoose.connection.db.collection("Faculty"); 
-    collection.remove({"_id":new ObjectID(req.params.id)},function(err,result){
+    collection.remove({'Username':username},function(err,result){
         if(err){
             console.log("Delete Staff Error:  "+err)
-            res.send("Oops");
+            res.json("Oops");
         }
         else{
-            res.send("Hurray");
+            res.json("hurray");
         }
     })
 });
-
 //createBlog
-
 router.post('/createPage', function(req,res,next){
-    var mxians=req.body.mxians.toLowerCase();
+    var mxians=req.body.batch;
     mongoose.connection.db.createCollection(mxians+"Page",function(err){
         if(!err)
         {
@@ -154,18 +191,44 @@ router.post('/createPage', function(req,res,next){
 })
 
 
-//delete blog
 
-router.delete('/deletePage',function(req,res,next){
-    var mxians=req.body.mxians.toLowerCase()+"Page";
+var c=[];
+
+router.get('/getPages', (req,res)=>{
+    mongoose.connection.db.listCollections().toArray(function(err,coll){
+        if(err) console.log(err);
+    //iterate to each collection detail and push just name in array
+    coll.forEach(col => {
+        if(col.name.length==12)
+        {
+            const regExp = new RegExp(/^[0-9][0-9]*[a-z]{0,10}?/); //
+            if(regExp.test(col.name))
+            {
+                c.push(col.name);
+            } 
+        }
+    });
+    res.json(c);
+    coll.forEach(col => {
+        c.pop();
+     });
+    })
+   
+})
+
+
+
+//delete blog
+router.post('/deletePage',function(req,res,next){
+    var mxians=req.body.page;
     var collection = mongoose.connection.db.collection(mxians);
     collection.drop({},function(err,result){
         if(err){
             console.log("Delete Page Error:  "+err)
-            res.send("Oops");
+            res.json("Oops");
         }
         else{
-            res.send("Hurray");
+            res.json("Hurray");
         }
     })
 
@@ -173,6 +236,40 @@ router.delete('/deletePage',function(req,res,next){
 
 });
 
+
+// //getStudentRollNo
+
+// router.get('/getRollNo',(req,res)=>{
+//    // var batch = req.body.mxians;
+//     var collection = mongoose.connection.db.collection("18mxians");
+//     var documents;
+//     //let coll = collection;
+//     myobj=[]
+// // coll.count().then((count) => {
+// //    //for(i =0; i < count ; i++)
+// //    //{
+// //         collection.find({"Roll_No":"18mx102"},(err,docs)=>{
+// //             if(err)
+// //                 console.log(err)
+// //             else
+// //                 console.log(docs);
+// //         } )
+// //   // }
+// // });
+// collection.group(
+//     {
+//       key: { 'Roll_No' : 1 },
+//       cond: {},
+//       reduce: function ( curr, result ) { },
+//       initial: { }
+//     }
+//  );
+
+//  console.log(collection.aggregate([{$group : {'Roll_No': 1}}]))
+
+//  console.log(myobj)
+    
+// })
 
 
 router.post('/adminlogin', (req,res)=>{

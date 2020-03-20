@@ -11,13 +11,18 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-left">
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink='/home'>Home</a></li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink='/home'>
+            <i class="fa fa-home"></i> Home</a></li>
         </ul>
         <ul  class="nav navbar-nav navbar-right">
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink='/studentlogin' >Student</a></li>
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink='/facultylogin'>Faculty</a></li>
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink='/alumnilogin' >Alumni</a></li>
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink='/adminlogin'>Admin</a></li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink='/studentlogin' >
+            <i class="fa fa-user-circle" aria-hidden="true"></i> Student</a></li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink='/facultylogin'>
+            <i class="fa fa-user-o" aria-hidden="true"></i> Faculty</a></li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink='/alumnilogin' >
+            <i class="fa fa-user-secret" aria-hidden="true"></i> Alumni</a></li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink='/adminlogin'>
+            <span class="glyphicon glyphicon-lock"></span> Admin</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>

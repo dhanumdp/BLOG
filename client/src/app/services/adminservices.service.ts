@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Clas} from '../adminprofile/clas';
 import { tokenName } from '@angular/compiler';
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AdminservicesService {
   user;
  options;
 
-
+ Clas : Clas;
   createAuthenticationHeaders()
   {
       this.loadToken();
@@ -54,6 +55,46 @@ export class AdminservicesService {
    this.createAuthenticationHeaders();
    return this.http.get('http://localhost:3000/admin/adminprofile', this.options);
   }
+
+  createClass(cla)
+  {
+    
+    return this.http.post('http://localhost:3000/admin/createClass',cla);
+  }
+  deleteClass(cla)
+  {
+    return this.http.post('http://localhost:3000/admin/deleteClass',cla);
+  }
+
+  createFaculty(fac)
+  {
+    return this.http.post('http://localhost:3000/admin/createFaculty',fac);
+  }
+
+  createPage(batch)
+  {
+    return this.http.post('http://localhost:3000/admin/createPage',batch);
+  }
+
+  deleteStudent(stud)
+  {
+    return this.http.post('http://localhost:3000/admin/deleteStudent',stud);
+  }
+
+  deleteFaculty(fac)
+  {
+    return this.http.post('http://localhost:3000/admin/deleteFaculty',fac);
+  }
+
+  getPages()
+ {
+   return this.http.get("http://localhost:3000/admin/getPages");
+ }
+
+ deletePage(page)
+ {
+   return this.http.post('http://localhost:3000/admin/deletePage', page);
+ }
 
 loggedIn()
 {
