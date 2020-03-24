@@ -19,15 +19,22 @@
 <section *ngIf="!value">
   <div class="sideNavigation">
     <ul class="nav">
-      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="createClass()" > Create Class</a></li>
-      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="createFaculty()" >Create Faculty</a></li>
-      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="createPage()" >Create Page</a></li>
-      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  (click)="deleteClass()">Delete Class</a></li>
-      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="deleteStudent()" >Delete Student</a></li>
-      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="deleteFaculty()" >Delete Faculty</a></li>
-      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="deletePage()" >Delete Page</a></li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="createClass()" >
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>  Create Class</a></li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="createFaculty()" >
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> Create Faculty</a></li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="createPage()" >
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> Create Page</a></li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  (click)="deleteClass()">
+        <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Class</a></li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="deleteStudent()" >
+        <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Student</a></li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="deleteFaculty()" >
+        <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Faculty</a></li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="deletePage()" >
+        <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Page</a></li>
       <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="Logout()">
-        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>  Log Out</a></li>
+        <i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a></li>
    </ul>   
   </div>
   <div class="Contents">

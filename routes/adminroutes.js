@@ -237,30 +237,56 @@ router.post('/deletePage',function(req,res,next){
 });
 
 
-// //getStudentRollNo
+//getStudentRollNo
 
-// router.get('/getRollNo',(req,res)=>{
-//    // var batch = req.body.mxians;
-//     var collection = mongoose.connection.db.collection("18mxians");
-//     var documents;
-//     //let coll = collection;
-//     myobj=[]
-// // coll.count().then((count) => {
-// //    //for(i =0; i < count ; i++)
-// //    //{
-// //         collection.find({"Roll_No":"18mx102"},(err,docs)=>{
-// //             if(err)
-// //                 console.log(err)
-// //             else
-// //                 console.log(docs);
-// //         } )
-// //   // }
-// // });
-// collection.group(
+router.get('/getRollNo',(req,res)=>{
+   var batch = req.body.mxians;
+    var collection = mongoose.connection.db.collection("18mxians");
+    collection.find({}).toArray((err,docs)=>{
+   if(err)
+            console.log(err)
+        else
+        {
+            //db.student.find({}, {roll:1, _id:0})
+            //res.json(docs.find({},{Roll_No : 1, _id : 0}))
+            // res.json(docs.filter(d => d.Roll_No));
+            res.json(docs);
+        }
+            
+    });
+
+    // collection.find({'Roll_No':1},(err,docs)=>{
+    //     if(err)
+    //     console.log(err)
+    // else
+    // {
+    //     //db.student.find({}, {roll:1, _id:0})
+    //     //res.json(docs.find({},{Roll_No : 1, _id : 0}))
+    //     // res.json(docs.filter(d => d.Roll_No));
+    //     res.json(docs);
+    // }
+    // })
+        
+// coll.count().then((count) => {
+   //for(i =0; i < count ; i++)
+   //{
+        
+  // }
+
+// mongoose.connection.db.collection("18mxians").group(
 //     {
-//       key: { 'Roll_No' : 1 },
-//       cond: {},
-//       reduce: function ( curr, result ) { },
+//       key: { 'Roll_No' : '18MX101'},
+//       cond:{ },
+//       reduce: function ( curr, result ) { 
+//           if(err)
+//           {
+//             console.log(err);
+//           }
+//           else
+//           {
+//               res.send(docs);
+//           }
+//       },
 //       initial: { }
 //     }
 //  );
@@ -269,8 +295,8 @@ router.post('/deletePage',function(req,res,next){
 
 //  console.log(myobj)
     
-// })
 
+});
 
 router.post('/adminlogin', (req,res)=>{
     if(!req.body.username){

@@ -5,20 +5,30 @@ section{
     height: 100%;
     margin: 0;
     padding: 0;
+  
 }
 .sideNavigation
 {
     height: 100%;
     width: 200px;
     text-align: center;
+    cursor:default;
     background:#2c3e50;
     flex-grow: 0;
+    position: fixed; 
+    
 }
 .Contents
 {
     padding-left: 20px;
     background:white;
     flex-grow: 1;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    margin-left: 200px;
+
+     overflow-x: hidden; 
+    /*overflow-y: hidden; */ 
 }
+
+.Contents::-webkit-scrollbar {
+    display: none;
+  }  

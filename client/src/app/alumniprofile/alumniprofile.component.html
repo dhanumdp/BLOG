@@ -10,22 +10,99 @@
   <section *ngIf="!value">
     <div class="sideNavigation">
       <ul class="nav">
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showBlog()" >Blog</a></li>
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  (click)="showProfile()">Profile</a></li>
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showChat()" >Chat</a></li>
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="Logout()">Log Out</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showBlog()" >
+          <i class="fa fa-list" aria-hidden="true"></i> Blog</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  (click)="showProfile()">
+          <i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showChat()" >
+          <i class="fa fa-whatsapp" aria-hidden="true"></i> Chat</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="Logout()">
+          <i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a></li>
      </ul>   
     </div>
     <div class="Contents">
       <div class="row">
         <div>
           <div *ngIf="profile">
-            <h1 class="page-header">Alumni Profile  
-            </h1>
-            <ul class="list-group">
-                <li class="list-group-item">Username : {{username}}</li>
-                <li class="list-group-item">Email: {{email}} </li>
-              </ul>
+           <div class="container">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading " style="display: flex; flex-direction: row; background:#2c3e50;" >
+                    <h1 style="color: white;">Alumni Profile</h1>
+                   </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-7">
+                      <div  class="form-group">
+                        <label for="roll">Username</label>
+                        <input  type="text" #username class="form-control" name="username" id="username"  value=""  disabled>
+                      </div>
+                      <div  class="form-group">
+                        <label for="roll">Password</label>
+                        <input  type="password" #pwd class="form-control" name="pwd" id="pwd"   value="" disabled>
+                      </div>
+                      <div  class="form-group">
+                        <label for="roll">Mail</label>
+                        <input  type="text" #mail class="form-control" name="mail" id="mail"   value="" disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div  class="form-group">
+                        <label for="roll" style="text-align: center;">Name</label>
+                        <input  type="text" #name class="form-control" name="name" id="name"   value="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div  class="form-group">
+                        <label for="roll">Username</label>
+                        <input  type="text" #username class="form-control" name="username" id="username"  value=""  disabled>
+                      </div>
+                      <div  class="form-group">
+                        <label for="roll">Password</label>
+                        <input  type="password" #pwd class="form-control" name="pwd" id="pwd"   value="" disabled>
+                      </div>
+                      <div  class="form-group">
+                        <label for="roll">Mail</label>
+                        <input  type="text" #mail class="form-control" name="mail" id="mail"   value="" disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div  class="form-group">
+                        <label for="roll" style="text-align: center;">Name</label>
+                        <input  type="text" #name class="form-control" name="name" id="name"   value="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div  class="form-group">
+                        <label for="roll">Username</label>
+                        <input  type="text" #username class="form-control" name="username" id="username"  value=""  disabled>
+                      </div>
+                      <div  class="form-group">
+                        <label for="roll">Password</label>
+                        <input  type="password" #pwd class="form-control" name="pwd" id="pwd"   value="" disabled>
+                      </div>
+                      <div  class="form-group">
+                        <label for="roll">Mail</label>
+                        <input  type="text" #mail class="form-control" name="mail" id="mail"   value="" disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div  class="form-group">
+                        <label for="roll" style="text-align: center;">Name</label>
+                        <input  type="text" #name class="form-control" name="name" id="name"   value="">
+                      </div>
+                    </div>
+                  </div>
+                
+                  
+              </div>
+              </div>
+            </div>
+           </div>
           </div>
           <div *ngIf="blog">
             <app-blog></app-blog>

@@ -10,7 +10,8 @@ section{
 {
     height: 100%;
     width: 200px;
-    text-align: center;
+  text-align: center;
+  cursor:default;
     background:#2c3e50;
     flex-grow: 0;
 }

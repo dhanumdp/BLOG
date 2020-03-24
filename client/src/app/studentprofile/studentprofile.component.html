@@ -10,10 +10,15 @@
 <section *ngIf="!value">
     <div class="sideNavigation">
       <ul class="nav">
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showBlog()" >Blog</a></li>
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  (click)="showProfile()">Profile</a></li>
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showChat()" >Chat</a></li>
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="Logout()">Log Out</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showBlog()">
+          <i class="fa fa-list" aria-hidden="true"></i>
+           Blog </a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  (click)="showProfile()">
+          <i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="showChat()" >
+          <i class="fa fa-whatsapp" aria-hidden="true"></i> Chat</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="Logout()">
+          <i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a></li>
      </ul>   
     </div>
     <div class="Contents">
