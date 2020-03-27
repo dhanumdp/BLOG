@@ -1,1 +1,101 @@
-<p>blog works!</p>
+<h1 class="page-header">BLOG FEED</h1>
+<div class="row show hide-message" *ngIf="message && newPost">
+    <div [ngClass]="messageClass">
+        {{message}}
+    </div>
+</div>
+<button type="button" name="button" class="btn btn-warning" *ngIf="!newPost"(click)="newBlogForm()">New Post</button>
+<button [disabled]="loadingBlogs" type="button" name="button" class="btn btn-danger" *ngIf="!newPost"(click)="reloadingBlogs()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Reload</button>
+
+
+<!--NEW BLOG FORM-->
+
+<!--Title-->
+ <form [formGroup]="form"  name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
+    <div class="form-group">
+        <label for="title" >Title</label>
+        <div [ngClass]="{'has-success':form.controls.title.valid,'has-error':form.controls.title.dirty && form.controls.title.errors}">
+
+            <input type="text" name="title" class="form-control" placeholder="Blog Title" autocomplete="off" formControlName="title"/>
+            <ul class="help-block">
+                <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This Field is required</li>
+                <li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength)||(form.controls.title.dirty && form.controls.title.errors?.maxlength)">maxlength:30,minlength:5</li>
+            </ul>
+        </div>
+    </div>
+</form> 
+
+<!--Body-->
+ <form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
+    <div class="form-group">
+        <label for="body" >Body</label>
+        <div [ngClass]="{'has-success':form.controls.body.valid,'has-error':form.controls.body.dirty && form.controls.body.errors}">
+
+           <textarea name="body" rows="8" cols="80" placeholder="body"class="form-control" formControlName="body" ></textarea>
+            <ul class="help-block">
+                <li *ngIf="form.controls. body.dirty && form.controls.body.errors?.required">This Field is required</li>
+                <li *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength)||(form.controls.body.dirty && form.controls.body.errors?.maxlength)">maxlength:500,minlength:5</li>
+            </ul>
+        </div>
+    </div>
+     <!-- <div>
+        <button mat-stroked-button type="button" (click)="filePicker.click()">Upload Image</button>
+        <input type="file" #filePicker (change)="onImagePicked($event)">
+    </div>
+    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+        <img [src]="imagePreview" [alt]="form.value.title">
+    </div>  -->
+
+    <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Go Back</button>
+ <button [disabled]="processing||!form.valid" type="submit" name="button"  class="btn btn-success">Submit</button>
+ 
+</form>
+<!--<input type="file" name = "image" ng2FileSelect [uploader] = "uploader"/>
+
+<button class="btn btn-primary" (click)="uploader.uploadAll()"> Upload an image</button>  -->
+
+
+
+
+
+
+
+
+
+ <div *ngIf="!newPost">
+     <div class="panel panel-primary" *ngFor="let blog of blogPosts">
+        <ul class="list-group">
+            <li class="list-group-item">
+         <div class="panel-heading">
+             <h3 class="panel-title">{{blog.title}}</h3>
+         </div>
+            </li>
+         
+         <li class="list-group-item">
+         <div class="panel-body">
+            {{blog.body}}
+         </div>
+         </li>
+         <li class="list-group-item">
+         <div class="panel-footer">
+             <strong>Posted by:</strong>{{blog.createdBy}}
+             <br/>
+            <strong>Date:</strong>{{blog.createdAt | date:'MMM dd,yyyy'}}
+             <br/>
+         </div>
+         <a [routerLink]="['/edit-blog/',blog._id]" *ngIf="username === blog.createdBy "><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
+         <a [routerLink]="['/delete-blog/',blog._id]"*ngIf="username === blog.createdBy "><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
+        </li>
+            <li class="list-group-item">
+                <!-- <button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment">Comment</button>
+                <br/> -->
+                <!-- <form>
+                    <textarea name="comment" rows="10" cols="30" class="form-control"></textarea>
+                    <button type="button" name="button" class="btn btn-sm btn-info">Submit Post</button>
+                    <button type="button" name="button" class="btn btn-sm btn-danger">Cancel</button>
+                </form> -->
+            </li>
+            <br/>
+        </ul>
+     </div>
+ </div>

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http'
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -26,6 +26,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BlogComponent } from './blog/blog.component';
 import { ChatComponent } from './chat/chat.component';
 import { FacultyprofileComponent } from './facultyprofile/facultyprofile.component';
+import { EditBlogComponent } from './blog/edit-blog/edit-blog.component';
+import { DeleteBlogComponent } from './blog/delete-blog/delete-blog.component';
 
 //import { StudentprofileComponent } from './studentprofile/studentprofile.component';
 
@@ -47,12 +49,15 @@ import { FacultyprofileComponent } from './facultyprofile/facultyprofile.compone
     BlogComponent,
     ChatComponent,
     FacultyprofileComponent,
+    EditBlogComponent,
+    DeleteBlogComponent,
     
    // StudentprofileComponent,
 
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
    ReactiveFormsModule,
    MatSidenavModule, 
