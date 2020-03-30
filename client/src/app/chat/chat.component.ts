@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ChatService} from '../services/chat.service';
+import {ChatService} from '../services/chat.service'
+import {Router} from '@angular/router'
 import {ResourceLoader} from '@angular/compiler'
 import {HttpClient} from '@angular/common/http'
 import{FormGroup} from '@angular/forms'
+
 //import { setTimeout } from 'timers';
 @Component({
   selector: 'app-chat',
@@ -18,8 +20,9 @@ export class ChatComponent implements OnInit {
   messageText:String;
   messageArray:Array<{user:String,message:String}> = [];
   messageArray2:Array<{user:String,message:String}> = [];
-msg ={};
-  constructor(private _chatService:ChatService, private http : HttpClient){
+  msg ={};
+  group = {};
+  constructor(private _chatService:ChatService, private http : HttpClient, private router : Router){
     this._chatService.newUserJoined()
     .subscribe(data=> this.messageArray.push(data)
     );
@@ -27,6 +30,9 @@ msg ={};
      .subscribe(data=>this.messageArray.push(data));
     this._chatService.newMessageReceived()
     .subscribe(data=>this.messageArray.push(data));
+    this._chatService.getGroups().subscribe((res)=>{
+      this.group=res;
+    })
    }
    join(){
      
@@ -38,7 +44,7 @@ msg ={};
     this.joined=true;
 
  
-     this.http.get(`http://localhost:3001/${this.room}`).subscribe((res)=>{
+     this.http.get(`http://localhost:3000/${this.room}`).subscribe((res)=>{
       console.log(res);
       this.msg=(res);
       // this.msg.forEach(element => {
@@ -62,12 +68,7 @@ msg ={};
      // console.log(this.messageArray2);
     })
    
-    var inputs=window.document.getElementsByTagName('input');
-    for(let i=0;i<inputs.length;i++){
-      inputs[i].disabled=true;
-      inputs[i].style.backgroundColor="whitesmoke";
-      }  
-    
+   
     // this.messageArray.pop();
     this.timeOUt();
 }
@@ -88,14 +89,11 @@ leave(){
     // })
 
     var inputs=window.document.getElementsByTagName('input');
-    for(let i=0;i<inputs.length;i++){
-      inputs[i].disabled=false;
-      this.user="";
-      inputs[i].value=""
-      inputs[i].style.backgroundColor="white";
-      } 
+    
     var selector = window.document.getElementsByTagName('select');
     selector[0].value="";
+    this.messageArray=[];
+    
     //  this.messageArray.pop();
 }
 
@@ -103,15 +101,21 @@ sendMessage()
 {
   // $('textarea').filter('[id*=msgbox]').val('');
   // window.document.msgbox.value
+  
+ 
   var area =window.document.getElementsByTagName('textarea');
   area[0].value="";
     this._chatService.sendMessage({user:this.user, room:this.room, message:this.messageText});
     this.messageText="";
 }
 
+
   ngOnInit(): void {
+
     this.joined=false;
-    this.messageArray.pop();
+    this.user=localStorage.getItem('user');
+     this.messageArray.pop();
+this.messageText=""
     var inputs=window.document.getElementsByTagName('input');
   for(let i=0;i<inputs.length;i++){
     inputs[i].disabled=false;
@@ -119,4 +123,3 @@ sendMessage()
   }
 
 }
-

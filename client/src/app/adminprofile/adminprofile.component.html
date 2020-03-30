@@ -25,6 +25,8 @@
         <i class="fa fa-plus-circle" aria-hidden="true"></i> Create Faculty</a></li>
       <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="createPage()" >
         <i class="fa fa-plus-circle" aria-hidden="true"></i> Create Page</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="createGroup()" >
+          <i class="fa fa-plus-circle" aria-hidden="true"></i> Create Group</a></li>
       <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  (click)="deleteClass()">
         <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Class</a></li>
       <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="deleteStudent()" >
@@ -33,6 +35,8 @@
         <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Faculty</a></li>
       <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="deletePage()" >
         <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Page</a></li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="deleteGroup()" >
+          <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Group</a></li>
       <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="Logout()">
         <i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a></li>
    </ul>   
@@ -248,10 +252,7 @@
                           <div class="form-group">
                             <h6 *ngIf="pageCreated" class="alert alert-success" style="font-size: 12px; text-align: center;">Page Created Successfully</h6>
                             <button [disabled]='!form.valid '  class="btn btn-sm btn-success" (click)="pageCreation(batch.value)">Create Page </button>
-              
-                        </div>
-                         
-                           
+                        </div> 
                       </div>  
           
                 </div>
@@ -261,6 +262,43 @@
               </div>
             </div>
         </div>
+        <div *ngIf="cgroup">
+          <div class="container" style="margin-top: 1%;">
+              <div class="panel-group">
+                <div class="panel panel-default">
+                  <div class="panel-heading " style="display: flex; flex-direction: row; background:#2c3e50;" >
+                      <h1 style="color: white;">Create Group</h1>
+                     </div>
+                  <div class="panel-body">
+                            <!-- <input type="button" class="btn btn-success" value="Dashboard" style="margin-left: auto;" (click)="dashboard()"> -->
+                      <div class="row">
+                          <div class="col-md-12 md-offset-4">
+                         
+                            <div class="form-group">
+  
+                              <label for="bg">Batch</label>
+                              <select class="form-control"  #batch  >
+                                  <option disabled hidden>Enter Batch</option>
+                                   <option  *ngFor="let c of col"  value="{{c}}" >{{c}}</option> 
+                                    </select>
+
+                          </div>
+                          <div class="form-group">
+                            <h6 *ngIf="groupCreated" class="alert alert-success" style="font-size: 12px; text-align: center;">Group Created Successfully</h6>
+                            <button [disabled]='!form.valid '  class="btn btn-sm btn-success" (click)="groupCreation(batch.value)">Create Group </button>
+                        </div> 
+                      </div>  
+          
+                </div>
+               
+                </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+
         <div *ngIf="dpage">
           <div class="container" style="margin-top: 1%;">
               <div class="panel-group">
@@ -273,7 +311,7 @@
                       <div class="row">
                           <div class="col-md-12 md-offset-4">
                             <div class="form-group">
-              
+        
                               <label for="bg">Page</label>
                               <select class="form-control"  #page  >
                                   <option disabled hidden>Select Page</option>
@@ -284,6 +322,43 @@
                           <div class="form-group">
                             <h6 *ngIf="pageDeleted" class="alert alert-success" style="font-size: 12px; text-align: center;">Page Deleted Successfully</h6>
                             <button type="submit"  class="btn btn-sm btn-danger" (click)="pageDeletion(page.value)">Delete Page</button>
+    
+                        </div>
+                          
+                      </div>  
+          
+                </div>
+               
+                </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+        <div *ngIf="dgroup">
+          <div class="container" style="margin-top: 1%;">
+              <div class="panel-group">
+                <div class="panel panel-default">
+                  <div class="panel-heading " style="display: flex; flex-direction: row; background:#2c3e50;" >
+                      <h1 style="color: white;">Delete Group</h1>
+                     </div>
+                  <div class="panel-body">
+                            <!-- <input type="button" class="btn btn-success" value="Dashboard" style="margin-left: auto;" (click)="dashboard()"> -->
+                      <div class="row">
+                          <div class="col-md-12 md-offset-4">
+                            <div class="form-group">
+              
+                              <label for="bg">Group</label>
+                              <select class="form-control"  #page  >
+                                  <option disabled hidden>Select Group</option>
+                                   <option *ngFor="let p of group"  value="{{p}}" >{{p}}</option> 
+                                    </select>
+
+                          </div> 
+                          <div class="form-group">
+                            <h6 *ngIf="groupDeleted" class="alert alert-success" style="font-size: 12px; text-align: center;">Group Deleted Successfully</h6>
+                            <button type="submit"  class="btn btn-sm btn-danger" (click)="groupDeletion(page.value)">Delete Group</button>
     
                         </div>
                           

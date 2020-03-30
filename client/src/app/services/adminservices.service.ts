@@ -86,6 +86,7 @@ export class AdminservicesService {
     return this.http.post('http://localhost:3000/admin/deleteFaculty',fac);
   }
 
+
   getPages()
  {
    return this.http.get("http://localhost:3000/admin/getPages");
@@ -94,6 +95,16 @@ export class AdminservicesService {
  deletePage(page)
  {
    return this.http.post('http://localhost:3000/admin/deletePage', page);
+ }
+
+ createGroup(batch)
+ {
+  return this.http.post('http://localhost:3000/admin/createGroup',batch);
+ }
+
+ deleteGroup(page)
+ {
+  return this.http.post('http://localhost:3000/admin/deleteGroup', page);
  }
 
 loggedIn()

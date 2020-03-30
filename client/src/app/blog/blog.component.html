@@ -1,17 +1,31 @@
-<h1 class="page-header">BLOG FEED</h1>
+
+<div class="row" *ngIf="!newPost">
+    <div class="col-md-3 col-md-offset-4">
+        <h1 class="page-header" style="text-align: center; letter-spacing: 10px; font-family: fantasy;">BLOG</h1>
+        <div class="form-group" style="text-align: center; ">
+            Select Page
+            <select class="form-control"  #page  [(ngModel)]="selectedPage"  (click)="PageSelector()" >
+                <option value="MxiansPage">MxiansPage</option>
+                 <option *ngFor="let p of pages"  value="{{p}}" >{{p}}</option> 
+                  </select>
+        </div> 
+    </div>
+</div>
 <div class="row show hide-message" *ngIf="message && newPost">
     <div [ngClass]="messageClass">
         {{message}}
     </div>
 </div>
-<button type="button" name="button" class="btn btn-warning" *ngIf="!newPost"(click)="newBlogForm()">New Post</button>
-<button [disabled]="loadingBlogs" type="button" name="button" class="btn btn-danger" *ngIf="!newPost"(click)="reloadingBlogs()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Reload</button>
+<button type="button" name="button" class="btn btn-warning" *ngIf="!newPost && pageChoosed"(click)="newBlogForm()">New Post</button> 
+
+<button style="margin-left: 1%;" [disabled]="loadingBlogs" type="button" name="button" class="btn btn-danger" *ngIf="!newPost && pageChoosed"(click)="reloadingBlogs()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Reload</button>
 
 
 <!--NEW BLOG FORM-->
 
 <!--Title-->
- <form [formGroup]="form"  name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
+<br><br>
+ <form [formGroup]="form" style="width: 90%; margin-left: 2%;"  name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
     <div class="form-group">
         <label for="title" >Title</label>
         <div [ngClass]="{'has-success':form.controls.title.valid,'has-error':form.controls.title.dirty && form.controls.title.errors}">
@@ -26,7 +40,7 @@
 </form> 
 
 <!--Body-->
- <form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
+ <form [formGroup]="form" style="width: 90%; margin-left: 2%;" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
     <div class="form-group">
         <label for="body" >Body</label>
         <div [ngClass]="{'has-success':form.controls.body.valid,'has-error':form.controls.body.dirty && form.controls.body.errors}">
@@ -38,6 +52,14 @@
             </ul>
         </div>
     </div>
+    <div class="form-group" style="width: 25%;">
+        <label for="bg">To: </label>
+        <select class="form-control" formControlName="page" >
+            <option disabled hidden value="Select Page">Select Page</option>
+            <option value="MxiansPage">MxiansPage</option>
+             <option *ngFor="let p of pages"  value="{{p}}" >{{p}}</option> 
+              </select>
+    </div> 
      <!-- <div>
         <button mat-stroked-button type="button" (click)="filePicker.click()">Upload Image</button>
         <input type="file" #filePicker (change)="onImagePicked($event)">
@@ -55,22 +77,14 @@
 <button class="btn btn-primary" (click)="uploader.uploadAll()"> Upload an image</button>  -->
 
 
-
-
-
-
-
-
-
  <div *ngIf="!newPost">
-     <div class="panel panel-primary" *ngFor="let blog of blogPosts">
+     <div style="width: 98%;" class="panel panel-primary" *ngFor="let blog of blogPosts">
         <ul class="list-group">
             <li class="list-group-item">
-         <div class="panel-heading">
-             <h3 class="panel-title">{{blog.title}}</h3>
+         <div class="panel-heading" style=" background:#2c3e50;">
+             <h3 class="panel-title" style="color: white;">{{blog.title}}</h3>
          </div>
             </li>
-         
          <li class="list-group-item">
          <div class="panel-body">
             {{blog.body}}
@@ -83,8 +97,9 @@
             <strong>Date:</strong>{{blog.createdAt | date:'MMM dd,yyyy'}}
              <br/>
          </div>
-         <a [routerLink]="['/edit-blog/',blog._id]" *ngIf="username === blog.createdBy "><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
-         <a [routerLink]="['/delete-blog/',blog._id]"*ngIf="username === blog.createdBy "><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
+         <br>
+         <a [routerLink]="['/edit-blog/',blog._id]"   *ngIf="username == blog.createdBy "><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
+         <a [routerLink]="['/delete-blog/',blog._id]" style="margin-left: 1%; ;" *ngIf="username == blog.createdBy "><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
         </li>
             <li class="list-group-item">
                 <!-- <button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment">Comment</button>

@@ -15,12 +15,16 @@ export class AlumniprofileComponent implements OnInit {
   username;
   email;
   profile:boolean;
+  alumni;
+  
   blog:boolean;
+  fileSelected:File;
   chat : boolean;
   local;
   value : boolean;
   ngOnInit() {
     this.nav.hide();
+    
     this.blog=true;
     this.profile=false;
     this.chat=false;
@@ -34,6 +38,28 @@ export class AlumniprofileComponent implements OnInit {
        this.value = true;
      }
   }
+  setVisible(){
+    window.document.getElementById("imageFile").style.visibility="visible" 
+    window.document.getElementById("editImage").style.visibility="hidden" 
+  }
+  updateStudentImage(){
+    window.document.getElementById("updateImage").style.visibility="hidden"       
+    window.document.getElementById("imageFile").style.visibility="hidden"       
+    window.document.getElementById("editImage").style.visibility="visible"       
+    }
+
+    changeListener(event : any){
+      if (event.target.files && event.target.files[0]) {
+        this.fileSelected = event.target.files[0]
+        var reader = new FileReader();
+        reader.onload = (event:any) => {
+          window.document.getElementById("updateImage").style.visibility="visible"
+          this.alumni = event.target.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        event.preventDefault()
+      }
+    }
   showBlog()
   {
     this.blog=true;

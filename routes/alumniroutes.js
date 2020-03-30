@@ -110,7 +110,7 @@ router.post('/alumnilogin', (req,res)=>{
 
                             const token = jwt.sign({ userId: user._id}, config.secret, {expiresIn : '24h'} );
                              
-                            res.json({success:true, message: "Success!", token: token, user:{username:user.username}});
+                            res.json({success:true, message: "Success!", token: token, user:user.username});
                         }
                     }
                 }

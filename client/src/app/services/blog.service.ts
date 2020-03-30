@@ -35,11 +35,9 @@ export class BlogService {
   this.createAuthenticationHeaders();
   return this.http.post(this.baseURL+'/newPost',blog,this.options);
 }
-getAllBlogs(){
+getAllBlogs(page){
   this.createAuthenticationHeaders();
-  return this.http.get(this.baseURL+'/getPosts',this.options);
-
-
+  return this.http.get(this.baseURL+`/getPosts/${page}`,this.options);
 }
 getSingleBlogs(id)
 {

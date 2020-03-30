@@ -22,6 +22,7 @@
     </div>
     <div class="Contents">
       <div class="row">
+        
         <div>
           <div *ngIf="profile">
            <div class="container">
@@ -32,7 +33,7 @@
                    </div>
                 <div class="panel-body">
                   <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                       <div  class="form-group">
                         <label for="roll">Username</label>
                         <input  type="text" #username class="form-control" name="username" id="username"  value=""  disabled>
@@ -45,12 +46,25 @@
                         <label for="roll">Mail</label>
                         <input  type="text" #mail class="form-control" name="mail" id="mail"   value="" disabled>
                       </div>
-                    </div>
-                    <div class="col-md-5">
                       <div  class="form-group">
-                        <label for="roll" style="text-align: center;">Name</label>
-                        <input  type="text" #name class="form-control" name="name" id="name"   value="">
+                        <label for="roll">Mail</label>
+                        <input  type="text" #mail class="form-control" name="mail" id="mail"   value="" disabled>
                       </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div  style="text-align: center;"> 
+                        <h4 style="text-align: center;">Profile Picture</h4>
+                             <img src="{{alumni}}"class ="img-thumbnail img-responsive" id="studentImage" style="max-width:200px;max-height:200px;min-height:200px;min-width:200px"/>
+                             <br>
+                             <br>
+                             <button class="btn btn-info btn-xs" type="button" (click)="setVisible()" id="editImage" style="margin-left
+                             : 15%;">Edit</button> 
+                             <button class="btn btn-success btn-xs"(click)="updateStudentImage()" id="updateImage" style="visibility:hidden">Update</button>
+                             <br>
+                             <br>
+                             <input type="file" accept="image/*" class="bg-success" style="margin-left: 15%;" id="imageFile" (change)="changeListener($event)"  style="visibility:hidden" >
+                             <br>
+                     </div>
                     </div>
                   </div>
                   <div class="row">

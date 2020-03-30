@@ -5,7 +5,8 @@ var express = require ('express');
 var router = express.Router();
 
     router.post('/newPost',(req,res)=>{
-        var mxians = req.body.mxians+"Page";
+
+        var mxians = req.body.mxians;
         if(!req.body.title){
             res.json({successs:false,message:'Blog title is required'});
 
@@ -71,8 +72,11 @@ var router = express.Router();
             }
         }
     });
-    router.get('/getPosts',(req,res)=>{
-        Blog.find({},(err,blog)=>{
+
+    router.get('/getPosts/:page',(req,res)=>{
+
+        var collection=mongoose.connection.db.collection(req.params.page);
+        collection.find({}).sort({'_id':-1}).toArray((err,blog)=>{
             if(err)
             {
                 res.json({success:false,message:err});
@@ -85,14 +89,36 @@ var router = express.Router();
                     res.json({success:true,blog:blog});
                 }
             }
-        }).sort({'_id':-1});
+        })
+
+
+
+
+
+        // Blog.find({},(err,blog)=>{
+        //     if(err)
+        //     {
+        //         res.json({success:false,message:err});
+
+        //     }else{
+        //         if(!blog){
+        //             res.json({success:false,message:'No Blog found'});
+        //         }
+        //         else{
+        //             res.json({success:true,blog:blog});
+        //         }
+        //     }
+        // }).sort({'_id':-1});
 
     });
    router.get('/getPost/:id',(req,res)=>{
        if(!req.params.id){
            res.json({success:false,message:'No blog was provided.'});
        }else{
-          Blog.findOne({_id:req.params.id},(err,blog)=>{
+
+        var collection=mongoose.connection.db.collection("MxiansPage");
+        collection.findOne({_id:req.params.id},(err,blog)=>{
+       
               if(err){
                   res.json({success:false,message:'Not a valid blog id'});
               }else{
@@ -105,8 +131,7 @@ var router = express.Router();
 }
               });
             }
-            });
-   
+});
    router.put('/updatePost',(req,res)=>{
        if(!req.body._id){
            res.json({success:false,message:'No blog id provided'});

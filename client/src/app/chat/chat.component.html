@@ -1,4 +1,6 @@
 
+  
+
 
 
 <div class="container">
@@ -14,15 +16,13 @@
         <div class="col-sm-5">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input #username type="text" [(ngModel)]="user" class="form-control"  id="username" placeholder="Enter Username" required>
+                <input #username disabled type="text" [(ngModel)]="user" class="form-control"  id="username" placeholder="Enter Username" required>
             </div>
         </div>
         <div class="col-sm-5">
             <label for="roomInput">Choose Group</label>
             <select #grp name="roomInput" id="roomInput" class="form-control" [(ngModel)]="room"  required>
-                <option value="17MX">17MX</option>
-                <option value="18MX">18MX</option>
-                <option value="19MX">19MX</option>
+                <option *ngFor="let g of group" value="{{g}}">{{g}}</option>
             </select>
         </div>
         <div class="col-sm-2">
@@ -31,8 +31,6 @@
                 
                 <button type="button" [disabled]="!grp.value || !username.value" class="btn btn-danger"(click)="leave()" style="margin-left: 2%;">LEAVE</button>
             </div>
-           
-
         </div>
     </div>
     <br><br>

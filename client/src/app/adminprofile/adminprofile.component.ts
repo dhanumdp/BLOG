@@ -3,6 +3,7 @@ import {Router} from '@angular/router'
 import {AdminservicesService } from '../services/adminservices.service'
 import {StudentService} from '../services/student.service'
 import { NavbarService } from '../services/navbar.service';
+import {ChatService} from '../services/chat.service';
 
 @Component({
   selector: 'app-adminprofile',
@@ -12,10 +13,12 @@ import { NavbarService } from '../services/navbar.service';
 export class AdminprofileComponent implements OnInit {
   col={};
 pages={};
+group={};
   constructor(
 
    private adminService: AdminservicesService,
    private router : Router,
+   private chatService : ChatService,
    private studentService : StudentService,
    public nav : NavbarService
   ) {
@@ -28,6 +31,8 @@ pages={};
   classDeleted : boolean;
   facultyCreated : boolean;
   pageCreated : boolean;
+  groupCreated:boolean;
+  groupDeleted : boolean;
   studentDeleted : boolean;
   facultyDeleted : boolean ;
   pageDeleted: boolean;
@@ -39,6 +44,8 @@ pages={};
   dfaculty:boolean;
   cpage : boolean;
   dpage : boolean;
+  cgroup:boolean;
+  dgroup:boolean;
   ngOnInit() {
 
    this.getColl();
@@ -50,6 +57,9 @@ pages={};
     this.studentDeleted = false;
     this.facultyDeleted=false;
     this.pageDeleted = false;
+    this.groupCreated=false;
+    this.groupDeleted=false;
+    
     this.adminService.getAdminProfile().subscribe(data=>{
         this.username = data['user'].username;
     })
@@ -84,6 +94,8 @@ this.cfaculty=false;
 this.dfaculty=false;
 this.cpage=false;
 this.dpage=false;
+this.cgroup=false;
+this.dgroup=false;
   }
   classCreation(mxian : string, prefix : string, sroll : number, eroll : number)
   {
@@ -108,6 +120,8 @@ this.dpage=false;
     this.cfaculty=false;
     this.dfaculty=false;
     this.cpage=false;
+    this.cgroup=false;
+this.dgroup=false;
     this.dpage=false;
   }
   classDeletion( mxian : String)
@@ -130,6 +144,8 @@ this.dpage=false;
 this.dclass=false;
 this.cstudent=true;
 this.cfaculty=false;
+this.cgroup=false;
+this.dgroup=false;
 this.dfaculty=false;
 this.cpage=false;
 this.dpage=false;
@@ -155,6 +171,8 @@ this.dpage=false;
   {
     this.cclass=false;
     this.dclass=false;
+    this.cgroup=false;
+this.dgroup=false;
     this.cstudent=false;
     this.cfaculty=true;
     this.dfaculty=false;
@@ -179,6 +197,8 @@ this.dpage=false;
   {
     this.cclass=false;
     this.dclass=false;
+    this.cgroup=false;
+this.dgroup=false;
     this.cstudent=false;
     this.cfaculty=false;
     this.dfaculty=true;
@@ -207,13 +227,15 @@ this.dpage=false;
     this.cstudent=false;
     this.cfaculty=false;
     this.dfaculty=false;
+    this.cgroup=false;
+    this.dgroup=false;
     this.cpage=true;
     this.dpage=false;
   }
 
   pageCreation(bat : string)
   {
-    let page = {
+    let page={
       batch : bat
     }
     this.adminService.createPage(page).subscribe((res)=>{
@@ -235,6 +257,8 @@ this.dpage=false;
     this.cfaculty=false;
     this.dfaculty=false;
     this.cpage=false;
+    this.cgroup=false;
+this.dgroup=false;
     this.dpage=true;
   }
   pageDeletion(p : String)
@@ -248,6 +272,65 @@ this.dpage=false;
       setTimeout(()=>{
         this.pageDeleted=false;
         this.deletePage();
+      },1000)
+    })
+  }
+  createGroup()
+  {
+    this.getColl();
+    this.cclass=false;
+    this.dclass=false;
+    this.cstudent=false;
+    this.cfaculty=false;
+    this.dfaculty=false;
+    this.cgroup=true;
+    this.dgroup=false;
+    this.cpage=false;
+    this.dpage=false;
+  }
+
+  groupCreation(bat : string)
+  {
+    let page = {
+      batch : bat
+    }
+    this.adminService.createGroup(page).subscribe((res)=>{
+      this.groupCreated=true;
+      setTimeout(()=>{
+        this.groupCreated=false;
+      },1000)
+    })
+  }
+  
+
+
+  deleteGroup()
+  {
+    this.chatService.getGroups().subscribe((res)=>{
+      this.group=res;
+    })
+    this.cclass=false;
+    this.dclass=false;
+    this.cstudent=false;
+    this.cfaculty=false;
+    this.dfaculty=false;
+    this.cpage=false;
+    this.cgroup=false;
+    this.dgroup=true;
+    this.dpage=false;
+  }
+
+  groupDeletion(p : String)
+  {
+    let page = {
+      page : p
+    }
+
+    this.adminService.deleteGroup(page).subscribe((res)=>{
+      this.groupDeleted = true;
+      setTimeout(()=>{
+        this.groupDeleted=false;
+        this.deleteGroup();
       },1000)
     })
   }

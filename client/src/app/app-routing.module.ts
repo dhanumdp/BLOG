@@ -14,6 +14,8 @@ import { StudentprofileComponent } from './studentprofile/studentprofile.compone
 import { BlogComponent } from './blog/blog.component';
 import { ChatComponent } from './chat/chat.component';
 import { FacultyprofileComponent } from './facultyprofile/facultyprofile.component';
+import { EditBlogComponent } from './blog/edit-blog/edit-blog.component';
+import { DeleteBlogComponent } from './blog/delete-blog/delete-blog.component';
 
 
 const routes: Routes = [
@@ -73,12 +75,21 @@ component:HomeComponent
   component:BlogComponent
 },
 {
+  path:'edit-blog/:id',
+  component:EditBlogComponent
+},
+{
+  path:'delete-blog/:id',
+  component:DeleteBlogComponent
+},
+{
   path:'chat',
   component:ChatComponent
 }
 ];
 
 @NgModule({
+  
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   bootstrap:[]

@@ -1,13 +1,17 @@
 import { Injectable } from "@angular/core";
 import * as io from 'socket.io-client';
+import {HttpClient} from '@angular/common/http'
 import {Observable} from 'rxjs';
+import { format } from 'url';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 
 export class ChatService{
 
     private socket = io('http://localhost:3001');
-
+    constructor( private http : HttpClient) { }
     joinRoom(data)
     {
         this.socket.emit('join',data);
@@ -86,4 +90,10 @@ export class ChatService{
 
         return observable;
     }
+
+    
+  getGroups()
+  {
+    return this.http.get('http://localhost:3000/chat/getGroups');
+  }
 }

@@ -42,7 +42,7 @@ router.post('/facultylogin', (req,res)=>{
                           {
   
                               const token = jwt.sign({ userId: user._id}, config.secret, {expiresIn : '24h'} );
-                              res.json({success:true, message: "Success!", token: token,user:user.Username});
+                              res.json({success:true, message: "Success!", token: token,user:user.Name});
                           }
                       }
                   }

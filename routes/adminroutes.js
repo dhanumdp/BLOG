@@ -113,8 +113,7 @@ router.post("/createFaculty",function(req,res,next){
         'Phone_Number':'',
         'Email':'',
         "Year_of_Joining":'',
-        "Blood_Group":"",
-        "Qualifications":[],
+        "Blood_Group":""
     });
     collection.findOne({'Username':username}, (err,docs)=>{
        if(err)
@@ -135,7 +134,8 @@ router.post("/createFaculty",function(req,res,next){
             'Email':'',
             "Year_of_Joining":'',
             "Blood_Group":"",
-            "Qualifications":[]}},
+            }
+        },
              { $upsert: true },function(err, result) {
                 if(err){
                 console.log(err)
@@ -191,6 +191,23 @@ router.post('/createPage', function(req,res,next){
 })
 
 
+//createGroup
+router.post('/createGroup', function(req,res,next){
+    var mxians=req.body.batch;
+    console.log(mxians);
+    mongoose.connection.db.createCollection(mxians+"Group",function(err){
+        if(!err)
+        {
+            res.json('Hurray');
+        }
+        else
+        {
+            res.json('OOPS');
+        }
+    })
+})
+
+
 
 var c=[];
 
@@ -231,10 +248,25 @@ router.post('/deletePage',function(req,res,next){
             res.json("Hurray");
         }
     })
-
-    
-
 });
+
+
+//delete group
+router.post('/deleteGroup',function(req,res,next){
+    var mxians=req.body.page;
+    var collection = mongoose.connection.db.collection(mxians);
+    collection.drop({},function(err,result){
+        if(err){
+            console.log("Delete Page Error:  "+err)
+            res.json("Oops");
+        }
+        else{
+            res.json("Hurray");
+        }
+    })
+});
+
+
 
 
 //getStudentRollNo

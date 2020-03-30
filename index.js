@@ -27,6 +27,7 @@ const adminRoutes= require('./routes/adminroutes');
 const studentRoutes = require ('./routes/studentroutes');
 const facultyRoutes = require('./routes/facultyroutes');
 const blogRoutes = require ('./routes/blogroutes');
+const chatRoutes = require('./routes/chatRoutes');
 const bodyParser = require('body-parser');
 const cors=require('cors');
 app.use(bodyParser.json());
@@ -46,7 +47,7 @@ app.use('/admin',adminRoutes);
 app.use('/faculty',facultyRoutes);
 app.use('/student',studentRoutes);
 app.use('/blog', blogRoutes);
-
+app.use('/chat', chatRoutes);
 
 //chat Module
 
@@ -54,7 +55,7 @@ let http = require('http');
 
 let server = http.Server(app);
 server.listen(3001, () => {
-    console.log("Chat running in 3001");
+    console.log("Chat running in #3001");
    
 });
 
