@@ -6,7 +6,8 @@ var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch'); 
 const User = require('../models/faculty');
 const config= require('../config/db');
-
+var app = express();
+var multer=require('multer');
 
 router.post('/facultylogin', (req,res)=>{
     if(!req.body.Username){
@@ -55,7 +56,7 @@ router.post('/facultylogin', (req,res)=>{
     user = req.body.user;
    // console.log(user);
         var collection = mongoose.connection.db.collection("Faculty");
-        collection.findOne({'Username':user.Username }, (err,doc)=>{
+        collection.findOne({'Name':user.Name }, (err,doc)=>{
             if(err)
                 res.json({success : false, message : "Error in retrieving student details"});
             else    
@@ -74,7 +75,7 @@ router.post('/facultylogin', (req,res)=>{
     var data = {};
     data=req.body.value;
     //delete data['_id'];
-    collection.updateOne({"Username": req.body.Username },
+    collection.updateOne({"Name": req.body.Name },
     { $set: req.body.value },
     { $upsert: true },
     function(err, result) {
@@ -87,6 +88,39 @@ router.post('/facultylogin', (req,res)=>{
         res.json("1")
     }
     });
+});
+
+
+
+const DIR='./public/uploads';
+app.use(express.static(__dirname+'/public/uploads/'));
+
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+});
+
+let upload = multer({storage: storage});
+
+router.post('/uploadPhoto', upload.single('photo'), (req, res) => {
+  if(!req.file) {
+    //console.log("No File Received");
+    res.send("No File is Received Select one to Upload");
+  } else {
+    console.log("File Received");
+    let file = req.file;
+    //console.log(file);
+    res.send (file.filename);
+    //console.log(res);
+  }
+});
+
+router.get('/public/uploads/:imgurl', (req, res) => {
+    res.sendFile(req.params.imgurl, {root: './public/uploads/'});
 });
 
   

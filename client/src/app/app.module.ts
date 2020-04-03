@@ -8,6 +8,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './studentprofile/dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
+// import { FileUploadModule } from "ng2-file-upload"; 
+import { FileSelectDirective } from "ng2-file-upload";
 import { AuthService } from './services/auth.service';
 //import { StudentloginComponent } from './studentlogin/studentlogin.component';
 import { FacultyloginComponent } from './facultylogin/facultylogin.component';
@@ -40,8 +42,10 @@ import { DeleteBlogComponent } from './blog/delete-blog/delete-blog.component';
     RegisterComponent,
     //StudentloginComponent,
     FacultyloginComponent,
+    FileSelectDirective,
     AlumniloginComponent,
     AdminloginComponent,
+        
     AlumniprofileComponent,
     AdminprofileComponent,
     StudentloginComponent,

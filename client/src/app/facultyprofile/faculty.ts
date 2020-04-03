@@ -1,4 +1,5 @@
 export class Faculty {
+    Photo:String;
     Name:String;
 Role:String;
 Username:String;

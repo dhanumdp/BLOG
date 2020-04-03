@@ -1,6 +1,6 @@
 var express=require('express');
 var app=express();   
-
+var multer = require('multer');
 
 
 app.listen(3000,function(){
@@ -52,6 +52,7 @@ app.use('/chat', chatRoutes);
 //chat Module
 
 let http = require('http');
+app.use(bodyParser.urlencoded({extended:true}))
 
 let server = http.Server(app);
 server.listen(3001, () => {
@@ -180,4 +181,37 @@ io.on('connection', (socket) => {
     })
 
 });
+
+
+const DIR='./public/uploads';
+app.use(express.static(__dirname+'/public/uploads/'));
+
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+});
+
+let upload = multer({storage: storage});
+
+app.post('/student/uploadPhoto', upload.single('photo'), (req, res) => {
+  if(!req.file) {
+    //console.log("No File Received");
+    res.send("No File is Received Select one to Upload");
+  } else {
+    //console.log("File Received");
+    let file = req.file;
+    //console.log(file);
+    res.send (file.filename);
+    //console.log(res);
+  }
+});
+
+app.get('/api/public/uploads/:imgurl', (req, res) => {
+    res.sendFile(req.params.imgurl, {root: './public/uploads/'});
+});
+
 

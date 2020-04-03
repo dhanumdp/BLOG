@@ -32,9 +32,29 @@
                        </div>
                     <div class="panel-body">
                               <!-- <input type="button" class="btn btn-success" value="Dashboard" style="margin-left: auto;" (click)="dashboard()"> -->
-                        <button  type="button" id="editInfo" (click)="setUpdateVisible()" class="btn btn-sm btn-info">Edit</button>
+                        <button  type="button" id="editInfo" (click)="setUpdateVisible()" style="margin-left: 90%;" class="btn btn-sm btn-info">Edit</button>
                         <br><br>
                         <div class="row" *ngIf="facultyService.fac">
+                          <div class="col-md-12 col-md-offset-5">
+
+                            <div  class="form-group">
+                             
+                             <label #name for="roll" style="margin-left: 6%;">{{facultyService.fac.Name}}</label>
+                           
+                                   </div>
+                            <div class="form-group">
+                              <img  src="{{facultyService.fac.Photo}}"  class ="img-thumbnail img-responsive"  style="max-width:200px;max-height:200px;min-height:200px;min-width:200px" />
+       
+                            
+                             <button type="button" class="bnt btn-info btn-xs" id="uploadimage"  style="visibility: hidden;" (click) = "uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                                   Upload an Image</button>
+ 
+                                   <input type="file" name="image" id="selectImage" ng2FileSelect [uploader]="uploader" style="visibility: hidden;"/>
+ 
+                          </div>
+                                 
+                              
+                         </div> 
                             <div class="col-md-4">
                                 <div  class="form-group">
                                 <label for="roll">Faculty Id</label>
@@ -44,21 +64,19 @@
                                 <label for="pass">Password</label>
                                 <input type="password"  #pwd class="form-control"  name="pass" id="pass"  value="{{facultyService.fac.Password}}" disabled>
                             </div>
-                            <div class="form-group">
-                                <label for="batch">Name</label>
-                                <input type="text" #name class="form-control" name="name" id="name"  disabled  value="{{facultyService.fac.Name}}">
-                            </div>
+                            
                             <div class="form-group">
                                 <label for="name">Role</label>
                                 <input type="text" class="form-control" #role name="role" id="role"  value="{{facultyService.fac.Role}}" disabled>
                             </div>
+                            <div class="form-group">
+                              <label for="dob">Date Of Birth</label>
+                              <input type="date" class="form-control" name="dob"  #dob  value="{{facultyService.fac.DOB}}" id="dob" disabled>
+                          </div>
                             
                         </div>  
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="dob">Date Of Birth</label>
-                                <input type="date" class="form-control" name="dob"  #dob  value="{{facultyService.fac.DOB}}" id="dob" disabled>
-                            </div>
+                            
                             <div class="form-group">
                                 <label for="adrs">Address</label>
                                 <input type="text" class="form-control" #address  name="adrs" id="adrs"  value="{{facultyService.fac.Address}}" disabled>
@@ -76,15 +94,16 @@
                                 <label for="email">Email</label>
                                 <input type="text" class="form-control" #email name="email" id="email"   value="{{facultyService.fac.Email}}" disabled>
                             </div>
+                            <div class="form-group">
+                              <label for="phno">Phone Number</label>
+                              <input type="text" class="form-control" #phone  name="phno" id="phno"   value="{{facultyService.fac.Phone_Number}}" disabled>
+                          </div>
                           
                             
                         </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="phno">Phone Number</label>
-                                <input type="text" class="form-control" #phone  name="phno" id="phno"   value="{{facultyService.fac.Phone_Number}}" disabled>
-                            </div>
+                            
                             
                             <div class="form-group">
                                 <label for="fac">Year Of Joining</label>

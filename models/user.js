@@ -73,6 +73,7 @@ const usernameValidators=[
      }
 ]
 const  userScheama = new Schema({
+     photo:{type:String},
      email : {type : String, required:true , unique:true, lowercase:true, validate:emailValidators},
      username : {type : String, required:true , unique:true, lowercase:true, validate : usernameValidators},
      password : {type : String, required:true }

@@ -20,10 +20,9 @@ router.post("/createClass",function(req,res,next){
             {
                 var a;
                 for (i = start; i <= end; i++) {  
-                    
                     a=i;
                     myobj.push({
-                        
+                        "Photo":"assets/images/student_icon.png",
                         "Roll_No":prefix+a,
                         "Password":prefix+a,
                         "Class_Prefix":prefix,
@@ -103,6 +102,7 @@ router.post("/createFaculty",function(req,res,next){
     var myobj=[];
     var collection = mongoose.connection.db.collection("Faculty");
     myobj.push({
+        "Photo":"assets/images/staff_icon.png",
         "Name":name,
         "Role":'',
         "Username":username,

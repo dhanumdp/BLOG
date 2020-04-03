@@ -41,7 +41,9 @@ export class BlogComponent implements OnInit {
   ngOnInit() {
     this.username=localStorage.getItem('user');
     //this.getAllBlogs();
+    this.selectedPage="MxiansPage"
     this.pageChoosed=false;
+    this.getAllBlogs();
     //this.selectedPage="MxiansPage";
     this.newPost=false;
     this.adminService.getPages().subscribe((doc)=>{
@@ -144,11 +146,7 @@ export class BlogComponent implements OnInit {
   getAllBlogs(){
     this.blogService.getAllBlogs(this.selectedPage).subscribe(data=>{
       this.blogPosts=data['blog'];
-      setTimeout(()=>{
-  
-        this.pageChoosed=true;
-      },1000)  
-     
+     this.pageChoosed=true;  
     });
   }
 

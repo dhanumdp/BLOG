@@ -96,13 +96,10 @@ leave(){
     
     //  this.messageArray.pop();
 }
-
 sendMessage()
 {
   // $('textarea').filter('[id*=msgbox]').val('');
   // window.document.msgbox.value
-  
- 
   var area =window.document.getElementsByTagName('textarea');
   area[0].value="";
     this._chatService.sendMessage({user:this.user, room:this.room, message:this.messageText});

@@ -27,6 +27,7 @@ router.post('/register',function(req,res){
             else
             {
                 let user = new User({
+                    photo:"assets/images/alumni.png",
                     email:req.body.email.toLowerCase(),
                     username:req.body.username.toLowerCase(),
                     password:req.body.password

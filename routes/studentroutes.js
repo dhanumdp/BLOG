@@ -1,9 +1,14 @@
 const express = require ('express');
+var app=express();
 const router = express.Router();
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+var fs = require('fs');
+var path = require('path');
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch'); 
+
+var multer = require('multer');
 //const student = require('../models/student');
 const config= require('../config/db');
 
@@ -86,6 +91,8 @@ router.post('/studentlogin', (req,res)=>{
         }
     }
   })
+
+
   //get student details (body can't be sent through GET request.. so POST is used here )
   router.post('/getdetails', function(req,res){
     user = req.body.user;
@@ -172,6 +179,38 @@ router.post("/updatedetails",function(req,res){
         res.json("1")
     }
     });
+});
+
+
+const DIR='./public/uploads';
+app.use(express.static(__dirname+'/public/uploads/'));
+
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+});
+
+let upload = multer({storage: storage});
+
+router.post('/uploadPhoto', upload.single('photo'), (req, res) => {
+  if(!req.file) {
+    //console.log("No File Received");
+    res.send("No File is Received Select one to Upload");
+  } else {
+    //console.log("File Received");
+    let file = req.file;
+    //console.log(file);
+    res.send (file.filename);
+    //console.log(res);
+  }
+});
+
+router.get('/public/uploads/:imgurl', (req, res) => {
+    res.sendFile(req.params.imgurl, {root: './public/uploads/'});
 });
 
 

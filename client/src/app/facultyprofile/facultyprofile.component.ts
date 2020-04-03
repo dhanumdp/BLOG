@@ -2,21 +2,37 @@ import { Component, OnInit } from '@angular/core';
 import { NavbarService } from '../services/navbar.service';
 import { Router } from '@angular/router';
 import { FacultyService } from '../services/faculty.service';
+import {
+  FileSelectDirective,
+  FileDropDirective,
+  FileUploader
+} from "ng2-file-upload";
 
+const URL = 'http://localhost:3000/faculty/uploadPhoto';
+
+const path = 'http://localhost:3000/faculty/public/uploads';
 @Component({
   selector: 'app-facultyprofile',
   templateUrl: './facultyprofile.component.html',
   styleUrls: ['./facultyprofile.component.css']
 })
-export class FacultyprofileComponent implements OnInit {
 
-  constructor( private facultyService:FacultyService , private router : Router, public nav : NavbarService) { }
+export class FacultyprofileComponent implements OnInit {
+  
+
+  constructor( private facultyService:FacultyService , private router : Router, public nav : NavbarService) { 
+
+    this.uploader = new FileUploader({ url: URL, itemAlias: "photo" });
+  }
   username;
   email;
   profile:boolean;
   blog:boolean;
   updated:boolean;
   chat : boolean;
+  urldata:string;
+  imgurl:string;
+  uploader : FileUploader;
   local;
   value : boolean;
   blood=[
@@ -45,18 +61,36 @@ newFaculty={};
    {
      this.value = true;
    }
+   this.uploader.onAfterAddingFile = file => {
+    file.withCredentials = false;
+  };
+  this.uploader.onCompleteItem = (
+    item: any,
+    res: any,
+    status: any,
+    headers: any
+  ) => {
+    //console.log(res);
+    this.urldata = res;
+    this.imgurl = path + "/" + res;
+     this.faculty[0].Photo=this.imgurl;
+     this.facultyService.fac.Photo=this.imgurl;
+    //console.log(this.imgurl);
+  };
   }
 
   getDetails()
   {
     //this.username = data['user'].username;
     const user={
-      Username:this.username
+      Name:this.username
     }
     this.facultyService.getdetails(user).subscribe(res  =>{
       //console.log(res);
       this.faculty.push(res);
-      this.facultyService.fac={
+      this.facultyService.fac= 
+      {
+        Photo:this.faculty[0].Photo,
         Name:this.faculty[0].Name,  
         Role:this.faculty[0].Role,
         Username:this.faculty[0].Username,
@@ -75,6 +109,8 @@ newFaculty={};
   setUpdateVisible(){
     window.document.getElementById("updateInfo").style.visibility="visible" 
     window.document.getElementById("editInfo").style.visibility="hidden" 
+    window.document.getElementById("selectImage").style.visibility="visible"
+    window.document.getElementById("uploadimage").style.visibility="visible"
     var inputs=window.document.getElementsByTagName('input');
   for(let i=0;i<inputs.length;i++){
     if(i==1|| i>1)
@@ -92,6 +128,7 @@ newFaculty={};
     //name.value,dob.value, father.value,mother.value, gender.value, email.value, address.value,phone.value,income.value, religion.value,caste.value,blood.value
     //console.log(roll);
     this.newFaculty={
+      "Photo":this.imgurl,
       "Name" : name,
       "Role" : role,
       "Username" : facid,
@@ -105,10 +142,12 @@ newFaculty={};
       "Blood_Group":bloodgrp,
     }
     const updateUser = {
-      Username:this.username,
+      Name:this.username,
       value : this.newFaculty
     }
    // console.log(this.newFaculty);
+   window.document.getElementById("selectImage").style.visibility="hidden"
+    window.document.getElementById("uploadimage").style.visibility="hidden"
     window.document.getElementById("updateInfo").style.visibility="hidden" 
     this.facultyService.updateDetails(updateUser).subscribe(res  =>{
     

@@ -1,6 +1,6 @@
 
 export class Student {
-
+    Photo : String;
     Roll_No : String;
     Password : String;
     Class_Prefix : String;

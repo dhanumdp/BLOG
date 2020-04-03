@@ -3,8 +3,23 @@ import {Router} from '@angular/router'
 import {StudentService}  from '../services/student.service'
 import {NavbarService} from '../services/navbar.service'
 import {MatSnackBarModule, MatSnackBar} from '@angular/material/snack-bar'
+import { HttpClient } from '@angular/common/http';
+import {
+  FileSelectDirective,
+  FileDropDirective,
+  FileUploader
+} from "ng2-file-upload";
+
+
+const URL = 'http://localhost:3000/student/uploadPhoto';
+
+const path = 'http://localhost:3000/student/public/uploads';
 //import { get } from 'https';
 //import {Student} from './student';
+
+// import {
+//   FileSelectDirective, FileUploader
+// } from 'ng2-file-upload';
 
 
 @Component({
@@ -14,7 +29,10 @@ import {MatSnackBarModule, MatSnackBar} from '@angular/material/snack-bar'
 })
 export class StudentprofileComponent implements OnInit {
 
-  constructor( private studentService : StudentService, private router : Router , public nav : NavbarService, private snack : MatSnackBar) { }
+  constructor( private studentService : StudentService, private router : Router , public nav : NavbarService, private http : HttpClient) { 
+  
+    this.uploader = new FileUploader({ url: URL, itemAlias: "photo" });
+  }
 
   profile:boolean;
   blog:boolean;
@@ -22,7 +40,10 @@ export class StudentprofileComponent implements OnInit {
   username;
   updated : boolean;
   batch;
+  imgurl : string;
   value : boolean;
+  uploader : FileUploader;
+  urldata : string;
   local;
   blood=[
     {"name":"O negative"},
@@ -48,11 +69,35 @@ newStudent={};
   {
     this.value = true;
   }
-  this.getDetails();
+      this.getDetails();
+
+  this.uploader.onAfterAddingFile = file => {
+    file.withCredentials = false;
+  };
+  this.uploader.onCompleteItem = (
+    item: any,
+    res: any,
+    status: any,
+    headers: any
+  ) => {
+    //console.log(res);
+    this.urldata = res;
+    this.imgurl = path + "/" + res;
+     this.student[0].Photo=this.imgurl;
+     this.studentService.stud.Photo=this.imgurl;
+    //console.log(this.imgurl);
+  };
   }
+
+ 
+
+
+
+    
 
   getDetails()
   {
+
     const user={
       mxians:this.batch,
       rollno:this.username
@@ -63,6 +108,7 @@ newStudent={};
      this.student.push(res);
       //console.log(this.student[0]);
       this.studentService.stud = {
+        Photo:this.student[0].Photo,
         Roll_No : this.student[0].Roll_No,
         Password : this.student[0].Password,
         Class_Prefix : this.student[0].Class_Prefix,
@@ -89,6 +135,8 @@ newStudent={};
     
   }
   setUpdateVisible(){
+    window.document.getElementById("selectImage").style.visibility="visible"
+    window.document.getElementById("uploadimage").style.visibility="visible"
     window.document.getElementById("updateInfo").style.visibility="visible" 
     window.document.getElementById("editInfo").style.visibility="hidden" 
     var inputs=window.document.getElementsByTagName('input');
@@ -107,7 +155,7 @@ newStudent={};
     this.student.pop();
     this.router.navigate(['/studentlogin'])
   }
-  updateDetails(rollno : String, pwd : String, pre : String, bat:String, name : String, dob : String,
+  updateDetails( rollno : String, pwd : String, pre : String, bat:String, name : String, dob : String,
     father : String, mother : String, gender : String , email : String,
     address : String, phone : String , income : String , religion : String,
     caste : String, bloodgrp : String
@@ -116,6 +164,7 @@ newStudent={};
     //name.value,dob.value, father.value,mother.value, gender.value, email.value, address.value,phone.value,income.value, religion.value,caste.value,blood.value
     //console.log(roll);
     this.newStudent={
+      "Photo":this.imgurl,
       "Roll_No" : rollno,
       "Password" : pwd,
       "Class_Prefix" : pre,
@@ -138,16 +187,22 @@ newStudent={};
       rollno:this.username,
       value : this.newStudent
     }
-    console.log(this.newStudent);
+    //console.log(this.newStudent);
+    
     window.document.getElementById("updateInfo").style.visibility="hidden" 
+    window.document.getElementById("selectImage").style.visibility="hidden"
+    window.document.getElementById("uploadimage").style.visibility="hidden"
     this.studentService.updateDetails(updateUser).subscribe(res  =>{
     
      this.updated=true;
-     setTimeout(()=>{this.updated=false},1000)
- 
+     setTimeout(()=>{this.updated=false
+     
+    },1000)
+      
       });
       window.document.getElementById("editInfo").style.visibility="visible"
       this.getDetails();
+      this.studentService.stud.Photo=this.imgurl;
       var inputs=window.document.getElementsByTagName('input');
   for(let i=1;i<inputs.length;i++){
   
@@ -157,6 +212,7 @@ newStudent={};
     for(let i=0;i<selects.length;i++){
       selects[i].disabled=true;
       }   
+      
     }
     showBlog()
   {
