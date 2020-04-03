@@ -161,6 +161,7 @@ router.post("/createFaculty",function(req,res,next){
         });
 
 //delete faculty
+
 router.post("/deleteFaculty",function(req,res,next){
 
     var username = req.body.username

@@ -27,21 +27,21 @@ export class EditBlogComponent implements OnInit {
 
   ) { }
   updateBlogSubmit(){
-    this.processing=true;
-    this.blogService.updateBlog(this.blog).subscribe(data=>{
-      if(!data['success'])
-      {
-        this.messageClass='alert alert-danger';
-        this.message=data['message'];
-        this.processing=false;
-      }
-      this.messageClass='alert alert-success';
-      this.message=data['message'];
-      setTimeout(()=>{
-        this.router.navigate(['/blog']);
+    // this.processing=true;
+    // this.blogService.updateBlog(this.blog,).subscribe(data=>{
+    //   if(!data['success'])
+    //   {
+    //     this.messageClass='alert alert-danger';
+    //     this.message=data['message'];
+    //     this.processing=false;
+    //   }
+    //   this.messageClass='alert alert-success';
+    //   this.message=data['message'];
+    //   setTimeout(()=>{
+    //     this.router.navigate(['/blog']);
 
-      },2000);
-    })
+    //   },2000);
+    // })
 
   }
   goBack()
@@ -51,11 +51,11 @@ export class EditBlogComponent implements OnInit {
 
  
   ngOnInit() {
-    this.currentUrl=this.activatedRoute.snapshot.params;
-    this.blogService.getSingleBlogs(this.currentUrl.id).subscribe(data=>{
-      // this.blog=data['blog'];
-      console.log(data);
-    });
+    // this.currentUrl=this.activatedRoute.snapshot.params;
+    // this.blogService.getSingleBlogs(this.currentUrl.id).subscribe(data=>{
+    //   // this.blog=data['blog'];
+    //   console.log(data);
+    // });
   }
 
 }

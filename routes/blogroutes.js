@@ -1,4 +1,4 @@
-const Blog=require('../models/blog');
+const { Blog }=require('../models/blog');
 const mongoose = require('mongoose');
 const multer=require('multer');
 var express = require ('express');
@@ -111,104 +111,78 @@ var router = express.Router();
         // }).sort({'_id':-1});
 
     });
-   router.get('/getPost/:id',(req,res)=>{
-       if(!req.params.id){
-           res.json({success:false,message:'No blog was provided.'});
-       }else{
 
-        var collection=mongoose.connection.db.collection("MxiansPage");
-        collection.findOne({_id:req.params.id},(err,blog)=>{
-       
-              if(err){
-                  res.json({success:false,message:'Not a valid blog id'});
-              }else{
-                  if(!blog){
-                      res.json({success:false,message:'Blog not found'});
-                  }else{
-                    res.json({success:true,blog:blog});
-    }
-
-}
-              });
+    router.post('/getPost/:id',function(req,res){
+      
+   // console.log(user);
+        var collection = mongoose.connection.db.collection(req.body.page);
+        collection.findOne({ '_id':req.params.id}, (err,doc)=>{
+            if(err)
+                res.json({success : false, message : "Error in retrieving student details"});
+            else    
+            {
+                //res.json({success : true, message : "Details got succesfully"});
+                res.json(doc)
             }
-});
-   router.put('/updatePost',(req,res)=>{
-       if(!req.body._id){
-           res.json({success:false,message:'No blog id provided'});
-       }
-       else{
-        Blog.findOne({_id:req.body._id},(err,blog)=>{
-            if(err){
-                res.json({success:false,message:'Not a valid blog id'});
-            }else{
-                if(!blog){
-                    res.json({success:false,message:'Blog not found'});
-                }else{
-                    console.log('im inside get');
-                                    blog.title=req.body.title;
-                                    blog.body=req.body.body;
-                                    blog.save(err);
-                                    if(err){
-                                        res.json({success:false,message:err});
-
-                                    }
-                                    else{
-                                        res.json({success:true,message:'  Blog Updated'});
-                                    }
+                
+        })
+})
 
 
-                                }
-                            }
-                        });
+                router.post('/updatePost',function(req,res){
+                    if(!req.body.id){
+                        res.json({success:false,message:'No blog id provided'});
                     }
-                   
-                });
-            router.delete('/deletePost/:id',(req,res)=>{
-                    if(!req.params.id)
-                    {
-                        res.json({success:false,message:'No id provided'});
-                    }else{
-                        Blog.findOne({_id:req.params.id},(err,blog)=>{
-                            if(err)
+                    else
+                        {
+                            var collection = mongoose.connection.db.collection(req.body.page);
+                            var id=req.body.id;
+                            var ObjectID = require('mongodb').ObjectID;
+                            var data = {};
+                            data=req.body;
+                            delete data['id'];
+                            collection.updateOne({"_id": new ObjectID(id)},
+                            { $set: data},
+                            { $upsert: true },
+                            function(err, result) {
+                                if(err){
+                                console.log(err)
+                                res.json({success:false, message:"Failed to Update"})
+                            }   
+                            else
                             {
-                                res.json({success:false,message:'Invalid id'});
-                            }else{
-                                if(!blog)
-                                {
-                                    res.json({success:false,message:'Blog not found'});
-                                }else{
-                                    if(Login.findOne({_id:req.decoded.userId},(err,Login)=>{
-                                        if(err){
-                                            res.json({success:false,message:err});
-                                        }
-                                        else{
-                                            if(!Login)
-                                            {
-                                                console.log(Login);
-                                                res.json({success:false,message:'Unable to authenticate'});
-                                            }else{
-                                                if(Login.username!=blog.createdBy){
-                                                    res.json({success:false,message:'You are not authorized to delete this'});
-                                                }
-                                                else{
-                                                    blog.remove((err)=>{
-                                                        if(err)
-                                                        {
-                                                            res.json({success:false,message:err});
-                                                        }
-                                                        else{
-                                                            res.json({success:true,message:'Blog Deleted'});
-                                                        }
-                                                    })
-                                                }
-                                            }
-                                        }
-                                    }));
-                                }
+                                res.json({success:true,message:"Post Updated"})
                             }
-                        });
-                    }
-                });
-         
+                            });
+                        }
+                })
+
+                router.post('/deletePost/:id', function(req,res){
+                        var id = req.params.id;
+                    var ObjectID = require('mongodb').ObjectID;
+                        var collection = mongoose.connection.db.collection(req.body.page);
+                        collection.find({_id: new ObjectID(id)}).toArray((err,doc)=>{
+                            if(err)
+                                res.json({success : false, message : "Error in Blog"});
+                            else    
+                            {
+                                //res.json({success : true, message : "Details got succesfully"});
+                                collection.remove({_id:new ObjectID(id)},(error)=>{
+                                    if(error)
+                                    {
+                                        res.json({success : false, message : "Error in Deleting Post"});
+                                    }
+                                    else
+                                    {
+                                        res.json({success : true, message : "Deleted Successfully"})
+                                    }
+                                })
+                            }
+                                
+                        })
+                  })
+                
+             
+                   
                 module.exports=router;
 

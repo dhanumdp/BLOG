@@ -70,7 +70,7 @@ const commentvalidators=[{
     title:{type:String,required:true,validate:titlevalidators},
     body:{type:String,required:true,validate:bodyvalidators},
     image:{data:Buffer,type:String},
-    createdBy:{type:String,required:true},
+    createdBy:{type:String},
     createdAt:{type:Date,default:Date.now()},
     comment:[{
         comment:{type:String,validate:commentvalidators},
@@ -80,4 +80,6 @@ const commentvalidators=[{
 });
 
 
-module.exports=mongoose.model('blog',blogSchema);
+Blog = mongoose.model('blog',blogSchema);
+
+module.exports = { Blog }; 

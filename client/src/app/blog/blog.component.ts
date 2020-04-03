@@ -5,6 +5,7 @@ import {BlogService} from '../services/blog.service';
 import {AdminservicesService} from '../services/adminservices.service'
 
 import { AstMemoryEfficientTransformer } from '@angular/compiler';
+import { NavbarService } from '../services/navbar.service';
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
@@ -16,8 +17,15 @@ export class BlogComponent implements OnInit {
   messageClass;
   pageChoosed:boolean;
   selectedPage:string;
+  deletePostId:any;
+  foundBlog:boolean;
   message;
   newPost:boolean;
+  mainPage:boolean;
+  editPost:boolean;
+  deletePost:boolean;
+  postId:any;
+  selectedBlog:any;
   //newImage=false;
   loadingBlogs=false;
   pages={};
@@ -32,6 +40,7 @@ export class BlogComponent implements OnInit {
     private formBuilder:FormBuilder,
     private authService:AuthService,
     private blogService:BlogService,
+    private nav : NavbarService,
     private adminService : AdminservicesService
    
   ) {
@@ -39,6 +48,11 @@ export class BlogComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.nav.hide();
+    this.mainPage=true;
+    this.newPost=false;
+    this.deletePost=false;
+    this.editPost=false;
     this.username=localStorage.getItem('user');
     //this.getAllBlogs();
     this.selectedPage="MxiansPage"
@@ -77,7 +91,11 @@ export class BlogComponent implements OnInit {
   }
     newBlogForm()
   {
+    
+    this.mainPage=false;
     this.newPost=true;
+    this.deletePost=false;
+    this.editPost=false;
   }
 
   reloadingBlogs(){
@@ -124,8 +142,9 @@ export class BlogComponent implements OnInit {
            this.message=false;
       
           this.form.reset();
+          this.goBack();
           this.enableFormNewBlogForm();
-      },2000);
+      },1000);
       }
     });
 }
@@ -149,5 +168,85 @@ export class BlogComponent implements OnInit {
      this.pageChoosed=true;  
     });
   }
+
+  onEdit(emp,id)
+  {
+    this.mainPage=false;
+    this.newPost=false;
+    this.editPost=true;
+    this.deletePost=false;
+    this.postId=id;
+    this.selectedBlog=emp;
+    console.log(this.selectedBlog);
+     
+  }
+
+  updateBlogSubmit(){
+    this.processing=true;
+
+   let upBlog={
+        title:this.selectedBlog.title,
+        body : this.selectedBlog.body,
+        page:this.selectedPage,
+        id:this.postId
+    }
+    console.log(upBlog);
+    this.blogService.updateBlog(upBlog).subscribe(data=>{
+      if(!data['success'])
+      {
+        this.messageClass='alert alert-danger';
+        this.message=data['message'];
+        this.processing=false;
+      }
+      this.messageClass='alert alert-success';
+      this.message=data['message'];
+      setTimeout(()=>{
+        this.goBack();
+
+      },1000);
+    })
+
+  
+  }
+  onDelete(blog,id)
+  {
+    this.selectedBlog=blog;
+    this.deletePostId=id;
+    console.log(this.selectedBlog)
+    //this.processing=true;
+    
+    this.deletePost=true;
+    this.mainPage=false;
+    this.newPost=false;
+    this.foundBlog=true;
+    this.editPost=false;
+  }
+
+  deleteBlog()
+  {
+    
+    let page={
+      id:this.deletePostId,
+      page:this.selectedPage
+    }
+    console.log(page);
+    this.blogService.deleteBlog(this.deletePostId,page).subscribe((data)=>{
+      if(!data['success'])
+      {
+        this.messageClass='alert alert-danger';
+        this.message=data['message'];
+        this.processing=false;
+      }
+      this.messageClass='alert alert-success';
+      this.message=data['message'];
+      setTimeout(()=>{
+         this.goBack()
+
+      },1000);
+    })
+
+  }
+  
+  
 
 }

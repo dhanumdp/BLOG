@@ -107,15 +107,22 @@ newFaculty={};
   });
 }
   setUpdateVisible(){
+    
     window.document.getElementById("updateInfo").style.visibility="visible" 
     window.document.getElementById("editInfo").style.visibility="hidden" 
     window.document.getElementById("selectImage").style.visibility="visible"
     window.document.getElementById("uploadimage").style.visibility="visible"
     var inputs=window.document.getElementsByTagName('input');
-  for(let i=0;i<inputs.length;i++){
-    if(i==1|| i>1)
-    inputs[i].disabled=false;
+  for(let i=1;i<inputs.length;i++){
+
+    if(i==1)
+      inputs[i].disabled=true;
+
+    else
+      inputs[i].disabled=false;
+
     }   
+    
     var selects=window.document.getElementsByTagName('select');
     for(let i=0;i<selects.length;i++){
       selects[i].disabled=false;

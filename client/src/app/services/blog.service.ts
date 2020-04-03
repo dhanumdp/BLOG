@@ -39,19 +39,20 @@ getAllBlogs(page){
   this.createAuthenticationHeaders();
   return this.http.get(this.baseURL+`/getPosts/${page}`,this.options);
 }
-getSingleBlogs(id)
+getSingleBlogs(id,blog)
 {
   this.createAuthenticationHeaders();
-  return this.http.get(this.baseURL+'/getPost/'+id,this.options);
+  return this.http.post(`http://localhost:3000/blog/getPost/${id}`,blog,this.options);
 
 }
 updateBlog(blog){
   this.createAuthenticationHeaders();
-  return this.http.put(this.baseURL+'/updatePost',blog,this.options);
+  return this.http.post(this.baseURL+'/updatePost',blog,this.options);
 }
-deleteBlog(id){
+
+deleteBlog(id,page){
   this.createAuthenticationHeaders();
-  return this.http.delete(this.baseURL+'/deletePost/'+id,this.options);
+  return this.http.post(`http://localhost:3000/blog/deletePost/${id}`,page);
 }
 
 }
