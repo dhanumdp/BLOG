@@ -52,47 +52,54 @@ let usernameLengthChecker=(username)=>{
      }
 }
 
-let validUsername=(username)=>{
-     if(!username)
-          return false;
-     else
-     {
-          const regExp = new RegExp(/^[a-zA_Z0-9]+$/);
-          return regExp.test(username);
+// let validUsername=(username)=>{
+//      if(!username)
+//           return false;
+//      else
+//      {
+//           const regExp = new RegExp(/[a-zA-Z0-9]+$/);
+//           return regExp.test(username);
 
-     }
-}
+//      }
+// }
 const usernameValidators=[
      {
           validator : usernameLengthChecker,
           message: "Username must be no less than 3 characters but no more than 15"
-     },
-     {
-          validator:validUsername,
-          message:"Username must not have any special characters"
      }
+     // {
+     //      validator:validUsername,
+     //      message:"Username must not have any special characters"
+     // }
 ]
 const  userScheama = new Schema({
-     photo:{type:String},
+     photo : {type : String},
      email : {type : String, required:true , unique:true, lowercase:true, validate:emailValidators},
-     username : {type : String, required:true , unique:true, lowercase:true, validate : usernameValidators},
-     password : {type : String, required:true }
+     username : {type : String, required:true , unique:true,  validate : usernameValidators},
+     password : {type : String, required:true },
+     name  : {type : String},
+     gender : {type : String},
+     batch :{type : String},
+     rollno : {type : String},
+     phoneno :{type : String},
+     currentlyworking : {type : String}
+    // profeesionalstory : {type : Array}
 });
 
-userScheama.pre('save',function(next)
-{
-     if(!this.isModified('password'))
-          return next();
-     bcrypt.hash(this.password, null,null, (err,hash)=>{
-          if(err) return next(err);
-          this.password=hash;
-          next();
-     })
-});
+// userScheama.pre('save',function(next)
+// {
+//      if(!this.isModified('password'))
+//           return next();
+//      bcrypt.hash(this.password, null,null, (err,hash)=>{
+//           if(err) return next(err);
+//           this.password=hash;
+//           next();
+//      })
+// });
 
-userScheama.methods.comparePassword= function(password){
-    return bcrypt.compareSync(password,this.password);
-}
+// userScheama.methods.comparePassword= function(password){
+//     return bcrypt.compareSync(password,this.password);
+// }
 
 
 module.exports=mongoose.model('Alumni',userScheama)

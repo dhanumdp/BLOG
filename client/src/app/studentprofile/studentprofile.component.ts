@@ -73,6 +73,8 @@ newStudent={};
 
   this.uploader.onAfterAddingFile = file => {
     file.withCredentials = false;
+    window.document.getElementById("uploadimage").style.visibility="visible"
+   
   };
   this.uploader.onCompleteItem = (
     item: any,
@@ -136,7 +138,6 @@ newStudent={};
   }
   setUpdateVisible(){
     window.document.getElementById("selectImage").style.visibility="visible"
-    window.document.getElementById("uploadimage").style.visibility="visible"
     window.document.getElementById("updateInfo").style.visibility="visible" 
     window.document.getElementById("editInfo").style.visibility="hidden" 
     var inputs=window.document.getElementsByTagName('input');

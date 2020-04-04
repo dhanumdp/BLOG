@@ -64,5 +64,4 @@ storeUserData(token,user)
   this.user=user;
 }
 
-
 }

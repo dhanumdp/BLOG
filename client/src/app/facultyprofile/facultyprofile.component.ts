@@ -35,6 +35,7 @@ export class FacultyprofileComponent implements OnInit {
   uploader : FileUploader;
   local;
   value : boolean;
+
   blood=[
     {"name":"O negative"},
     {"name":"O positive"},
@@ -63,6 +64,8 @@ newFaculty={};
    }
    this.uploader.onAfterAddingFile = file => {
     file.withCredentials = false;
+    window.document.getElementById("uploadimage").style.visibility="visible"
+   
   };
   this.uploader.onCompleteItem = (
     item: any,
@@ -111,7 +114,6 @@ newFaculty={};
     window.document.getElementById("updateInfo").style.visibility="visible" 
     window.document.getElementById("editInfo").style.visibility="hidden" 
     window.document.getElementById("selectImage").style.visibility="visible"
-    window.document.getElementById("uploadimage").style.visibility="visible"
     var inputs=window.document.getElementsByTagName('input');
   for(let i=1;i<inputs.length;i++){
 
@@ -156,6 +158,8 @@ newFaculty={};
    window.document.getElementById("selectImage").style.visibility="hidden"
     window.document.getElementById("uploadimage").style.visibility="hidden"
     window.document.getElementById("updateInfo").style.visibility="hidden" 
+
+
     this.facultyService.updateDetails(updateUser).subscribe(res  =>{
     
      this.updated=true;

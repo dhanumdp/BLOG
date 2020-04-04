@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { tokenName } from '@angular/compiler';
-
+import {Alumni} from '../alumniprofile/alumni'
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,7 @@ export class AuthService {
   user;
  options;
 
+ alumni : Alumni;
 
   createAuthenticationHeaders()
   {
@@ -78,4 +79,13 @@ loggedIn()
   return true;
 }
 
+getdetails(user)
+{
+
+  return this.http.post("http://localhost:3000/alumni/getdetails", { user });
+}
+updatedetails(user)
+{
+  return this.http.post("http://localhost:3000/alumni/updatedetails", user );
+}
 }

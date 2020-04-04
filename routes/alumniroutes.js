@@ -3,7 +3,9 @@ const express= require('express');
 const jwt = require('jsonwebtoken');
 const config= require('../config/db');
 const router=express.Router();
-
+var app = express();
+var mongoose = require('mongoose');
+var multer = require('multer');
 router.post('/register',function(req,res){
 
     if(!req.body.email)
@@ -29,8 +31,14 @@ router.post('/register',function(req,res){
                 let user = new User({
                     photo:"assets/images/alumni.png",
                     email:req.body.email.toLowerCase(),
-                    username:req.body.username.toLowerCase(),
-                    password:req.body.password
+                    username:req.body.username,
+                    password:req.body.password,
+                    name : "",
+                    gender : "",
+                    batch :"",
+                    rollno : "",
+                    phoneno :"",
+                    currentlyworking : ""
                 });
                 user.save(function(err){
                     
@@ -89,7 +97,7 @@ router.post('/alumnilogin', (req,res)=>{
       }
       else
       {
-            User.findOne({username:req.body.username.toLowerCase()}, function(err,user){
+            User.findOne({username:req.body.username}, function(err,user){
                 if(err)
                 {
                     res.json({success:false, message:err});
@@ -101,8 +109,8 @@ router.post('/alumnilogin', (req,res)=>{
                     }
                     else
                     {
-                        const validPassword = user.comparePassword(req.body.password);
-                        if(!validPassword)
+                       // const validPassword = user.comparePassword(req.body.password);
+                        if(user.password != req.body.password)
                         {
                             res.json({success:false, message: "invalid password"});
                         }
@@ -119,6 +127,78 @@ router.post('/alumnilogin', (req,res)=>{
       }
   }
 })
+
+router.post('/getdetails', function(req,res){
+    user = req.body.user;
+   // console.log(user);
+        //var collection = mongoose.connection.db.collection("alumnis");
+        User.findOne({'username':user.username }, (err,doc)=>{
+            if(err)
+                res.json({success : false, message : "Error in retrieving student details"});
+            else    
+            {
+                //res.json({success : true, message : "Details got succesfully"});
+                res.json(doc)
+            }
+                
+        })
+  })
+
+  router.post("/updatedetails",function(req,res){
+    var user = req.body.user;
+    var collection = mongoose.connection.db.collection("alumnis");
+    var ObjectID = require('mongodb').ObjectID;
+    var data = {};
+    data=req.body.value;
+    //delete data['_id'];
+    collection.updateOne({"username": req.body.username },
+    { $set: req.body.value },
+    { $upsert: true },
+    function(err, result) {
+        if(err){
+        console.log(err)
+        res.json("0")
+    }   
+    else
+    {
+        res.json("1")
+    }
+    });
+});
+
+
+  const DIR='./public/uploads';
+  app.use(express.static(__dirname+'/public/uploads/'));
+  
+  let storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, DIR);
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    }
+  });
+  
+  let upload = multer({storage: storage});
+  
+  router.post('/uploadPhoto', upload.single('photo'), (req, res) => {
+    if(!req.file) {
+      //console.log("No File Received");
+      res.send("No File is Received Select one to Upload");
+    } else {
+      console.log("File Received");
+      let file = req.file;
+      //console.log(file);
+      res.send (file.filename);
+      //console.log(res);
+    }
+  });
+  
+  router.get('/public/uploads/:imgurl', (req, res) => {
+      res.sendFile(req.params.imgurl, {root: './public/uploads/'});
+  });
+  
+  
 
 router.use((req,res,next)=>{
     const token = req.headers['authorization'];
