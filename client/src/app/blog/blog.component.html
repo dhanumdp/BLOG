@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="row show hide-message"  *ngIf="message && newPost">
+<div class="row show hide-message" style="margin-left: 2%;margin-top: 2%;width: 40%;"  *ngIf="message && newPost">
     <div [ngClass]="messageClass">
         {{message}}
     </div>
@@ -63,7 +63,8 @@
     
 
     <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Go Back</button>
- <button [disabled]="processing||!form.valid" type="submit" name="button"  class="btn btn-success">Submit</button>
+ <button [disabled]="processing||!form.valid" type="submit" style="margin-left: 
+ 2%;" name="button"  class="btn btn-success">Submit</button>
  
 </form>
 
@@ -100,7 +101,7 @@
 
  <div *ngIf="editPost">
    <h1 class="page-header">Edit Blog</h1>
-<div class="row show-hide-message" style=" margin-left: 2% ;width: 50%;" *ngIf="message">
+<div class="row show-hide-message" style=" margin-left: 2% ;width: 40%;" *ngIf="message">
     <div [ngClass]="messageClass">
         {{message}}
     </div>
@@ -130,13 +131,19 @@
  <div *ngIf="deletePost">
 
     <h1 class="page-header">Delete Blog</h1>
-    <div class="row show-hide-message" style=" margin-left: 2% ;width: 50%;" *ngIf="message">
-        <div [ngClass]="messageClass">
-            {{message}}
-        </div>
-    </div>
+    
 
     <div class="col-md-6" *ngIf="foundBlog">
+        <div class="panel panel-primary" >
+            <div class="panel-heading">
+                <h3 >{{this.selectedBlog.title}}</h3>
+            </div>
+            <div class="panel-body" >
+               {{this.selectedBlog.body}}
+            </div>
+            
+  </div>
+  <br><br>
         <div class="modal-content">
             <div class="modal-header">
                 <!--<button type="button" name="button" class="close" data-dismiss="modal">&times;</button>-->
@@ -150,15 +157,13 @@
             <button [disabled]="processing" type="button" name="button" class="btn btn-danger" (click)="goBack()">No</button>
            </div>
         </div>
-           <div class="panel panel-primary" >
-              <div class="panel-heading">
-                  <h3 >{{this.selectedBlog.title}}</h3>
-              </div>
-              <div class="panel-body" >
-                 {{this.selectedBlog.body}}
-              </div>
-              
-    </div>
+<br>
+        <div class="row show-hide-message" style=" margin-left: 2% ;width: 40%;" *ngIf="message">
+            <div [ngClass]="messageClass">
+                {{message}}
+            </div>
+        </div>
+          
     </div>
     
     

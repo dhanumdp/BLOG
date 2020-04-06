@@ -12,8 +12,8 @@ import {ChatService} from '../services/chat.service';
 })
 export class AdminprofileComponent implements OnInit {
   col={};
-pages={};
-group={};
+pages=[];
+group=[];
   constructor(
 
    private adminService: AdminservicesService,
@@ -248,7 +248,7 @@ this.dgroup=false;
   deletePage()
   {
     this.adminService.getPages().subscribe((doc)=>{
-      this.pages=doc;
+      this.pages.push(doc);
    //  console.log(doc);
     });
     this.cclass=false;
@@ -307,7 +307,7 @@ this.dgroup=false;
   deleteGroup()
   {
     this.chatService.getGroups().subscribe((res)=>{
-      this.group=res;
+      this.group.push(res);
     })
     this.cclass=false;
     this.dclass=false;

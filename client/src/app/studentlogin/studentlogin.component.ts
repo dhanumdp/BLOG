@@ -13,13 +13,13 @@ export class StudentloginComponent implements OnInit {
   processing = false;
   message;
   messageclass;
-  col={};
+  col=[];
   constructor(private formBuilder : FormBuilder, private studentService : StudentService, private router : Router,  public nav: NavbarService
    ) {
     this.createForm();
     //this.checkValidBatch();
     this.studentService.getCollections().subscribe((doc)=>{
-      this.col=doc;
+      this.col.push(doc);
    //  console.log(doc);
     });
    }

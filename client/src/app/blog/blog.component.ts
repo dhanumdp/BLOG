@@ -28,7 +28,7 @@ export class BlogComponent implements OnInit {
   selectedBlog:any;
   //newImage=false;
   loadingBlogs=false;
-  pages={};
+  pages=[];
   form;
   username;
   //uploader : FileUploader;
@@ -61,7 +61,7 @@ export class BlogComponent implements OnInit {
     //this.selectedPage="MxiansPage";
     this.newPost=false;
     this.adminService.getPages().subscribe((doc)=>{
-      this.pages=doc;
+      this.pages.push(doc);
    //  console.log(doc);
     });
   }
@@ -103,7 +103,7 @@ export class BlogComponent implements OnInit {
     this.getAllBlogs();
     setTimeout(()=>{
       this.loadingBlogs=false;
-    },4000);
+    },2000);
   }
 
   onBlogSubmit(){

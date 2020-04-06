@@ -84,14 +84,27 @@ app.get('',function(req,res){
 
 //For getting time in 12 Hrs Format
 function formatAMPM(date) {
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    var strTime = hours + ':' + minutes + ' ' + ampm;
-    return strTime;
+    var dd = date.getDate();
+
+    var mm = date.getMonth()+1; 
+    var yyyy = date.getFullYear();
+    if(dd<10) 
+    {
+        dd='0'+dd;
+    } 
+    
+    if(mm<10) 
+    {
+        mm='0'+mm;
+    } 
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = dd+'/'+mm+'/'+yyyy+' '+hours + ':' + minutes + ' ' + ampm;
+        return strTime;
   }
 
 
