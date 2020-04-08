@@ -10,16 +10,13 @@ import {
   FileUploader
 } from "ng2-file-upload";
 
+// import {saveAs} from 'file-saver'
+
 
 const URL = 'http://localhost:3000/student/uploadPhoto';
 
 const path = 'http://localhost:3000/student/public/uploads';
-//import { get } from 'https';
-//import {Student} from './student';
 
-// import {
-//   FileSelectDirective, FileUploader
-// } from 'ng2-file-upload';
 
 
 @Component({
@@ -37,6 +34,7 @@ export class StudentprofileComponent implements OnInit {
   profile:boolean;
   blog:boolean;
   chat : boolean;
+  downloadFile;
   username;
   updated : boolean;
   batch;
@@ -86,16 +84,11 @@ newStudent={};
     this.urldata = res;
     this.imgurl = path + "/" + res;
      this.student[0].Photo=this.imgurl;
+    //  this.downloadFile=this.imgurl;
      this.studentService.stud.Photo=this.imgurl;
     //console.log(this.imgurl);
   };
   }
-
- 
-
-
-
-    
 
   getDetails()
   {
@@ -233,6 +226,11 @@ newStudent={};
     this.profile=false;
     this.blog=false;
   }
+
+  // download()
+  // {
+  //   saveAs(this.student[0].Photo, "file");
+  // }
   
     
   }

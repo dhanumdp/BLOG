@@ -6,6 +6,22 @@ import {AdminservicesService} from '../services/adminservices.service'
 
 import { AstMemoryEfficientTransformer } from '@angular/compiler';
 import { NavbarService } from '../services/navbar.service';
+
+import {
+  FileSelectDirective,
+  FileDropDirective,
+  FileUploader
+} from "ng2-file-upload";
+
+import {saveAs} from 'file-saver'
+
+
+
+const URL = 'http://localhost:3000/blog/uploadPhoto';
+
+const path = 'http://localhost:3000/blog/public/uploads';
+
+
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
@@ -17,9 +33,15 @@ export class BlogComponent implements OnInit {
   messageClass;
   pageChoosed:boolean;
   selectedPage:string;
+  complete : boolean;
   deletePostId:any;
   foundBlog:boolean;
   message;
+
+  file:string;
+  uploader : FileUploader;
+  urldata : string;
+  imgurl : string;
   newPost:boolean;
   mainPage:boolean;
   editPost:boolean;
@@ -45,12 +67,14 @@ export class BlogComponent implements OnInit {
    
   ) {
       this.createNewBlogForm();
+      this.uploader = new FileUploader({ url: URL, itemAlias: "photo" });
    }
 
   ngOnInit() {
     this.nav.hide();
     this.mainPage=true;
     this.newPost=false;
+    this.complete=false;
     this.deletePost=false;
     this.editPost=false;
     this.username=localStorage.getItem('user');
@@ -62,8 +86,37 @@ export class BlogComponent implements OnInit {
     this.newPost=false;
     this.adminService.getPages().subscribe((doc)=>{
       this.pages.push(doc);
-   //  console.log(doc);
     });
+
+    this.uploader.onAfterAddingFile = file => {
+      file.withCredentials = false;
+      window.document.getElementById("uploadimage").style.visibility="visible"
+     
+    };
+    this.uploader.onCompleteItem = (
+      item: any,
+      res: any,
+      status: any,
+      headers: any
+    ) => {
+      //console.log(res);
+      this.urldata = res;
+      this.imgurl = path + "/" + res;
+     //this.blogPosts['photo']=this.imgurl;
+     
+     this.file=this.imgurl;
+     this.complete=true;
+
+     setTimeout(()=>{
+       this.complete=false;
+     },1000); 
+      //  this.downloadFile=this.imgurl;
+      // this.studentService.stud.Photo=this.imgurl;
+      //console.log(this.imgurl);
+    };
+    
+
+
   }
   PageSelector()
   {
@@ -86,7 +139,9 @@ export class BlogComponent implements OnInit {
       ])],
       page:['', Validators.compose([
         Validators.required
-      ])]
+      ])],
+      file : ["", Validators.compose([])]
+
     })
   }
     newBlogForm()
@@ -117,7 +172,8 @@ export class BlogComponent implements OnInit {
       title:this.form.get('title').value,
       body:this.form.get('body').value,
       mxians : this.form.get('page').value,
-      createdBy:this.username
+      createdBy:this.username,
+      file : this.file
     }
 
     console.log(blog);
@@ -188,6 +244,7 @@ export class BlogComponent implements OnInit {
         title:this.selectedBlog.title,
         body : this.selectedBlog.body,
         page:this.selectedPage,
+        file : this.file,
         id:this.postId
     }
     console.log(upBlog);
@@ -245,6 +302,11 @@ export class BlogComponent implements OnInit {
       },1000);
     })
 
+  }
+
+  download(file, title)
+  {
+    saveAs(file, title+"_Attachment");
   }
   
   

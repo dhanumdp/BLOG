@@ -52,6 +52,23 @@
             </ul>
         </div>
     </div>
+
+    <div class="form-group">
+        <label for="title" >Upload File</label>
+        
+              
+        <input type="file" class="form-control" formControlName="file" name="image" id="selectImage" ng2FileSelect [uploader]="uploader"/> 
+            <br>
+              <!-- <button (click)="download()">Download</button> -->
+              <button type="button" style="margin-left: 5%;" class="bnt btn-info btn-xs" id="uploadimage"   (click) = "uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                Upload  
+            </button>
+
+             
+            <h5 *ngIf="complete" style="margin-left:1%;">Uploaded Successfully</h5>
+
+     </div>
+
     <div class="form-group" style="width: 25%;">
         <label for="bg">To: </label>
         <select class="form-control" formControlName="page" >
@@ -76,11 +93,17 @@
             <li class="list-group-item">
          <div class="panel-heading" style=" background:#2c3e50;">
              <h3 class="panel-title" style="color: white;">{{blog.title}}</h3>
+            
          </div>
             </li>
          <li class="list-group-item">
          <div class="panel-body">
+            <a (click)="download(blog.file, blog.title)" style="cursor: pointer; margin-left: 90%;"  *ngIf="blog.file" > Attachment </a>
+            <br>
+
             {{blog.body}}
+        
+          
          </div>
          </li>
          <li class="list-group-item">
@@ -118,9 +141,18 @@
            class="form-control"></textarea>
         </div>
 
-        
+        <div class="form-group">
+            <label for="title" >Upload File</label>      
+            <input type="file" class="form-control" formControlName="file" name="image" id="selectImage" ng2FileSelect [uploader]="uploader"/> 
+                <br>
+                  <!-- <button (click)="download()">Download</button> -->
+                  <button type="button" style="margin-left: 5%;" class="bnt btn-info btn-xs" id="uploadimage"   (click) = "uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    Upload  
+                </button>
+                <h5 *ngIf="complete" style="margin-left:1%;">Uploaded Successfully</h5>
+    
+         </div>
         <button type="button" style="margin-left: 1%;" name="button" class="btn btn-success"(click)="goBack()">GoBack</button>
-
         <button type="submit" style="margin-left: 1%;" name="button" class="btn btn-info">Submit</button>
         
     

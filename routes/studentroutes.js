@@ -213,6 +213,9 @@ router.get('/public/uploads/:imgurl', (req, res) => {
     res.sendFile(req.params.imgurl, {root: './public/uploads/'});
 });
 
-
+router.post('/download',function(req,res){
+    filepath = path.join(__dirname,'./public/uploads ')+'/'+req.body.filename;
+    res.sendFile(filepath);
+})
 
 module.exports=router;

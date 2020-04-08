@@ -72,11 +72,7 @@ const commentvalidators=[{
     image:{data:Buffer,type:String},
     createdBy:{type:String},
     createdAt:{type:Date,default:Date.now()},
-    comment:[{
-        comment:{type:String,validate:commentvalidators},
-        commentator:{type:String}
-    }
-    ]
+    file : {type : String}
 });
 
 

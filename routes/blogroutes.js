@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const multer=require('multer');
 var express = require ('express');
 var router = express.Router();
+var app = express();
 
     router.post('/newPost',(req,res)=>{
 
@@ -21,7 +22,8 @@ var router = express.Router();
                 const blog=new Blog({
                     title:req.body.title,
                     body:req.body.body,
-                    createdBy:req.body.createdBy
+                    createdBy:req.body.createdBy,
+                    file : req.body.file
                 });    
                 var collection = mongoose.connection.db.collection(mxians);
                 collection.insert(blog,(err)=>{
@@ -181,6 +183,38 @@ var router = express.Router();
                                 
                         })
                   })
+
+                  const DIR='./public/uploads';
+app.use(express.static(__dirname+'/public/uploads/'));
+
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+});
+
+let upload = multer({storage: storage});
+
+router.post('/uploadPhoto', upload.single('photo'), (req, res) => {
+  if(!req.file) {
+    //console.log("No File Received");
+    res.send("No File is Received Select one to Upload");
+  } else {
+    //console.log("File Received");
+    let file = req.file;
+    //console.log(file);
+    res.send (file.filename);
+    //console.log(res);
+  }
+});
+
+router.get('/public/uploads/:imgurl', (req, res) => {
+    res.sendFile(req.params.imgurl, {root: './public/uploads/'});
+});
+
                 
              
                    
