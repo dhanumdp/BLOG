@@ -1,4 +1,4 @@
-<div class="container" style="margin-top: 15%; ">
+<div class="container" style="margin-top: 5%; ">
     <div class="row show-hide-message">
         <div class="row show-hide-message">
             <div [ngClass]="messageclass">
@@ -24,6 +24,11 @@
             <label for="password">Password</label>
             <div>
                 <input type="password" name="password" class="form-control" autocomplete="off" placeholder="Password" formControlName="password"/>
+              
+               <div style="text-align: right;">
+                <a  routerLink="/alumniForgotPassword"> Forgot Password?</a>
+               </div>
+
             </div>
             <ul class="help-block">
                 <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">

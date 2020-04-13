@@ -308,7 +308,5 @@ export class BlogComponent implements OnInit {
   {
     saveAs(file, title+"_Attachment");
   }
-  
-  
 
 }

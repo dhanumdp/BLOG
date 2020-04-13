@@ -1,4 +1,5 @@
 const mongoose=require('mongoose');
+
 const Schema=mongoose.Schema;
 
 let titleLengthChecker=(title)=>{
@@ -54,18 +55,7 @@ const commentvalidators=[{
     validator:commentLengthChecker,
     message:'comment must be more than 1 characters but not more than 200'
 }];
-/*var Blog=mongoose.model('blog',{
-    title:{type:String,required:true,validate:titlevalidators},
-    body:{type:String,required:true,validate:bodyvalidators},
-    createdBy:{type:String,required:true},
-    createdAt:{type:Date,default:Date.now()},
-    comment:[{
-        comment:{type:String},
-        commentator:{type:String}
-    }
 
-    ]
-   });*/
    const blogSchema= new Schema({
     title:{type:String,required:true,validate:titlevalidators},
     body:{type:String,required:true,validate:bodyvalidators},

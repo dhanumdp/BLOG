@@ -19,6 +19,7 @@ var app = express();
                 if(!req.body.createdBy){
                     res.json({success:false,message:'Blog creator is required'});
                 }else{
+
                 const blog=new Blog({
                     title:req.body.title,
                     body:req.body.body,
@@ -45,31 +46,10 @@ var app = express();
                      }
                  }else{
                      res.json({success:true,message:'Blog Saved'});
-                     //console.log("Im from blog");
+                    
                  }
                 })
-                // blog.save((err)=>{
-                //     if(err)
-                //        {
-                //         if(err.errors){
-                //             if(err.errors.title){
-                //                 res.json({success:false,message:err.errors.title.message});
-                //             }else{
-                //                 if(err.errors.body){
-                //                     res.json({success:false,message:err.errors.body.message});
-                //                 }else{
-                                    
-                //                         res.json({success:false,message:err.errmsg});
-                //                     }
-                //             }
-                //         }else{
-                //             res.json({success:false,message:err});
-                //         }
-                //     }else{
-                //         res.json({success:true,message:'Blog Saved'});
-                //         console.log("Im from blog");
-                //     }
-                // });
+               
             }
             }
         }

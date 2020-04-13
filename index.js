@@ -27,6 +27,7 @@ const adminRoutes= require('./routes/adminroutes');
 const studentRoutes = require ('./routes/studentroutes');
 const facultyRoutes = require('./routes/facultyroutes');
 const blogRoutes = require ('./routes/blogroutes');
+const changePassword = require('./routes/changePasswordRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const bodyParser = require('body-parser');
 const cors=require('cors');
@@ -48,6 +49,7 @@ app.use('/faculty',facultyRoutes);
 app.use('/student',studentRoutes);
 app.use('/blog', blogRoutes);
 app.use('/chat', chatRoutes);
+app.use('/changePassword', changePassword);
 
 //chat Module
 

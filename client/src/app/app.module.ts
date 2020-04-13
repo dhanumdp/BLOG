@@ -30,6 +30,9 @@ import { ChatComponent } from './chat/chat.component';
 import { FacultyprofileComponent } from './facultyprofile/facultyprofile.component';
 import { EditBlogComponent } from './blog/edit-blog/edit-blog.component';
 import { DeleteBlogComponent } from './blog/delete-blog/delete-blog.component';
+import { StudentChangePasswordComponent } from './student-change-password/student-change-password.component';
+import { FacultyChangePasswordComponent } from './faculty-change-password/faculty-change-password.component';
+import { AlumniPasswordChangeComponent } from './alumni-password-change/alumni-password-change.component';
 
 //import { StudentprofileComponent } from './studentprofile/studentprofile.component';
 
@@ -55,6 +58,9 @@ import { DeleteBlogComponent } from './blog/delete-blog/delete-blog.component';
     FacultyprofileComponent,
     EditBlogComponent,
     DeleteBlogComponent,
+    StudentChangePasswordComponent,
+    FacultyChangePasswordComponent,
+    AlumniPasswordChangeComponent,
     
    // StudentprofileComponent,
 
