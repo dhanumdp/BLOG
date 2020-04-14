@@ -12,6 +12,7 @@ export class FacultyChangePasswordComponent implements OnInit {
 
   message;
   message1;
+  loading:boolean;
  
   message2;
   col=[];
@@ -28,6 +29,7 @@ export class FacultyChangePasswordComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.codeGot=false;
+    this.loading=false;
     this.getC=true;
     this.codeVerified=false;
   }
@@ -126,6 +128,7 @@ export class FacultyChangePasswordComponent implements OnInit {
          this.message2=result['message'];
          this.codeGot=false;
          this.form2.controls['newPass'].disable();
+         this.loading=true;
           setTimeout(()=>{
             this.router.navigate(['/facultylogin'])
           },2000)

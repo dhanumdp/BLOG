@@ -16,6 +16,11 @@
     <div [ngClass]="messageClass">
         {{message}}
     </div>
+    <div class="loader" *ngIf="loading" id="loader-4">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 </div>
 <button type="button" name="button" class="btn btn-warning" *ngIf="mainPage && pageChoosed"(click)="newBlogForm()">New Post</button> 
 
@@ -69,6 +74,8 @@
 
      </div>
 
+     
+
     <div class="form-group" style="width: 25%;">
         <label for="bg">To: </label>
         <select class="form-control" formControlName="page" >
@@ -79,9 +86,11 @@
     </div> 
     
 
+
     <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Go Back</button>
  <button [disabled]="processing||!form.valid" type="submit" style="margin-left: 
  2%;" name="button"  class="btn btn-success">Submit</button>
+
  
 </form>
 
@@ -128,6 +137,11 @@
     <div [ngClass]="messageClass">
         {{message}}
     </div>
+    <div class="loader" *ngIf="loading" id="loader-4">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 </div>
     <form (submit)="updateBlogSubmit()">
         <div class="form-group">
@@ -194,6 +208,11 @@
             <div [ngClass]="messageClass">
                 {{message}}
             </div>
+            <div class="loader" *ngIf="loading" id="loader-4">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
         </div>
           
     </div>

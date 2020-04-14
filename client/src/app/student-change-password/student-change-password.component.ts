@@ -19,7 +19,7 @@ export class StudentChangePasswordComponent implements OnInit {
   form : FormGroup;
   form1 : FormGroup;
   form2 : FormGroup;
-
+  loading:boolean;
   codeGot : boolean;
   getC : boolean;
   codeVerified :boolean;
@@ -29,6 +29,7 @@ export class StudentChangePasswordComponent implements OnInit {
     this.createForm();
     this.codeGot=false;
     this.getC=true;
+    this.loading=false;
     this.codeVerified=false;
     this.studentService.getCollections().subscribe((doc)=>{
       this.col.push(doc);
@@ -133,6 +134,7 @@ export class StudentChangePasswordComponent implements OnInit {
          this.message2=result['message'];
          this.codeGot=false;
          this.form2.controls['newPass'].disable();
+         this.loading=true;
           setTimeout(()=>{
             this.router.navigate(['/studentlogin'])
           },2000)

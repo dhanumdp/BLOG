@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   message;
   messageClass;
   processing = false;
+  loading:boolean;
   emailValid;
   emailMessage;
   usernameValid;
@@ -119,6 +120,7 @@ this.form.controls['confirm'].disable();
       { 
         this.messageClass='alert alert-success'
       this.message= data['message'];
+      this.loading=true;
       setTimeout(()=>
       {
         this.router.navigate(['/alumnilogin'])
@@ -133,6 +135,7 @@ this.form.controls['confirm'].disable();
 
   
   ngOnInit() {
+    this.loading=false;
   }
 
 }

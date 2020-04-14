@@ -14,7 +14,7 @@ export class AlumniPasswordChangeComponent implements OnInit {
 
   message;
   message1;
- 
+ loading : boolean;
   message2;
   col=[];
   form : FormGroup;
@@ -33,6 +33,7 @@ export class AlumniPasswordChangeComponent implements OnInit {
     this.createForm();
     this.codeGot=false;
     this.getC=true;
+    this.loading=false;
     this.codeVerified=false;
   }
 
@@ -130,6 +131,7 @@ export class AlumniPasswordChangeComponent implements OnInit {
          this.message2=result['message'];
          this.codeGot=false;
          this.form2.controls['newPass'].disable();
+         this.loading=true;
           setTimeout(()=>{
             this.router.navigate(['/alumnilogin'])
           },2000)

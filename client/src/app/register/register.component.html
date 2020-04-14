@@ -4,6 +4,11 @@
         <div [ngClass]="messageClass">
                 {{message}}
         </div>
+        <div class="loader" *ngIf="loading" id="loader-4">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
             <h1 class="page-header">Alumni Registration</h1>
     <form [formGroup] = "form"  (submit)="onRegisterSubmit()">
@@ -71,6 +76,8 @@
             </ul>
         </div>
         <input [disabled]='!form.valid || processing '  type="submit" class="btn btn-primary" value="Submit"/>
+
+      
     
     </form>
     

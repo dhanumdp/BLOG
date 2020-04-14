@@ -30,6 +30,7 @@ const path = 'http://localhost:3000/blog/public/uploads';
 export class BlogComponent implements OnInit {
 
   processing=false;
+  loading : boolean;
   messageClass;
   pageChoosed:boolean;
   selectedPage:string;
@@ -73,6 +74,7 @@ export class BlogComponent implements OnInit {
   ngOnInit() {
     this.nav.hide();
     this.mainPage=true;
+    this.loading=false;
     this.newPost=false;
     this.complete=false;
     this.deletePost=false;
@@ -189,18 +191,20 @@ export class BlogComponent implements OnInit {
       else{
         this.messageClass='alert alert-success';
         this.message=data['message'];
+        this.loading=true;
         this.getAllBlogs();
         setTimeout(()=>{
           this.newPost=false;
          
           this.processing=false;
+          this.loading=false;
       
            this.message=false;
       
           this.form.reset();
           this.goBack();
           this.enableFormNewBlogForm();
-      },1000);
+      },2000);
       }
     });
 }
@@ -257,10 +261,11 @@ export class BlogComponent implements OnInit {
       }
       this.messageClass='alert alert-success';
       this.message=data['message'];
+      this.loading=true;
       setTimeout(()=>{
         this.goBack();
-
-      },1000);
+        this.loading=false;
+      },2000);
     })
 
   
@@ -296,10 +301,11 @@ export class BlogComponent implements OnInit {
       }
       this.messageClass='alert alert-success';
       this.message=data['message'];
+      this.loading=true;
       setTimeout(()=>{
          this.goBack()
-
-      },1000);
+        this.loading=false;
+      },2000);
     })
 
   }
