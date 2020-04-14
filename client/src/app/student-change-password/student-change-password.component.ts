@@ -132,6 +132,7 @@ export class StudentChangePasswordComponent implements OnInit {
        {
          this.message2=result['message'];
          this.codeGot=false;
+         this.form2.controls['newPass'].disable();
           setTimeout(()=>{
             this.router.navigate(['/studentlogin'])
           },2000)
@@ -144,14 +145,7 @@ export class StudentChangePasswordComponent implements OnInit {
    disableForm(){
     
   }
-  enableform(){
-   this.form.controls['rollno'].enable();
-   this.form.controls['email'].enable();
-   this.form.controls['batch'].enable();
-   this.form1.controls['code'].enable();
-   this.form2.controls['password'].enable();
-  }
-
+ 
  
 
   

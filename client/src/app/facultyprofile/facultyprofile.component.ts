@@ -181,6 +181,7 @@ newFaculty={};
   showBlog()
   {
     this.blog=true;
+    this.getDetails();
     this.profile=false;
     this.chat=false;
   }
@@ -188,12 +189,14 @@ newFaculty={};
   {
     this.profile=true;
     this.blog=false;
+    this.getDetails();
     this.chat=false;
   }
   showChat()
   {
     this.chat=true;
     this.profile=false;
+    this.getDetails();
     this.blog=false;
   }
   Logout()

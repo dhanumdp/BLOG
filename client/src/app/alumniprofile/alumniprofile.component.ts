@@ -23,6 +23,7 @@ export class AlumniprofileComponent implements OnInit {
 
   constructor( private authService:AuthService , private router : Router, private flash : NgFlashMessageService, public nav : NavbarService) {
     this.uploader = new FileUploader({ url: URL, itemAlias: "photo" });
+ 
    }
 
   username;
@@ -81,17 +82,20 @@ export class AlumniprofileComponent implements OnInit {
   {
     this.blog=true;
     this.profile=false;
+    this.getDetails();
     this.chat=false;
   }
   showProfile()
   {
     this.profile=true;
+    this.getDetails();
     this.blog=false;
     this.chat=false;
   }
   showChat()
   {
     this.chat=true;
+    this.getDetails();
     this.profile=false;
     this.blog=false;
   }
@@ -171,7 +175,7 @@ export class AlumniprofileComponent implements OnInit {
         this.updated=false
       },1000)
       window.document.getElementById("editInfo").style.visibility="visible"
-      this.getDetails();
+     ;
       var inputs=window.document.getElementsByTagName('input');
      for(let i=1;i<inputs.length;i++){
   
@@ -184,6 +188,7 @@ export class AlumniprofileComponent implements OnInit {
       }
     
     )
+    this.getDetails();
   }
 
   setUpdateVisible()
