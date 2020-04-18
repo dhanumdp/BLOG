@@ -19,6 +19,7 @@
 <section *ngIf="!value">
   <div class="sideNavigation">
     <ul class="nav">
+
       <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="createClass()" >
         <i class="fa fa-plus-circle" aria-hidden="true"></i>  Create Class</a></li>
       <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="createFaculty()" >
@@ -37,6 +38,8 @@
         <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Page</a></li>
         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="deleteGroup()" >
           <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Group</a></li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="addAdmin()" >
+            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Admin</a></li>
       <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="Logout()">
         <i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a></li>
    </ul>   
@@ -49,7 +52,6 @@
               <div class="panel-group">
                 <div class="panel panel-default">
                   <div class="panel-heading " style="display: flex; flex-direction: row; background:#2c3e50;" >
-              
                       <h1 style="color: white;">Create Class</h1>
                      </div>
                   <div class="panel-body">
@@ -73,9 +75,15 @@
                               <input type="number" class="form-control" #eroll name="eroll" placeholder="Eg : 120" id="eroll" value="">
                           </div> 
                           <div class="form-group">
-                            <h6 *ngIf="classCreated" class="alert alert-success" style="font-size: 12px; text-align: center;">Class Created Successfully</h6>
-                            <button type="submit"  class="btn btn-sm btn-success" (click)="classCreation(mxian.value,prefix.value,sroll.value,eroll.value)">Create Class</button>
-              
+                             <button type="submit"  class="btn btn-sm btn-success" (click)="classCreation(mxian.value,prefix.value,sroll.value,eroll.value)">Create Class</button>
+                            <div *ngIf="classCreated">
+                              <div class="row show-hide-message"  style=" margin-top: 1%; margin-left: 1%; width: 40%;" *ngIf="message">
+                                <div [ngClass]="messageClass">
+                                    {{message}}
+                                </div>
+                      
+                            </div>
+                             </div>
                         </div>
 
                       </div>  
@@ -107,9 +115,15 @@
 
                           </div> 
                           <div class="form-group">
-                            <h6 *ngIf="classDeleted" class="alert alert-success" style="font-size: 12px; text-align: center;">Class Deleted Successfully</h6>
-                            <button type="submit"  class="btn btn-sm btn-danger" (click)="classDeletion(mxian.value)">Delete Class</button>
-              
+                             <button type="submit"  class="btn btn-sm btn-danger" (click)="classDeletion(mxian.value)">Delete Class</button>
+                            <div *ngIf="classDeleted">
+                              <div class="row show-hide-message"  style=" margin-top: 1%; margin-left: 1%; width: 40%;" *ngIf="message">
+                                <div [ngClass]="messageClass">
+                                    {{message}}
+                                </div>
+                      
+                            </div>
+                             </div>
                         </div>
                         
                       </div>  
@@ -147,9 +161,15 @@
                             <input type="text"  #roll class="form-control"  name="roll" id="roll"  value="" >
                         </div>
                         <div class="form-group">
-                          <h6 *ngIf="studentDeleted" class="alert alert-success" style="font-size: 12px; text-align: center;">Student Deleted Successfully</h6>
-                          <button type="submit"  class="btn btn-sm btn-danger" (click)="studentDeletion(mxian.value, roll.value)">Delete Student</button>
-  
+                             <button type="submit"  class="btn btn-sm btn-danger" (click)="studentDeletion(mxian.value, roll.value)">Delete Student</button>
+                          <div *ngIf="studentDeleted">
+                            <div class="row show-hide-message"  style=" margin-top: 1%; margin-left: 1%; width: 40%;" *ngIf="message">
+                              <div [ngClass]="messageClass">
+                                  {{message}}
+                              </div>
+                    
+                          </div>
+                           </div>
                       </div>
                           
                       </div>  
@@ -181,9 +201,17 @@
                               <input type="text"  #facid class="form-control"  name="facid" id="facid"  value="" >
                           </div>
                           <div class="form-group">
-                            <h6 *ngIf="facultyCreated" class="alert alert-success" style="font-size: 12px; text-align: center;">Facuty Created Successfully</h6>
                             <button type="submit"  class="btn btn-sm btn-success" (click)="facultyCreation(name.value, facid.value)">Create Faculty</button>
-    
+                            
+                           <div *ngIf="facultyCreated">
+                            <div class="row show-hide-message"  style=" margin-top: 1%; margin-left: 1%; width: 40%;" *ngIf="message">
+                              <div [ngClass]="messageClass">
+                                  {{message}}
+                              </div>
+                    
+                          </div>
+                           </div>
+                           
                         </div>
                        
                     
@@ -213,9 +241,15 @@
                               <input type="text"  #facid class="form-control"  name="facid" id="facid"  value="" >
                           </div>
                           <div class="form-group">
-                            <h6 *ngIf="facultyDeleted" class="alert alert-success" style="font-size: 12px; text-align: center;">Faculty Deleted Successfully</h6>
-                            <button type="submit"  class="btn btn-sm btn-danger" (click)="facultyDeletion(facid.value)">Delete Faculty</button>
-
+                             <button type="submit"  class="btn btn-sm btn-danger" (click)="facultyDeletion(facid.value)">Delete Faculty</button>
+                            <div *ngIf="facultyDeleted">
+                              <div class="row show-hide-message"  style=" margin-top: 1%; margin-left: 1%; width: 40%;" *ngIf="message">
+                                <div [ngClass]="messageClass">
+                                    {{message}}
+                                </div>
+                      
+                            </div>
+                             </div>
                         </div>
                             
                           
@@ -250,9 +284,16 @@
 
                           </div>
                           <div class="form-group">
-                            <h6 *ngIf="pageCreated" class="alert alert-success" style="font-size: 12px; text-align: center;">Page Created Successfully</h6>
-                            <button [disabled]='!batch.value'  class="btn btn-sm btn-success" (click)="pageCreation(batch.value)">Create Page </button>
-                        </div> 
+                             <button [disabled]='!batch.value'  class="btn btn-sm btn-success" (click)="pageCreation(batch.value)">Create Page </button>
+                            <div *ngIf="pageCreated">
+                              <div class="row show-hide-message"  style=" margin-top: 1%; margin-left: 1%; width: 40%;" *ngIf="message">
+                                <div [ngClass]="messageClass">
+                                    {{message}}
+                                </div>
+                      
+                            </div>
+                             </div>
+                          </div> 
                       </div>  
           
                 </div>
@@ -284,9 +325,16 @@
 
                           </div>
                           <div class="form-group">
-                            <h6 *ngIf="groupCreated" class="alert alert-success" style="font-size: 12px; text-align: center;">Group Created Successfully</h6>
-                            <button [disabled]='!batch.value'  class="btn btn-sm btn-success" (click)="groupCreation(batch.value)">Create Group </button>
-                        </div> 
+                             <button [disabled]='!batch.value'  class="btn btn-sm btn-success" (click)="groupCreation(batch.value)">Create Group </button>
+                            <div *ngIf="groupCreated">
+                              <div class="row show-hide-message"  style=" margin-top: 1%; margin-left: 1%; width: 40%;" *ngIf="message">
+                                <div [ngClass]="messageClass">
+                                    {{message}}
+                                </div>
+                      
+                            </div>
+                             </div>
+                          </div> 
                       </div>  
           
                 </div>
@@ -320,10 +368,16 @@
 
                           </div> 
                           <div class="form-group">
-                            <h6 *ngIf="pageDeleted" class="alert alert-success" style="font-size: 12px; text-align: center;">Page Deleted Successfully</h6>
-                            <button type="submit"  class="btn btn-sm btn-danger" (click)="pageDeletion(page.value)">Delete Page</button>
-    
-                        </div>
+                             <button type="submit"  class="btn btn-sm btn-danger" (click)="pageDeletion(page.value)">Delete Page</button>
+                            <div *ngIf="pageDeleted">
+                              <div class="row show-hide-message"  style=" margin-top: 1%; margin-left: 1%; width: 40%;" *ngIf="message">
+                                <div [ngClass]="messageClass">
+                                    {{message}}
+                                </div>
+                      
+                            </div>
+                             </div>
+                          </div>
                           
                       </div>  
           
@@ -357,9 +411,15 @@
 
                           </div> 
                           <div class="form-group">
-                            <h6 *ngIf="groupDeleted" class="alert alert-success" style="font-size: 12px; text-align: center;">Group Deleted Successfully</h6>
-                            <button type="submit"  class="btn btn-sm btn-danger" (click)="groupDeletion(page.value)">Delete Group</button>
-    
+                             <button type="submit"  class="btn btn-sm btn-danger" (click)="groupDeletion(page.value)">Delete Group</button>
+                            <div *ngIf="groupDeleted">
+                              <div class="row show-hide-message"  style=" margin-top: 1%; margin-left: 1%; width: 40%;" *ngIf="message">
+                                <div [ngClass]="messageClass">
+                                    {{message}}
+                                </div>
+                      
+                            </div>
+                             </div>
                         </div>
                           
                       </div>  
@@ -371,6 +431,59 @@
               </div>
             </div>
         </div>
+
+        <div *ngIf="cadmin">
+
+
+          <div class="container" style="margin-top: 1%;">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading " style="display: flex; flex-direction: row; background:#2c3e50;" >
+                    <h1 style="color: white;">Add Admin</h1>
+                   </div>
+                <div class="panel-body">
+                          <!-- <input type="button" class="btn btn-success" value="Dashboard" style="margin-left: auto;" (click)="dashboard()"> -->
+                    <div class="row">
+                        <div class="col-md-12 md-offset-4">
+                          <div class="form-group">
+                            <label for="batch">Username</label>
+                            <input type="text" #username class="form-control" name="username" id="username"    value="">
+                        </div>
+                            <div  class="form-group">
+                            <label for="roll">Password</label>
+                            <input type="password"  #password class="form-control"  name="password" id="password"  value="" >
+                        </div>
+                        <div class="form-group">
+                          <button type="submit"  class="btn btn-sm btn-success" (click)="adminCreation(username.value, password.value)">Add Admin</button>
+                          
+                         <div *ngIf="adminCreated">
+                          <div class="row show-hide-message"  style=" margin-top: 1%; margin-left: 1%; width: 40%;" *ngIf="message">
+                            <div [ngClass]="messageClass">
+                                {{message}}
+                            </div>
+                  
+                        </div>
+                         </div>
+                         
+                      </div>
+                     
+                  
+                        
+                    </div>  
+        
+              </div>
+             
+              </div>
+              </div>
+            </div>
+          </div>
+         
+
+        </div>
+
+       
+        
+
       </div>
       </div>
   </div>

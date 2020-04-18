@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
   messageArray:Array<{user:String,message:String}> = [];
   messageArray2:Array<{user:String,message:String}> = [];
   msg ={};
-  group = [];
+  group = {};
   constructor(private _chatService:ChatService, private http : HttpClient, private router : Router){
     this._chatService.newUserJoined()
     .subscribe(data=> this.messageArray.push(data)
@@ -31,7 +31,7 @@ export class ChatComponent implements OnInit {
     this._chatService.newMessageReceived()
     .subscribe(data=>this.messageArray.push(data));
     this._chatService.getGroups().subscribe((res)=>{
-      this.group.push(res);
+      this.group=res;
     })
    }
    join(){

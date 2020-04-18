@@ -34,6 +34,7 @@ export class StudentprofileComponent implements OnInit {
   profile:boolean;
   blog:boolean;
   chat : boolean;
+  alumni : boolean;
   downloadFile;
   username;
   updated : boolean;
@@ -212,6 +213,7 @@ newStudent={};
   {
     this.blog=true;
     this.profile=false;
+    this.alumni=false;
     this.chat=false;
     this.getDetails();
   }
@@ -219,12 +221,23 @@ newStudent={};
   {
     this.profile=true;
     this.blog=false;
+    this.alumni=false;
     this.getDetails();
     this.chat=false;
   }
   showChat()
   {
     this.chat=true;
+    this.getDetails();
+    this.alumni=false;
+    this.profile=false;
+    this.blog=false;
+  }
+
+  showAlumni()
+  {
+    this.chat=false;
+    this.alumni=true;
     this.getDetails();
     this.profile=false;
     this.blog=false;

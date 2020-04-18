@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Clas} from '../adminprofile/clas';
+import {Admin} from '../adminprofile/admin'
 import { tokenName } from '@angular/compiler';
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class AdminservicesService {
  options;
 
  Clas : Clas;
+ admin :Admin;
   createAuthenticationHeaders()
   {
       this.loadToken();
@@ -107,6 +109,15 @@ export class AdminservicesService {
   return this.http.post('http://localhost:3000/admin/deleteGroup', page);
  }
 
+ createAdmin(admin)
+ {
+   return this.http.post('http://localhost:3000/admin/addAdmin',admin);
+ }
+
+ getDetails(user)
+ {
+   return this.http.get(`http://localhost:3000/admin/getDetails/${user}`);
+ }
 loggedIn()
 {
   return true;

@@ -4,6 +4,8 @@ const express= require('express');
 const jwt = require('jsonwebtoken');
 const config= require('../config/db');
 const router=express.Router();
+var app=express();
+var multer = require('multer');
 const mongoose=require('mongoose');
 //create a class
 router.post("/createClass",function(req,res,next){
@@ -42,8 +44,8 @@ router.post("/createClass",function(req,res,next){
                    });
                 } 
                 collection.insertMany(myobj, function(err, response) {
-                    if (err) res.json("Oops"+JSON.stringify(err,undefined,2));
-                    else    res.json("Hurray");
+                    if (err)  res.json({success:false, message:'Error While Creating Class'})
+                    else     res.json({success:true, message:'Class Created Successfully'})
                   });
                             
             }
@@ -61,13 +63,12 @@ router.post("/deleteClass",function(req,res,next){
     collection.drop({},function(err,result){
         if(err){
             console.log("Delete Class Error:  "+err)
-            res.json("Oops");
+            res.json({success:false, message:'Error while Deleting Class'})
         }
         else{
-            res.json("Hurray");
+            res.json({success:true, message:'Class Deleted Successfully'})
         }
     })
-
 });
 
 
@@ -79,16 +80,27 @@ router.post("/deleteStudent",function(req,res,next){
     var mxians=req.body.mxians;
     var rollno=req.body.rollno;
     var collection = mongoose.connection.db.collection(mxians);
-  
-    collection.remove({"Roll_No":rollno},function(err,result){
-        if(err){
-            console.log("Delete Student Error:  "+err)
-            res.json("Oops");
+
+    collection.find({"Roll_No":rollno}).count((error,num)=>{
+        if(num==0)
+        {
+            res.json({success:false, message:'Student Already Deleted'})
         }
-        else{
-            res.json("Hurray");
+        else
+        {
+            collection.remove({"Roll_No":rollno},function(err,result){
+                if(err){
+                    console.log("Delete Student Error:  "+err)
+                    res.json({success:false, message:'Error while Deleting Student'})
+                }
+                else{
+                    res.json({success:true, message:'Student Deleted Successfully'})
+                }
+            })
         }
     })
+  
+   
 
 });
 
@@ -115,45 +127,25 @@ router.post("/createFaculty",function(req,res,next){
         "Year_of_Joining":'',
         "Blood_Group":""
     });
-    collection.findOne({'Username':username}, (err,docs)=>{
-       if(err)
-       {
-           console.log(err);
-       }
-        else if(docs)
+
+    collection.find({'Username':req.body.username}).count((err,num)=>{
+
+        if(num != 0 )
         {
-           // console.log('Update');
-            collection.updateOne({'Username' :username}, { $set:{"Name":name,
-            "Role":'',
-            "Username":username,
-            "Password":"a",
-            "DOB":'',
-            "Address":'',
-            "Gender":'',
-            'Phone_Number':'',
-            'Email':'',
-            "Year_of_Joining":'',
-            "Blood_Group":"",
-            }
-        },
-             { $upsert: true },function(err, result) {
-                if(err){
-                console.log(err)
-                res.json("0")
-            }   
-            else
-            {
-                res.json("1")
-            }
-        });
+            res.json({success:false, message:'Faculty Already Created'})
         }
         else
         {
-           // console.log('insert');
-            collection.insertMany(myobj, function(err, response) {
-                if (err) res.json("Oops");
-                else    res.json("Hurray");
-              });           
+            collection.insertMany(myobj,(error,docs)=>{
+                if(error)
+                {
+                    res.json({success:false, message:'Error while creating Faculty'})
+                }
+                else
+                    {
+                        res.json({success:true, message:'Faculty Created Successfully'})
+                    }
+            })
         }
     })
                     
@@ -166,29 +158,51 @@ router.post("/deleteFaculty",function(req,res,next){
 
     var username = req.body.username
     var collection = mongoose.connection.db.collection("Faculty"); 
-    collection.remove({'Username':username},function(err,result){
-        if(err){
-            console.log("Delete Staff Error:  "+err)
-            res.json("Oops");
+    collection.find({'Username':username}).count((error,num)=>{
+        if(num==0)
+        {
+            res.json({success:false, message:'Faculty Already Deleted'})
+
         }
-        else{
-            res.json("hurray");
+        else
+        {
+            collection.remove({'Username':username},function(err,result){
+                if(err){
+                    console.log("Delete Staff Error:  "+err)
+                    res.json({success:false, message:'Error While Deleting Faculty'})
+                }
+                else{
+                    res.json({success:true, message:'Faculty Deleted Successfully'})
+                }
+            })
         }
     })
+   
 });
 //createBlog
 router.post('/createPage', function(req,res,next){
     var mxians=req.body.batch;
-    mongoose.connection.db.createCollection(mxians+"Page",function(err){
-        if(!err)
-        {
-            res.json('Hurray');
-        }
-        else
-        {
-            res.json('OOPS');
-        }
-    })
+   
+  mongoose.connection.db.listCollections({name:mxians+"Page"}).next((error,info)=>{
+      if(info)
+      {
+        res.json({success:false, message:'Page Already Created'})
+      }
+      else
+      {
+        mongoose.connection.db.createCollection(mxians+"Page",function(err){
+            if(!err)
+            {
+                res.json({success:true, message:'Page Created Successfully'})
+               
+            }
+            else
+            {
+                res.json({success:false, message:'Error While Creating Collection' +err})
+            }
+        })
+      }
+  }) 
 })
 
 
@@ -196,16 +210,26 @@ router.post('/createPage', function(req,res,next){
 router.post('/createGroup', function(req,res,next){
     var mxians=req.body.batch;
     console.log(mxians);
-    mongoose.connection.db.createCollection(mxians+"Group",function(err){
-        if(!err)
+    mongoose.connection.db.listCollections({name: mxians+"Group"}).next(function(error,info){
+        if(info)
         {
-            res.json('Hurray');
+            res.json({success:false, message:'Group Already Created'})
         }
         else
         {
-            res.json('OOPS');
+            mongoose.connection.db.createCollection(mxians+"Group",function(err){
+                if(!err)
+                {
+                    res.json({success:true, message:'Group Created Successfully'})
+                }
+                else
+                {
+                    res.json({success:false, message:'Error while Creating Page'})
+                }
+            })
         }
     })
+   
 })
 
 
@@ -243,10 +267,10 @@ router.post('/deletePage',function(req,res,next){
     collection.drop({},function(err,result){
         if(err){
             console.log("Delete Page Error:  "+err)
-            res.json("Oops");
+            res.json({success:false, message:'Error while Deleting Page'})
         }
         else{
-            res.json("Hurray");
+            res.json({success:true, message:'Page Deleted Successfully'})
         }
     })
 });
@@ -259,10 +283,10 @@ router.post('/deleteGroup',function(req,res,next){
     collection.drop({},function(err,result){
         if(err){
             console.log("Delete Page Error:  "+err)
-            res.json("Oops");
+            res.json({success:false, message:'Error while Deleting Page'})
         }
         else{
-            res.json("Hurray");
+            res.json({success:true, message:'Group Deleted Successfully'})
         }
     })
 });
@@ -354,8 +378,8 @@ router.post('/adminlogin', (req,res)=>{
                       }
                       else
                       {
-                          const validPassword = user.comparePassword(req.body.password);
-                          if(!validPassword)
+                         // const validPassword = user.comparePassword(req.body.password);
+                          if(user.password != req.body.password)
                           {
                               res.json({success:false, message: "invalid password"});
                           }
@@ -376,7 +400,6 @@ router.post('/addAdmin',function(req,res){
     if(!req.body.username)
     {
         res.json({success:false, message:"You Must Provide Username"})
-
     }
     else
     {
@@ -388,14 +411,17 @@ router.post('/addAdmin',function(req,res){
         else
         {
             let user = new admin({
-                username:req.body.username.toLowerCase(),
+                photo : "assets/images/admin.jpeg",
+                name : "",
+                phoneno :"",
+                username:req.body.username,
                 password:req.body.password
             });
             user.save(function(err){
                 
                 if(err){
                         if(err.code ===11000)
-                             res.json({success:false, message:"Username or Email already Exists "})
+                             res.json({success:false, message:"Admin Already Created"})
                              
                         else {
                                if(err.errors)
@@ -427,7 +453,7 @@ router.post('/addAdmin',function(req,res){
                             }
                         }
                 else
-                res.json({success:true, message:"Account Registered Successfully!"})
+                res.json({success:true, message:"Admin Created Successfully!"})
             });
 
         }
@@ -436,7 +462,6 @@ router.post('/addAdmin',function(req,res){
     
 
 })
-
 //for profile
 
   router.use((req,res,next)=>{

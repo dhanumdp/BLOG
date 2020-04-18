@@ -12,8 +12,8 @@ import {ChatService} from '../services/chat.service';
 })
 export class AdminprofileComponent implements OnInit {
   col={};
-pages=[];
-group=[];
+pages={};
+group={};
   constructor(
 
    private adminService: AdminservicesService,
@@ -29,6 +29,8 @@ group=[];
   local;
   classCreated:boolean;
   classDeleted : boolean;
+  messageClass;
+  message;
   facultyCreated : boolean;
   pageCreated : boolean;
   groupCreated:boolean;
@@ -36,6 +38,8 @@ group=[];
   studentDeleted : boolean;
   facultyDeleted : boolean ;
   pageDeleted: boolean;
+  adminCreated : boolean;
+  profile : boolean;
   value : boolean;
   cclass : boolean;
   dclass : boolean;
@@ -46,8 +50,9 @@ group=[];
   dpage : boolean;
   cgroup:boolean;
   dgroup:boolean;
+  cadmin : boolean;
   ngOnInit() {
-
+    this.cclass=true;
    this.getColl();
     this.nav.hide();
     this.classCreated=false;
@@ -55,6 +60,7 @@ group=[];
     this.facultyCreated = false;
     this.pageCreated = false;
     this.studentDeleted = false;
+    this.adminCreated=false;
     this.facultyDeleted=false;
     this.pageDeleted = false;
     this.groupCreated=false;
@@ -95,6 +101,7 @@ this.dfaculty=false;
 this.cpage=false;
 this.dpage=false;
 this.cgroup=false;
+this.cadmin=false;
 this.dgroup=false;
   }
   classCreation(mxian : string, prefix : string, sroll : number, eroll : number)
@@ -106,8 +113,20 @@ this.dgroup=false;
       end: eroll,
     }
     this.adminService.createClass(Clas).subscribe((res)=>{
-      this.classCreated=true;
-      setTimeout(()=>{this.classCreated=false},1000)
+      if(!res['success'])
+      {
+        this.classCreated=true;
+        this.messageClass='alert alert-danger'
+        this.message=res['message'];
+      }
+      else
+      {
+        this.classCreated=true;
+        this.messageClass='alert alert-success'
+        this.message=res['message'];
+        setTimeout(()=>{this.classCreated=false},1000)
+      }
+     
     })
   }
   deleteClass()
@@ -117,6 +136,7 @@ this.dgroup=false;
     this.cclass=false;
     this.dclass=true;
     this.cstudent=false;
+    this.cadmin=false;
     this.cfaculty=false;
     this.dfaculty=false;
     this.cpage=false;
@@ -132,9 +152,21 @@ this.dgroup=false;
       mxians : mxian
     }
     this.adminService.deleteClass(Clas).subscribe((res)=>{
-      this.classDeleted=true;
-      setTimeout(()=>{this.classDeleted=false},5000)
-      this.getColl();
+      if(!res['success'])
+      {
+        this.messageClass='alert alert-danger'
+        this.message=res['message'];
+        this.classDeleted=true;
+      }
+      else
+      {
+        this.classDeleted=true;
+        this.messageClass='alert alert-success'
+        this.message=res['message'];
+        setTimeout(()=>{this.classDeleted=false},1000)
+        this.getColl();
+      }
+     
     })
   }
   deleteStudent()
@@ -143,6 +175,7 @@ this.dgroup=false;
     this.cclass=false;
 this.dclass=false;
 this.cstudent=true;
+this.cadmin=false;
 this.cfaculty=false;
 this.cgroup=false;
 this.dgroup=false;
@@ -158,11 +191,21 @@ this.dpage=false;
       rollno : roll.toUpperCase()
     }
     this.adminService.deleteStudent(stud).subscribe((res)=>{
-      console.log(res);
+     // console.log(res);
+     if(!res['success'])
+     {
+     this.studentDeleted=true;
+      this.messageClass='alert alert-danger'
+      this.message=res['message'];
+     }
+     else{
       this.studentDeleted = true;
+      this.messageClass='alert alert-success'
+      this.message=res['message'];
       setTimeout(() => {
         this.studentDeleted=false
       }, 1000);
+    }
     })
 
     
@@ -174,6 +217,7 @@ this.dpage=false;
     this.cgroup=false;
 this.dgroup=false;
     this.cstudent=false;
+    this.cadmin=false;
     this.cfaculty=true;
     this.dfaculty=false;
     this.cpage=false;
@@ -187,10 +231,24 @@ this.dgroup=false;
     }
 
     this.adminService.createFaculty(fac).subscribe((res)=>{
-      this.facultyCreated = true;
-      setTimeout(()=>{
-        this.facultyCreated=false;
-      }, 1000);
+
+      if(!res['success'])
+      {
+          this.messageClass='alert alert-danger'
+          this.message=res['message'];
+          this.facultyCreated=true;
+      }
+      else
+      {
+        this.messageClass='alert alert-success'
+        this.message=res['message'];
+        this.facultyCreated = true;
+        setTimeout(()=>{
+          this.facultyCreated=false;
+        }, 1000);
+      }
+
+     
     })
   }
   deleteFaculty()
@@ -200,6 +258,7 @@ this.dgroup=false;
     this.cgroup=false;
 this.dgroup=false;
     this.cstudent=false;
+    this.cadmin=false;
     this.cfaculty=false;
     this.dfaculty=true;
     this.cpage=false;
@@ -212,11 +271,21 @@ this.dgroup=false;
     }
 
     this.adminService.deleteFaculty(fac).subscribe((res)=>{
+      if(!res['success'])
+      {
+        this.messageClass='alert alert-danger'
+        this.message=res['message'];
+        this.facultyDeleted=true;
+      }
+      else{
       this.facultyDeleted=true;
-      console.log(res);
+      this.messageClass='alert alert-success'
+      this.message=res['message'];
+     // console.log(res);
       setTimeout(()=>{
         this.facultyDeleted=false;
       },1000)
+    }
     })
   }
   createPage()
@@ -227,6 +296,7 @@ this.dgroup=false;
     this.cstudent=false;
     this.cfaculty=false;
     this.dfaculty=false;
+    this.cadmin=false;
     this.cgroup=false;
     this.dgroup=false;
     this.cpage=true;
@@ -239,26 +309,37 @@ this.dgroup=false;
       batch : bat
     }
     this.adminService.createPage(page).subscribe((res)=>{
+      if(!res['success'])
+      {
+        this.pageCreated=true;
+        this.messageClass='alert alert-danger'
+        this.message=res['message'];
+      }
+      else{
       this.pageCreated=true;
+      this.messageClass='alert alert-success'
+      this.message=res['message'];
       setTimeout(()=>{
         this.pageCreated=false;
       },1000)
+    }
     })
   }
   deletePage()
   {
     this.adminService.getPages().subscribe((doc)=>{
-      this.pages.push(doc);
+      this.pages=(doc);
    //  console.log(doc);
     });
     this.cclass=false;
     this.dclass=false;
-    this.cstudent=false;
+    this.cstudent=false; 
+    this.cadmin=false;
     this.cfaculty=false;
     this.dfaculty=false;
     this.cpage=false;
     this.cgroup=false;
-this.dgroup=false;
+  this.dgroup=false;
     this.dpage=true;
   }
   pageDeletion(p : String)
@@ -268,11 +349,22 @@ this.dgroup=false;
     }
 
     this.adminService.deletePage(page).subscribe((res)=>{
+      if(!res['success'])
+      {
+        this.pageDeleted=true;
+        this.messageClass='alert alert-danger'
+        this.message=res['message'];
+      }
+      else{
       this.pageDeleted = true;
+      this.messageClass='alert alert-success'
+      this.message=res['message'];
       setTimeout(()=>{
+
         this.pageDeleted=false;
         this.deletePage();
       },1000)
+    }
     })
   }
   createGroup()
@@ -283,6 +375,7 @@ this.dgroup=false;
     this.cstudent=false;
     this.cfaculty=false;
     this.dfaculty=false;
+    this.cadmin=false;
     this.cgroup=true;
     this.dgroup=false;
     this.cpage=false;
@@ -295,10 +388,20 @@ this.dgroup=false;
       batch : bat
     }
     this.adminService.createGroup(page).subscribe((res)=>{
+      if(!res['success'])
+      {
+        this.messageClass='alert alert-danger'
+        this.message=res['message'];
+        this.groupCreated=true;
+      }
+      else{
       this.groupCreated=true;
+      this.messageClass='alert alert-success'
+      this.message=res['message'];
       setTimeout(()=>{
         this.groupCreated=false;
       },1000)
+    }
     })
   }
   
@@ -307,13 +410,14 @@ this.dgroup=false;
   deleteGroup()
   {
     this.chatService.getGroups().subscribe((res)=>{
-      this.group.push(res);
+      this.group=(res);
     })
     this.cclass=false;
     this.dclass=false;
     this.cstudent=false;
     this.cfaculty=false;
     this.dfaculty=false;
+    this.cadmin=false;
     this.cpage=false;
     this.cgroup=false;
     this.dgroup=true;
@@ -322,17 +426,74 @@ this.dgroup=false;
 
   groupDeletion(p : String)
   {
+
     let page = {
       page : p
     }
 
     this.adminService.deleteGroup(page).subscribe((res)=>{
+      if(!res['success'])
+      {
+        this.groupDeleted=true;
+        this.messageClass='alert alert-danger'
+        this.message=res['message'];
+      }
+      else{
       this.groupDeleted = true;
+      this.messageClass='alert alert-success'
+      this.message=res['message'];
       setTimeout(()=>{
         this.groupDeleted=false;
         this.deleteGroup();
       },1000)
+    }
     })
   }
+
+  addAdmin()
+  {
+
+    this.cadmin=true;
+    this.cclass=false;
+    this.dclass=false;
+    this.cgroup=false;
+      this.dgroup=false;
+    this.cstudent=false;
+    this.cfaculty=false;
+
+    this.dfaculty=false;
+    this.cpage=false;
+    this.dpage=false;
+  }
+  adminCreation(username : string, password : String )
+  {
+    let admin = {
+      username:username,
+      password : password
+    }
+    console.log(admin);
+
+    this.adminService.createAdmin(admin).subscribe((res)=>{
+
+      if(!res['success'])
+      {
+          this.messageClass='alert alert-danger'
+          this.message=res['message'];
+          this.adminCreated=true;
+      }
+      else
+      {
+        this.messageClass='alert alert-success'
+        this.message=res['message'];
+        this.adminCreated = true;
+        setTimeout(()=>{
+          this.adminCreated=false;
+        }, 1000);
+      }
+
+     
+    })
+  }
+  
 
 }

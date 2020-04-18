@@ -29,6 +29,8 @@ export class FacultyprofileComponent implements OnInit {
   profile:boolean;
   blog:boolean;
   updated:boolean;
+  student : boolean;
+  alumni:boolean;
   chat : boolean;
   urldata:string;
   imgurl:string;
@@ -182,6 +184,8 @@ newFaculty={};
   {
     this.blog=true;
     this.getDetails();
+    this.student=false;
+    this.alumni=false;
     this.profile=false;
     this.chat=false;
   }
@@ -189,15 +193,40 @@ newFaculty={};
   {
     this.profile=true;
     this.blog=false;
+    this.alumni=false;
     this.getDetails();
+    this.student=false;
     this.chat=false;
   }
   showChat()
   {
     this.chat=true;
     this.profile=false;
+    this.student=false;
+    this.alumni=false;
     this.getDetails();
     this.blog=false;
+  }
+  showAlumni()
+  {
+    this.chat=false;
+    this.profile=false;
+    this.getDetails();
+    this.alumni=true;
+    this.student=false;
+    this.blog=false;
+
+  }
+
+  showStudent()
+  {
+    this.chat=false;
+    this.profile=false;
+    this.alumni=false;
+    this.getDetails();
+    this.student=true;
+    this.blog=false;
+
   }
   Logout()
   {
