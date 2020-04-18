@@ -154,7 +154,115 @@
             <app-chat></app-chat>
           </div>
           <div *ngIf="alumni">
-               
+            <div class="container" style="margin-top: 1%;">
+              <div class="panel-group">
+                <div class="panel panel-default">
+  
+                  <div class="panel-heading " style="display: flex; flex-direction: row; background:#2c3e50;" >
+                    <h1 style="color: white;">View Alumni</h1>
+                  </div>
+  
+                  <div class="panel-body">
+                        <div class="col-md-3 col-md-offset-4">
+                              <label for="">Select Alumni</label>
+                              <select  class="form-control" name="AlumniNames" id="" [(ngModel)]="selectedAlumni" (click)="selectAlumni()" >
+                              
+                        
+                                <option #alumni *ngFor="let a of alumniNames" value="{{a}}">{{a}}</option>
+                              </select>
+                              
+                        </div>
+                     
+                       
+
+                        <div *ngIf="authService.alumni">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="col-md-6">
+                                <div  class="form-group">
+                                  <label for="roll">Username</label>
+                                  <input  type="text" #username class="form-control" name="username" id="username"  value="{{authService.alumni.username}}"  disabled>
+                                </div>
+                                <div  class="form-group">
+                                  <label for="roll">Name</label>
+                                  <input  type="text" #name class="form-control" name="mail" id="mail"   value="{{authService.alumni.name}}" disabled>
+                                </div>
+                                <div  class="form-group">
+                                  <label for="roll">Mail</label>
+                                  <input  type="text" #mail class="form-control" name="mail" id="mail"   value="{{authService.alumni.email}}" disabled>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div  style="text-align: center;"> 
+                                  <h4 style="text-align: center;"> <strong>Profile Picture</strong> </h4>
+                                       <img src="{{authService.alumni.photo}}"class ="img-thumbnail img-responsive" id="studentImage" style="max-width:200px;max-height:200px;min-height:200px;min-width:200px"/>
+                                       <br>
+                                       <br>
+                                       <button type="button" class="bnt btn-info btn-xs" id="uploadimage"  style="visibility: hidden;" (click) = "uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                                        Upload an Image</button>
+          
+                                        <input type="file" name="image" id="selectImage" ng2FileSelect [uploader]="uploader" style="visibility: hidden;"/>
+                               </div>
+                              </div>
+                            </div> 
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="col-md-6">
+                                <div  class="form-group">
+                                  <label for="roll">Roll No</label>
+                                  <input  type="text" #roll class="form-control" name="username" id="username"  value="{{authService.alumni.rollno}}"  disabled>
+                                </div>
+                                <div  class="form-group">
+                                  <label for="roll">Batch</label>
+                                  <input  type="text" #batch class="form-control" name="pwd" id="pwd"   value="{{authService.alumni.batch}}" disabled>
+                                </div>
+                               
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="bg">Gender</label>
+                                  <select class="form-control" id="bg" name="bg" #gender value="{{authService.alumni.gender}}" disabled>
+                                      <option value="" disabled hidden>Select Gender</option>
+                                      <option>Male</option>
+                                      <option>Female</option>
+                                        </select>
+                                      </div>
+                                <div  class="form-group">
+                                  <label for="roll">Phone No</label>
+                                  <input  type="number" #phone class="form-control" name="username" id="username"  value="{{authService.alumni.phoneno}}"  disabled>
+                                </div>
+                               
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="col-md-12">
+                                <div  class="form-group">
+                                  <label for="roll">Currently Working</label>
+                                  <input  type="text" #current class="form-control" name="pwd" id="pwd"   value="{{authService.alumni.currentlyworking}}" disabled>
+                                </div>
+                                <div class="form-group">
+                                  <h6 *ngIf="updated" class="alert alert-success" style="font-size: 12px; text-align: center;">Updated Successfully</h6>
+                                  <button type="submit"  id="updateInfo" style="visibility:hidden; " class="btn btn-sm btn-success btn-block" (click)="updateDetails(username.value, pwd.value, name.value, mail.value,roll.value,batch.value,gender.value, current.value, phone.value)">Update</button>
+                              </div>
+                              </div>
+        
+                             
+                             
+                            </div>
+                          </div>
+                         
+                        </div>
+
+                  </div>
+  
+                </div>
+             </div>
+            </div>
           </div>
         </div>
         </div>

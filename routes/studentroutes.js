@@ -4,6 +4,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 var fs = require('fs');
+const User = require('../models/user');
 var path = require('path');
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch'); 
@@ -217,5 +218,45 @@ router.post('/download',function(req,res){
     filepath = path.join(__dirname,'./public/uploads ')+'/'+req.body.filename;
     res.sendFile(filepath);
 })
+
+
+//get Alumni Details
+router.post('/alumniDetails',(req,res)=>{
+
+    User.findOne({'username':req.body.username }, (err,doc)=>{
+      if(err)
+          res.json({success : false, message : "Error in retrieving student details"});
+      else    
+      {
+          //res.json({success : true, message : "Details got succesfully"});
+          res.json(doc)
+      }
+          
+  })
+  })
+
+
+//get Alumni Names
+
+router.get('/alumniNames',(req,res)=>{
+
+    var collection=mongoose.connection.db.collection('alumnis');
+
+    collection.find({},{projection:{_id:0,username : 1}}).toArray((err,doc)=>{
+    // User.find({},{projection : } , (err,doc)=>{
+        if(err)
+            res.json({success : false, message : "Error in retrieving student details"});
+        else    
+        {
+            //res.json({success : true, message : "Details got succesfully"});
+            res.json(doc);
+            // doc.forEach(element => {
+            //     console.log(element.username)
+            // });
+        }
+            
+    })
+})
+  
 
 module.exports=router;

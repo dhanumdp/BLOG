@@ -1,10 +1,11 @@
 const express = require ('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch'); 
-const User = require('../models/faculty');
+//const User = require('../models/faculty');
 const config= require('../config/db');
 var app = express();
 var multer=require('multer');
@@ -123,5 +124,71 @@ router.get('/public/uploads/:imgurl', (req, res) => {
     res.sendFile(req.params.imgurl, {root: './public/uploads/'});
 });
 
-  
+
+//get student details
+
+router.post('/studentDetails',(req,res)=>{
+
+  const user=req.body.user;
+  console.log(user);
+  var collection=mongoose.connection.db.collection(user.batch);
+
+collection.find({'Roll_No':user.rollno}).count((error,num)=>{
+  if(num==0)
+  {
+    res.json({success : false, message : "Student Not Found"});
+  }
+  else
+  {
+    collection.findOne({'Roll_No':user.rollno},(err,doc)=>{
+      if(err)
+      res.json({success : false, message : "Error in retrieving student details"});
+    else    
+      {
+        res.json({success : true, data : doc});
+      
+    }
+    })
+  }
+})
+
+ 
+});
+
+
+//get Alumni Details
+
+router.post('/alumniDetails',(req,res)=>{
+
+  User.findOne({'username':req.body.username }, (err,doc)=>{
+    if(err)
+        res.json({success : false, message : "Error in retrieving student details"});
+    else    
+    {
+        //res.json({success : true, message : "Details got succesfully"});
+        res.json(doc)
+    }
+        
+})
+})
+
+//get Alumni Names
+
+router.get('/alumniNames',(req,res)=>{
+
+  var collection=mongoose.connection.db.collection('alumnis');
+
+  collection.find({},{projection:{_id:0,username : 1}}).toArray((err,doc)=>{
+  // User.find({},{projection : } , (err,doc)=>{
+      if(err)
+          res.json({success : false, message : "Error in retrieving student details"});
+      else    
+      {
+          //res.json({success : true, message : "Details got succesfully"});
+          res.json(doc);
+      }
+          
+  })
+})
+
 module.exports=router;

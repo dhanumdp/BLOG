@@ -7,6 +7,8 @@ import {
   FileDropDirective,
   FileUploader
 } from "ng2-file-upload";
+import { AuthService } from '../services/auth.service';
+import { StudentService } from '../services/student.service';
 
 const URL = 'http://localhost:3000/faculty/uploadPhoto';
 
@@ -20,7 +22,7 @@ const path = 'http://localhost:3000/faculty/public/uploads';
 export class FacultyprofileComponent implements OnInit {
   
 
-  constructor( private facultyService:FacultyService , private router : Router, public nav : NavbarService) { 
+  constructor(private studentService : StudentService,private authService:AuthService, private facultyService:FacultyService , private router : Router, public nav : NavbarService) { 
 
     this.uploader = new FileUploader({ url: URL, itemAlias: "photo" });
   }
@@ -37,6 +39,14 @@ export class FacultyprofileComponent implements OnInit {
   uploader : FileUploader;
   local;
   value : boolean;
+  alumRes=[];
+  alumniNames=[];
+  selectedAlumni:string;
+  alum=[];
+  stud=[];
+  messageClass;
+  message;
+  col=[];
 
   blood=[
     {"name":"O negative"},
@@ -184,6 +194,9 @@ newFaculty={};
   {
     this.blog=true;
     this.getDetails();
+    this.selectedAlumni="";
+    this.alumniNames=[];
+    this.authService.alumni=null;
     this.student=false;
     this.alumni=false;
     this.profile=false;
@@ -194,6 +207,9 @@ newFaculty={};
     this.profile=true;
     this.blog=false;
     this.alumni=false;
+    this.selectedAlumni="";
+    this.alumniNames=[];
+    this.authService.alumni=null;
     this.getDetails();
     this.student=false;
     this.chat=false;
@@ -203,6 +219,9 @@ newFaculty={};
     this.chat=true;
     this.profile=false;
     this.student=false;
+    this.selectedAlumni="";
+    this.alumniNames=[];
+    this.authService.alumni=null;
     this.alumni=false;
     this.getDetails();
     this.blog=false;
@@ -210,28 +229,140 @@ newFaculty={};
   showAlumni()
   {
     this.chat=false;
+    
     this.profile=false;
     this.getDetails();
     this.alumni=true;
     this.student=false;
     this.blog=false;
+    this.facultyService.getAlumniNames().subscribe((res)=>{
+     this.alumRes.push(res);
+      this.alumRes[0].forEach(element => {
+          this.alumniNames.push(element.username);
+      });  
+    })
 
+  }
+
+  selectAlumni()
+  {
+     // console.log(this.selectedAlumni);
+      const username = this.selectedAlumni;
+
+      this.facultyService.getAlumniDetails(username).subscribe((res)=>{
+        //console.log(res);
+        this.alum.push(res);
+        console.log(this.alum);
+       this.getAlumniDetails();
+        //console.log(this.authService.alumni);
+        this.alum=[];
+    })    
+  }
+
+  getAlumniDetails()
+  {
+    this.authService.alumni={
+      photo:this.alum[1].photo,
+      email : this.alum[1].email,
+      name : this.alum[1].name,
+      username : this.alum[1].username,
+      password : this.alum[1].password,
+      gender : this.alum[1].gender,
+      batch : this.alum[1].batch,
+      rollno : this.alum[1].rollno,
+      phoneno : this.alum[1].phoneno,
+      currentlyworking : this.alum[1].currentlyworking
+      //professionalstory : this.alum[0].professionalstory
+    }
   }
 
   showStudent()
   {
     this.chat=false;
     this.profile=false;
+    this.selectedAlumni="";
+    this.alumniNames=[];
+    this.authService.alumni=null;
+    //this.resetValues();
     this.alumni=false;
+ 
     this.getDetails();
     this.student=true;
     this.blog=false;
 
+    this.studentService.getCollections().subscribe((doc)=>{
+      this.col.push(doc);
+     
+   //  console.log(doc);
+    });
+
+  }
+
+  viewStudent(batch:string,rollno:string)
+  {
+    
+    this.message=""
+    let user ={
+      batch:batch,
+      rollno : rollno.toUpperCase()
+    }
+    this.facultyService.getStudentDetails(user).subscribe((res)=>{
+
+      if(!res['success'])
+      {
+          this.messageClass='alert alert-danger';
+          this.message=res['message']
+
+      }
+      else
+      {
+        this.stud.push(res['data']);
+        console.log(this.stud);
+        this.getStudentDetails();
+        this.stud=[];
+      }
+     
+    })
+  }
+
+
+  getStudentDetails()
+  {
+      this.studentService.stud={
+        Photo:this.stud[0].Photo,
+        Roll_No : this.stud[0].Roll_No,
+        Password : this.stud[0].Password,
+        Class_Prefix : this.stud[0].Class_Prefix,
+        Batch : this.stud[0].Batch,
+        Name : this.stud[0].Name,
+        DOB: this.stud[0].DOB,
+        Father_Name : this.stud[0].Father_Name,
+        Mother_Name : this.stud[0].Mother_Name,
+        Gender : this.stud[0].Gender,
+        Email : this.stud[0].Email,
+        Address : this.stud[0].Address,
+        Phone_Number : this.stud[0].Phone_Number,
+        Father_Annual_Income : this.stud[0].Father_Annual_Income,
+        Religion : this.stud[0].Religion,
+        Caste : this.stud[0].Caste,
+        Blood_Group : this.stud[0].Blood_Group
+      }
   }
   Logout()
   {
     this.facultyService.logout();
+    this.selectedAlumni="";
+    this.alumniNames=[];
+    this.authService.alumni=null;
     this.router.navigate(['/facultylogin'])
+  }
+
+  resetValues()
+  {
+    this.alumRes=[];
+    this.alumniNames=[];
+    this.alum=[];
+    this.authService.alumni=null;
   }
 
 

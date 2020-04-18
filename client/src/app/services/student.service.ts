@@ -49,6 +49,18 @@ export class StudentService {
    return this.http.get("http://localhost:3000/student/getCollections");
  }
 
+
+ getAlumniNames()
+{
+  return this.http.get('http://localhost:3000/student/alumniNames');
+
+}
+
+getAlumniDetails(username)
+{
+  return this.http.post('http://localhost:3000/student/alumniDetails',{username});
+}
+
  logout(){
    this.authToken = null;
    this.user = null;

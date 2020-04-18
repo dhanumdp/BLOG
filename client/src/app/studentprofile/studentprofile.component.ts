@@ -9,6 +9,7 @@ import {
   FileDropDirective,
   FileUploader
 } from "ng2-file-upload";
+import { AuthService } from '../services/auth.service';
 
 // import {saveAs} from 'file-saver'
 
@@ -26,7 +27,7 @@ const path = 'http://localhost:3000/student/public/uploads';
 })
 export class StudentprofileComponent implements OnInit {
 
-  constructor( private studentService : StudentService, private router : Router , public nav : NavbarService, private http : HttpClient) { 
+  constructor(private authService:AuthService, private studentService : StudentService, private router : Router , public nav : NavbarService, private http : HttpClient) { 
   
     this.uploader = new FileUploader({ url: URL, itemAlias: "photo" });
   }
@@ -34,16 +35,23 @@ export class StudentprofileComponent implements OnInit {
   profile:boolean;
   blog:boolean;
   chat : boolean;
+
   alumni : boolean;
+  selectedAlumni:string;
   downloadFile;
   username;
   updated : boolean;
   batch;
   imgurl : string;
+ 
   value : boolean;
   uploader : FileUploader;
   urldata : string;
   local;
+
+  alumRes=[];
+alumniNames=[];
+alum=[];
   blood=[
     {"name":"O negative"},
     {"name":"O positive"},
@@ -147,6 +155,9 @@ newStudent={};
   Logout()
   {
     this.studentService.logout();
+    this.selectedAlumni="";
+    this.alumniNames=[];
+    this.authService.alumni=null;
     this.student.pop();
     this.router.navigate(['/studentlogin'])
   }
@@ -214,6 +225,9 @@ newStudent={};
     this.blog=true;
     this.profile=false;
     this.alumni=false;
+    this.selectedAlumni="";
+    this.alumniNames=[];
+    this.authService.alumni=null;
     this.chat=false;
     this.getDetails();
   }
@@ -221,6 +235,9 @@ newStudent={};
   {
     this.profile=true;
     this.blog=false;
+    this.selectedAlumni="";
+    this.alumniNames=[];
+    this.authService.alumni=null;
     this.alumni=false;
     this.getDetails();
     this.chat=false;
@@ -230,6 +247,9 @@ newStudent={};
     this.chat=true;
     this.getDetails();
     this.alumni=false;
+    this.selectedAlumni="";
+    this.alumniNames=[];
+    this.authService.alumni=null;
     this.profile=false;
     this.blog=false;
   }
@@ -241,6 +261,53 @@ newStudent={};
     this.getDetails();
     this.profile=false;
     this.blog=false;
+
+    this.studentService.getAlumniNames().subscribe((res)=>{
+      //console.log(res);
+
+     this.alumRes.push(res);
+     //console.log(this.alumRes);
+      this.alumRes[0].forEach(element => {
+          this.alumniNames.push(element.username);
+      });
+      //console.log(this.alumniNames);
+     
+    })
+  }
+
+  selectAlumni()
+  {
+     // console.log(this.selectedAlumni);
+      const username = this.selectedAlumni;
+
+      this.studentService.getAlumniDetails(username).subscribe((res)=>{
+        //console.log(res);
+        this.alum.push(res);
+        
+           
+      
+        console.log(this.alum);
+       this.getAlumniDetails();
+        //console.log(this.authService.alumni);
+        this.alum=[];
+    })    
+  }
+
+  getAlumniDetails()
+  {
+    this.authService.alumni={
+      photo:this.alum[1].photo,
+      email : this.alum[1].email,
+      name : this.alum[1].name,
+      username : this.alum[1].username,
+      password : this.alum[1].password,
+      gender : this.alum[1].gender,
+      batch : this.alum[1].batch,
+      rollno : this.alum[1].rollno,
+      phoneno : this.alum[1].phoneno,
+      currentlyworking : this.alum[1].currentlyworking
+      //professionalstory : this.alum[0].professionalstory
+    }
   }
 
   // download()

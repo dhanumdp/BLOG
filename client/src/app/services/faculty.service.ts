@@ -55,6 +55,23 @@ updateDetails(user)
 {
   return this.http.post("http://localhost:3000/faculty/updatedetails", user );
 }
+getAlumniNames()
+{
+  return this.http.get('http://localhost:3000/faculty/alumniNames');
+
+}
+
+getAlumniDetails(username)
+{
+  return this.http.post('http://localhost:3000/faculty/alumniDetails',{username});
+}
+
+getStudentDetails(user)
+{
+  return this.http.post('http://localhost:3000/faculty/studentDetails',{user});
+}
+
+
 
 storeUserData(token,user)
 {

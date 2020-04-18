@@ -126,6 +126,7 @@ export class AlumniprofileComponent implements OnInit {
     this.authService.getdetails(user).subscribe((res)=>{
     // console.log(res);
         this.alum.push(res);
+        
         this.authService.alumni={
           photo:this.alum[0].photo,
           email : this.alum[0].email,
