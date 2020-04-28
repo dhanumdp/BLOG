@@ -252,7 +252,7 @@ newFaculty={};
       this.facultyService.getAlumniDetails(username).subscribe((res)=>{
         //console.log(res);
         this.alum.push(res);
-        console.log(this.alum);
+       // console.log(this.alum);
        this.getAlumniDetails();
         //console.log(this.authService.alumni);
         this.alum=[];
@@ -317,7 +317,7 @@ newFaculty={};
       else
       {
         this.stud.push(res['data']);
-        console.log(this.stud);
+        // console.log(this.stud);
         this.getStudentDetails();
         this.stud=[];
       }

@@ -43,7 +43,7 @@ export class AlumniloginComponent implements OnInit{
    {
     
 
-    console.log(this.form);
+    // console.log(this.form);
   this.processing=true;
   this.disableForm();
   const user={
