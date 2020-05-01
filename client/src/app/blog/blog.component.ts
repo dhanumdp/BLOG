@@ -17,9 +17,9 @@ import {saveAs} from 'file-saver'
 
 
 
-const URL = 'https://mxiansportal.azurewebsites.net/blog/uploadPhoto';
+const URL = 'http://localhost:3000/blog/uploadPhoto';
 
-const path = 'https://mxiansportal.azurewebsites.net/blog/public/uploads';
+const path = 'http://localhost:3000/blog/public/uploads';
 
 
 @Component({

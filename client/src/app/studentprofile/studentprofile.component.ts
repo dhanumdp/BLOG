@@ -14,9 +14,9 @@ import { AuthService } from '../services/auth.service';
 // import {saveAs} from 'file-saver'
 
 
-const URL = 'https://mxiansportal.azurewebsites.net/student/uploadPhoto';
+const URL = 'http://localhost:3000/student/uploadPhoto';
 
-const path = 'https://mxiansportal.azurewebsites.net/student/public/uploads';
+const path = 'http://localhost:3000/student/public/uploads';
 
 
 

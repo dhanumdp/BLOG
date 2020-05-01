@@ -11,16 +11,16 @@ export class FacultypasswordchangeService {
 
   getCode(data)
   {
-    return this.http.post('https://mxiansportal.azurewebsites.net/changePassword/faculty',data);
+    return this.http.post('http://localhost:3000/changePassword/faculty',data);
   }
 
   verifyCode(data)
   {
-    return this.http.post('https://mxiansportal.azurewebsites.net/changePassword/faculty/code',data);
+    return this.http.post('http://localhost:3000/changePassword/faculty/code',data);
   }
 
   changePassword(data)
   {
-    return this.http.post('https://mxiansportal.azurewebsites.net/changePassword/faculty/code/changePassword',data);
+    return this.http.post('http://localhost:3000/changePassword/faculty/code/changePassword',data);
   }
 }

@@ -10,16 +10,16 @@ export class AlumnipasswordchangeService {
 
   getCode(data)
   {
-    return this.http.post('https://mxiansportal.azurewebsites.net/changePassword/alumni',data);
+    return this.http.post('http://localhost:3000/changePassword/alumni',data);
   }
 
   verifyCode(data)
   {
-    return this.http.post('https://mxiansportal.azurewebsites.net/changePassword/alumni/code',data);
+    return this.http.post('http://localhost:3000/changePassword/alumni/code',data);
   }
 
   changePassword(data)
   {
-    return this.http.post('https://mxiansportal.azurewebsites.net/changePassword/alumni/code/changePassword',data);
+    return this.http.post('http://localhost:3000/changePassword/alumni/code/changePassword',data);
   }
 }

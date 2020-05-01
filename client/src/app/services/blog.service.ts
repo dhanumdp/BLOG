@@ -9,7 +9,7 @@ import { tokenName } from '@angular/compiler';
 export class BlogService {
 
   constructor( private http : HttpClient) { }
-  readonly baseURL='https://mxiansportal.azurewebsites.net/blog';
+  readonly baseURL='http://localhost:3000/blog';
   authToken;
   user;
  options;
@@ -42,7 +42,7 @@ getAllBlogs(page){
 getSingleBlogs(id,blog)
 {
   this.createAuthenticationHeaders();
-  return this.http.post(`https://mxiansportal.azurewebsites.net/blog/getPost/${id}`,blog,this.options);
+  return this.http.post(`http://localhost:3000/blog/getPost/${id}`,blog,this.options);
 
 }
 updateBlog(blog){
@@ -52,7 +52,7 @@ updateBlog(blog){
 
 deleteBlog(id,page){
   this.createAuthenticationHeaders();
-  return this.http.post(`https://mxiansportal.azurewebsites.net/blog/deletePost/${id}`,page);
+  return this.http.post(`http://localhost:3000/blog/deletePost/${id}`,page);
 }
 
 }

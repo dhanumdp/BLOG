@@ -94,6 +94,6 @@ export class ChatService{
     
   getGroups()
   {
-    return this.http.get('https://mxiansportal.azurewebsites.net/chat/getGroups');
+    return this.http.get('http://localhost:3000/chat/getGroups');
   }
 }

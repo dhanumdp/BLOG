@@ -44,7 +44,7 @@ export class ChatComponent implements OnInit {
     this.joined=true;
 
  
-     this.http.get(`https://mxiansportal.azurewebsites.net/${this.room}`).subscribe((res)=>{
+     this.http.get(`http://localhost:3000/${this.room}`).subscribe((res)=>{
       console.log(res);
       this.msg=(res);
       // this.msg.forEach(element => {

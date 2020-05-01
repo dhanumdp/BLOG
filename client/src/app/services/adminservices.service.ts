@@ -36,7 +36,7 @@ export class AdminservicesService {
   }  
   login(user)
   {
-      return this.http.post("https://mxiansportal.azurewebsites.net/admin/adminlogin", user);
+      return this.http.post("http://localhost:3000/admin/adminlogin", user);
   }
 
   logout(){
@@ -55,68 +55,68 @@ export class AdminservicesService {
   
   getAdminProfile(){
    this.createAuthenticationHeaders();
-   return this.http.get('https://mxiansportal.azurewebsites.net/admin/adminprofile', this.options);
+   return this.http.get('http://localhost:3000/admin/adminprofile', this.options);
   }
 
   createClass(cla)
   {
     
-    return this.http.post('https://mxiansportal.azurewebsites.net/admin/createClass',cla);
+    return this.http.post('http://localhost:3000/admin/createClass',cla);
   }
   deleteClass(cla)
   {
-    return this.http.post('https://mxiansportal.azurewebsites.net/admin/deleteClass',cla);
+    return this.http.post('http://localhost:3000/admin/deleteClass',cla);
   }
 
   createFaculty(fac)
   {
-    return this.http.post('https://mxiansportal.azurewebsites.net/admin/createFaculty',fac);
+    return this.http.post('http://localhost:3000/admin/createFaculty',fac);
   }
 
   createPage(batch)
   {
-    return this.http.post('https://mxiansportal.azurewebsites.net/admin/createPage',batch);
+    return this.http.post('http://localhost:3000/admin/createPage',batch);
   }
 
   deleteStudent(stud)
   {
-    return this.http.post('https://mxiansportal.azurewebsites.net/admin/deleteStudent',stud);
+    return this.http.post('http://localhost:3000/admin/deleteStudent',stud);
   }
 
   deleteFaculty(fac)
   {
-    return this.http.post('https://mxiansportal.azurewebsites.net/admin/deleteFaculty',fac);
+    return this.http.post('http://localhost:3000/admin/deleteFaculty',fac);
   }
 
 
   getPages()
  {
-   return this.http.get("https://mxiansportal.azurewebsites.net/admin/getPages");
+   return this.http.get("http://localhost:3000/admin/getPages");
  }
 
  deletePage(page)
  {
-   return this.http.post('https://mxiansportal.azurewebsites.net/admin/deletePage', page);
+   return this.http.post('http://localhost:3000/admin/deletePage', page);
  }
 
  createGroup(batch)
  {
-  return this.http.post('https://mxiansportal.azurewebsites.net/admin/createGroup',batch);
+  return this.http.post('http://localhost:3000/admin/createGroup',batch);
  }
 
  deleteGroup(page)
  {
-  return this.http.post('https://mxiansportal.azurewebsites.net/admin/deleteGroup', page);
+  return this.http.post('http://localhost:3000/admin/deleteGroup', page);
  }
 
  createAdmin(admin)
  {
-   return this.http.post('https://mxiansportal.azurewebsites.net/admin/addAdmin',admin);
+   return this.http.post('http://localhost:3000/admin/addAdmin',admin);
  }
 
  getDetails(user)
  {
-   return this.http.get(`https://mxiansportal.azurewebsites.net/admin/getDetails/${user}`);
+   return this.http.get(`http://localhost:3000/admin/getDetails/${user}`);
  }
 loggedIn()
 {
