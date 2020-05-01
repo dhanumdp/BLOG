@@ -32,33 +32,33 @@ export class StudentService {
  
  login(user)
  {
-     return this.http.post("http://localhost:3000/student/studentlogin", user);
+     return this.http.post("https://mxiansportal.azurewebsites.net/student/studentlogin", user);
  }
 
  getdetails(user)
  {
-   return this.http.post("http://localhost:3000/student/getdetails", { user });
+   return this.http.post("https://mxiansportal.azurewebsites.net/student/getdetails", { user });
  }
 
  updateDetails(user)
  {
-   return this.http.post("http://localhost:3000/student/updatedetails", user );
+   return this.http.post("https://mxiansportal.azurewebsites.net/student/updatedetails", user );
  }
  getCollections()
  {
-   return this.http.get("http://localhost:3000/student/getCollections");
+   return this.http.get("https://mxiansportal.azurewebsites.net/student/getCollections");
  }
 
 
  getAlumniNames()
 {
-  return this.http.get('http://localhost:3000/student/alumniNames');
+  return this.http.get('https://mxiansportal.azurewebsites.net/student/alumniNames');
 
 }
 
 getAlumniDetails(username)
 {
-  return this.http.post('http://localhost:3000/student/alumniDetails',{username});
+  return this.http.post('https://mxiansportal.azurewebsites.net/student/alumniDetails',{username});
 }
 
  logout(){

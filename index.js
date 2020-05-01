@@ -1,9 +1,9 @@
 var express=require('express');
 var app=express();   
 var multer = require('multer');
+var port = process.env.PORT || 3000;
 
-
-app.listen(3000,function(){
+app.listen(port,function(){
     console.log('Server Started at #3000');
 });
 

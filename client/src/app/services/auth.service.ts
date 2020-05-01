@@ -36,22 +36,22 @@ export class AuthService {
 
   registerUser(user)
   {
-    return this.http.post("http://localhost:3000/alumni/register", user);
+    return this.http.post("https://mxiansportal.azurewebsites.net/alumni/register", user);
   }
 
   checkEmail(email)
   {
-    return this.http.get("http://localhost:3000/alumni/register"+email);
+    return this.http.get("https://mxiansportal.azurewebsites.net/alumni/register"+email);
   }
 
   checkUsername(username)
   {
-    return this.http.get("http://localhost:3000/alumni/register"+username);
+    return this.http.get("https://mxiansportal.azurewebsites.net/alumni/register"+username);
   }
 
   login(user)
   {
-      return this.http.post("http://localhost:3000/alumni/alumnilogin", user);
+      return this.http.post("https://mxiansportal.azurewebsites.net/alumni/alumnilogin", user);
   }
 
   logout(){
@@ -70,7 +70,7 @@ export class AuthService {
 
   getAlumniProfile(){
    this.createAuthenticationHeaders();
-   return this.http.get('http://localhost:3000/alumni/alumniprofile', this.options);
+   return this.http.get('https://mxiansportal.azurewebsites.net/alumni/alumniprofile', this.options);
   }
 
  
@@ -82,10 +82,10 @@ loggedIn()
 getdetails(user)
 {
 
-  return this.http.post("http://localhost:3000/alumni/getdetails", { user });
+  return this.http.post("https://mxiansportal.azurewebsites.net/alumni/getdetails", { user });
 }
 updatedetails(user)
 {
-  return this.http.post("http://localhost:3000/alumni/updatedetails", user );
+  return this.http.post("https://mxiansportal.azurewebsites.net/alumni/updatedetails", user );
 }
 }

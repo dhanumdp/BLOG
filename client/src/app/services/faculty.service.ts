@@ -33,13 +33,13 @@ export class FacultyService {
 
  login(user)
  {
-     return this.http.post("http://localhost:3000/faculty/facultylogin", user);
+     return this.http.post("https://mxiansportal.azurewebsites.net/faculty/facultylogin", user);
  }
 
  getdetails(user)
  {
 
-   return this.http.post("http://localhost:3000/faculty/getdetails", { user });
+   return this.http.post("https://mxiansportal.azurewebsites.net/faculty/getdetails", { user });
  }
  getUsername() {
   let user = localStorage.getItem('user');
@@ -53,22 +53,22 @@ export class FacultyService {
 }
 updateDetails(user)
 {
-  return this.http.post("http://localhost:3000/faculty/updatedetails", user );
+  return this.http.post("https://mxiansportal.azurewebsites.net/faculty/updatedetails", user );
 }
 getAlumniNames()
 {
-  return this.http.get('http://localhost:3000/faculty/alumniNames');
+  return this.http.get('https://mxiansportal.azurewebsites.net/faculty/alumniNames');
 
 }
 
 getAlumniDetails(username)
 {
-  return this.http.post('http://localhost:3000/faculty/alumniDetails',{username});
+  return this.http.post('https://mxiansportal.azurewebsites.net/faculty/alumniDetails',{username});
 }
 
 getStudentDetails(user)
 {
-  return this.http.post('http://localhost:3000/faculty/studentDetails',{user});
+  return this.http.post('https://mxiansportal.azurewebsites.net/faculty/studentDetails',{user});
 }
 
 

@@ -10,9 +10,9 @@ import {
 import { AuthService } from '../services/auth.service';
 import { StudentService } from '../services/student.service';
 
-const URL = 'http://localhost:3000/faculty/uploadPhoto';
+const URL = 'https://mxiansportal.azurewebsites.net/faculty/uploadPhoto';
 
-const path = 'http://localhost:3000/faculty/public/uploads';
+const path = 'https://mxiansportal.azurewebsites.net/faculty/public/uploads';
 @Component({
   selector: 'app-facultyprofile',
   templateUrl: './facultyprofile.component.html',

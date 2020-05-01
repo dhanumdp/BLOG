@@ -12,17 +12,17 @@ export class StudentpasswordchangeService {
 
   getCode(data)
   {
-    return this.http.post('http://localhost:3000/changePassword/student',data);
+    return this.http.post('https://mxiansportal.azurewebsites.net/changePassword/student',data);
   }
 
   verifyCode(data)
   {
-    return this.http.post('http://localhost:3000/changePassword/student/code',data);
+    return this.http.post('https://mxiansportal.azurewebsites.net/changePassword/student/code',data);
   }
 
   changePassword(data)
   {
-    return this.http.post('http://localhost:3000/changePassword/student/code/changePassword',data);
+    return this.http.post('https://mxiansportal.azurewebsites.net/changePassword/student/code/changePassword',data);
   }
 }
 
