@@ -10,8 +10,11 @@ import { format } from 'url';
 
 export class ChatService{
 
-    private socket = io('http://localhost:3001');
-    constructor( private http : HttpClient) { }
+    private url = 'http://localhost:3000';
+    private socket;    
+    constructor( private http : HttpClient) { 
+        this.socket = io(this.url);
+    }
     joinRoom(data)
     {
         this.socket.emit('join',data);

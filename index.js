@@ -3,9 +3,13 @@ var app=express();
 var multer = require('multer');
 var port = process.env.PORT || 3000;
 
-app.listen(port,function(){
-    console.log('Server Started at #3000');
-});
+//for using same port for socket.io & express, i commented the below code. Look at 70th line.
+
+// app.listen(port,function(){
+//     console.log('Server Started at #3000');
+// });
+
+
 
 var mongoose=require('mongoose');
 const config = require ('./config/db');
@@ -53,16 +57,27 @@ app.use('/changePassword', changePassword);
 
 //chat Module
 
-let http = require('http');
 app.use(bodyParser.urlencoded({extended:true}))
-
-let server = http.Server(app);
-server.listen(3001, () => {
-    console.log("Chat running in #3001");
+// let server = http.Server(app);
+// server.listen(3001, () => {
+//     console.log("Chat running in #3001");
    
+// });
+
+// let io = require('socket.io')(server);
+
+
+let http = require('http');
+let server = http.Server(app);
+
+let socketIO = require('socket.io');
+let io = socketIO(server);
+
+
+server.listen(port, () => {
+    console.log(`started on port: ${port}`);
 });
 
-let io = require('socket.io').listen(server);
 
 
 app.use(function (req, res, next) {
