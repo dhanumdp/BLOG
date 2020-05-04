@@ -15,10 +15,10 @@ export class StudentpasswordchangeService {
     return this.http.post('http://localhost:3000/changePassword/student',data);
   }
 
-  verifyCode(data)
-  {
-    return this.http.post('http://localhost:3000/changePassword/student/code',data);
-  }
+  // verifyCode(data)
+  // {
+  //   return this.http.post('http://localhost:3000/changePassword/student/code',data);
+  // }
 
   changePassword(data)
   {

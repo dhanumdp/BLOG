@@ -3,14 +3,19 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 
-var code;
+// const {Code} = require('../models/code');
 
+
+
+var code;
 
 //for sending mail to the user.
 
+
 function mailsend(userDetail){
 
-    code =Math.floor(100000 + Math.random() * 900000);
+    code=Math.floor(100000 + Math.random() * 900000);
+ 
     const transporter = nodemailer.createTransport({
         
         host: 'smtp.gmail.com',
@@ -38,7 +43,7 @@ function mailsend(userDetail){
         }
       });
     
-    
+    return code;
 
 }
 
@@ -69,36 +74,34 @@ function mailsend(userDetail){
                                 "Name":doc.Name,
                                 "Mail":doc.Email
                             }
-                            res.json({success : true, message : "Please Check your Mail Inbox and Enter the Code below"});
-                            mailsend(user);  
+                            const RecievedCode = mailsend(user);
+                            res.json({success : true, message : "Please Check your Mail Inbox and Enter the Code below", code : RecievedCode});
+                            
                             }
                             else
                             {
                                 res.json({success : false, message : "This Mail is not yet updated in your profile. Please Contact the Admin to proceed further."});
                             }
-                    }
-                    
-                    
-                        
+                    }  
                     }
                 
                         
                 })
             })
 
-            router.post('/student/code', (req,res)=>{
-                const receivedcode= req.body.code;
-                if(receivedcode==code)
-                {
-                    console.log("code Matched");
-                    res.json({success:true , message : "Code Matched. Please Enter your New Password below"})
-                }
-                else
-                {
-                    console.log("code mismatched");
-                    res.json({success:false , message : "Code Mismatched"})
-                }
-            });
+            // router.post('/student/code', (req,res)=>{
+            //     const receivedcode= req.body.code;
+            //     if(receivedcode == code)
+            //     {
+            //         console.log("code Matched");
+            //         res.json({success:true , message : "Code Matched. Please Enter your New Password below"})
+            //     }
+            //     else
+            //     {
+            //         console.log("code mismatched");
+            //         res.json({success:false , message : "Code Mismatched"})
+            //     }
+            // });
 
             router.post('/student/code/changePassword', (req,res)=>{
 
@@ -159,8 +162,9 @@ function mailsend(userDetail){
                                 "Name":doc.Name,
                                 "Mail":doc.Email
                             }
-                            res.json({success : true, message : "Please Check your Mail Inbox and Enter the Code below"});
-                            mailsend(user);  
+                            const ReceivedCode =  mailsend(user); 
+                            res.json({success : true, message : "Please Check your Mail Inbox and Enter the Code below", code : ReceivedCode});
+                            
                             }
                             else
                             {
@@ -176,19 +180,19 @@ function mailsend(userDetail){
                 })
             })
 
-            router.post('/faculty/code', (req,res)=>{
-                const receivedcode= req.body.code;
-                if(receivedcode==code)
-                {
-                    console.log("code Matched");
-                    res.json({success:true , message : "Code Matched. Please Enter your New Password below"})
-                }
-                else
-                {
-                    console.log("code mismatched");
-                    res.json({success:false , message : "Code Mismatched"})
-                }
-            });
+            // router.post('/faculty/code', (req,res)=>{
+            //     const receivedcode= req.body.code;
+            //     if(receivedcode==code)
+            //     {
+            //         console.log("code Matched");
+            //         res.json({success:true , message : "Code Matched. Please Enter your New Password below"})
+            //     }
+            //     else
+            //     {
+            //         console.log("code mismatched");
+            //         res.json({success:false , message : "Code Mismatched"})
+            //     }
+            // });
 
 
             router.post('/faculty/code/changePassword', (req,res)=>{
@@ -250,8 +254,9 @@ function mailsend(userDetail){
                                 "Name":doc.name,
                                 "Mail":doc.email
                             }
-                            res.json({success : true, message : "Please Check your Mail Inbox and Enter the Code below"});
-                            mailsend(user);  
+                            const RecievedCode = mailsend(user);
+                            res.json({success : true, message : "Please Check your Mail Inbox and Enter the Code below", code : RecievedCode} );
+                              
                             }
                             else
                             {
@@ -267,19 +272,19 @@ function mailsend(userDetail){
                 })
             })
 
-            router.post('/alumni/code', (req,res)=>{
-                const receivedcode= req.body.code;
-                if(receivedcode==code)
-                {
-                    console.log("code Matched");
-                    res.json({success:true , message : "Code Matched. Please Enter your New Password below"})
-                }
-                else
-                {
-                    console.log("code mismatched");
-                    res.json({success:false , message : "Code Mismatched"})
-                }
-            });
+            // router.post('/alumni/code', (req,res)=>{
+            //     const receivedcode= req.body.code;
+            //     if(receivedcode==code)
+            //     {
+            //         console.log("code Matched");
+            //         res.json({success:true , message : "Code Matched. Please Enter your New Password below"})
+            //     }
+            //     else
+            //     {
+            //         console.log("code mismatched");
+            //         res.json({success:false , message : "Code Mismatched"})
+            //     }
+            // });
 
 
             router.post('/alumni/code/changePassword', (req,res)=>{
@@ -312,8 +317,6 @@ function mailsend(userDetail){
 
 
             })
-
-
 
 
 

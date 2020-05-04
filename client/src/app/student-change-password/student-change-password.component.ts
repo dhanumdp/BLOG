@@ -13,7 +13,7 @@ export class StudentChangePasswordComponent implements OnInit {
 
   message;
   message1;
- 
+  ReceivedCode : String;
   message2;
   col=[];
   form : FormGroup;
@@ -84,6 +84,7 @@ export class StudentChangePasswordComponent implements OnInit {
          {
           
           this.message=result['message'];
+          this.ReceivedCode = result['code'];
           this.codeGot=true;
 
          }
@@ -92,28 +93,22 @@ export class StudentChangePasswordComponent implements OnInit {
 
    verifyCode(form1)
    {
-      let data ={
-        code : this.form1.get('code').value
+      
+      if(this.ReceivedCode === this.form1.get('code').value)
+      {
+        this.message1=" Code Matched. Please Enter your New Password below"
+        this.getC=false;
+        this.codeVerified=true;
+        this.form.controls['rollno'].disable();
+        this.form.controls['email'].disable();
+        this.form.controls['batch'].disable();
+        this.form1.controls['code'].disable();
+      }
+      else
+      {
+        this.message1 = "Code Mismatched."
       }
       
-      this.studentPasswordService.verifyCode(data).subscribe((result)=>{
-
-        if(!result['success'])
-        {
-          this.message1=result['message']
-        }
-        else
-        {
-          this.message1=result['message'],
-          this.getC=false;
-          this.codeVerified=true;
-          this.form.controls['rollno'].disable();
-          this.form.controls['email'].disable();
-          this.form.controls['batch'].disable();
-          this.form1.controls['code'].disable();
-        }
-
-      })
    }
 
    changePassword(form,form2)

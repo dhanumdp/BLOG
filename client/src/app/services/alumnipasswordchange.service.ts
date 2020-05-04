@@ -13,10 +13,10 @@ export class AlumnipasswordchangeService {
     return this.http.post('http://localhost:3000/changePassword/alumni',data);
   }
 
-  verifyCode(data)
-  {
-    return this.http.post('http://localhost:3000/changePassword/alumni/code',data);
-  }
+  // verifyCode(data)
+  // {
+  //   return this.http.post('http://localhost:3000/changePassword/alumni/code',data);
+  // }
 
   changePassword(data)
   {

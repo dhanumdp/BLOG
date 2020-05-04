@@ -14,10 +14,10 @@ export class FacultypasswordchangeService {
     return this.http.post('http://localhost:3000/changePassword/faculty',data);
   }
 
-  verifyCode(data)
-  {
-    return this.http.post('http://localhost:3000/changePassword/faculty/code',data);
-  }
+  // verifyCode(data)
+  // {
+  //   return this.http.post('http://localhost:3000/changePassword/faculty/code',data);
+  // }
 
   changePassword(data)
   {

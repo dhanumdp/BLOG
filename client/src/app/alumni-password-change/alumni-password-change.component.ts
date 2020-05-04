@@ -17,6 +17,7 @@ export class AlumniPasswordChangeComponent implements OnInit {
  loading : boolean;
   message2;
   col=[];
+  ReceivedCode : String;
   form : FormGroup;
   form1 : FormGroup;
   form2 : FormGroup;
@@ -76,11 +77,13 @@ export class AlumniPasswordChangeComponent implements OnInit {
          if(!result['success'])
          {
            this.message=result['message'];
+           
          }
          else
          {
           
           this.message=result['message'];
+          this.ReceivedCode = result['code'];
           this.codeGot=true;
 
          }
@@ -89,28 +92,19 @@ export class AlumniPasswordChangeComponent implements OnInit {
 
    verifyCode(form1)
    {
-      let data ={
-        code : this.form1.get('code').value
-      }
       
-      this.alumniPasswordService.verifyCode(data).subscribe((result)=>{
-
-        if(!result['success'])
-        {
-          this.message1=result['message']
-        }
+        if(this.ReceivedCode === this.form1.get('code').value){
+                  this.message1=" Code Matched. Please Enter your New Password below"
+                  this.getC=false;
+                  this.codeVerified=true;
+                  this.form.controls['username'].disable();
+                  this.form.controls['email'].disable();
+                  this.form1.controls['code'].disable();
+        } 
         else
         {
-          this.message1=result['message'],
-          this.getC=false;
-          this.codeVerified=true;
-          this.form.controls['username'].disable();
-          this.form.controls['email'].disable();
-         
-          this.form1.controls['code'].disable();
+          this.message1="Code Mismatched.";
         }
-
-      })
    }
 
    changePassword(form,form2)
